@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seoul Itinerary Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Layout: a sticky schematic map (day chips above it) over a day-by-day list; one colour per day, shared by pins and list badges. */
+  --bg:#F4F6F3; --surface:#FFFFFF; --ink:#16201C; --muted:#586861; --line:#D8DFDA; --accent:#1F6F5B;
+  --land:#E9EEE8; --river:#B5D1E4; --river-ink:#5E87A3; --hill:#D3E2CE; --on-pin:#FFFFFF;
+  --d1:#2F5D9E; --d2:#BE4430; --d3:#9E6500; --d4:#1F7A62; --d5:#7A4A92; --d6:#52707C;
+  --display:"Gowun Batang","Apple Myungjo",Georgia,serif;
+  --body:"Figtree","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;
+  --maph:clamp(250px,36vh,360px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121715; --surface:#1B2220; --ink:#E7EEEA; --muted:#9DADA5; --line:#2B3632; --accent:#5CC2A5;
+    --land:#19201D; --river:#1E3445; --river-ink:#6C93AE; --hill:#223027; --on-pin:#0E1311;
+    --d1:#7BA5E0; --d2:#EB8173; --d3:#E0A640; --d4:#55C6A5; --d5:#BC92D6; --d6:#8EAAB6;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121715; --surface:#1B2220; --ink:#E7EEEA; --muted:#9DADA5; --line:#2B3632; --accent:#5CC2A5;
+  --land:#19201D; --river:#1E3445; --river-ink:#6C93AE; --hill:#223027; --on-pin:#0E1311;
+  --d1:#7BA5E0; --d2:#EB8173; --d3:#E0A640; --d4:#55C6A5; --d5:#BC92D6; --d6:#8EAAB6;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.45 var(--body);-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:16px 16px 40px}
+header h1{font:700 30px/1.15 var(--display);margin:4px 0 6px;text-wrap:balance}
+header p{margin:0;color:var(--muted);max-width:62ch}
+.hlinks{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:14px}
+.layout{display:grid;gap:16px;grid-template-columns:minmax(0,1fr);margin-top:14px}
+.mapcol{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;align-self:start}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;display:flex;align-items:center;gap:7px;min-height:40px;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.chip i{width:10px;height:10px;border-radius:50%;background:var(--c,var(--accent))}
+.chip[aria-pressed="true"]{background:var(--c,var(--accent));border-color:var(--c,var(--accent));color:var(--on-pin)}
+.chip[aria-pressed="true"] i{background:var(--on-pin)}
+.map{position:relative;height:var(--maph);border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--land)}
+.map svg{display:block;width:100%;height:100%;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.map svg.drag{cursor:grabbing}
+.ctrl{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:6px}
+.ctrl button{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-size:20px;line-height:1;font-weight:600;cursor:pointer;display:grid;place-items:center}
+.ctrl button svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.card{position:absolute;left:10px;right:60px;bottom:10px;max-height:62%;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;box-shadow:0 6px 22px rgba(0,0,0,.14)}
+.card[hidden]{display:none}
+.card h3{margin:0;font:700 17px/1.2 var(--display);padding-right:30px}
+.card .ko{color:var(--muted);font-size:13px;margin-top:2px}
+.card .visits{margin:6px 0 0;padding:0;list-style:none;font-size:13px;color:var(--muted)}
+.card .visits b{color:var(--ink);font-weight:600}
+.card .links{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:14px;font-weight:600}
+.card .alts{margin-top:8px;font-size:13px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.card .alts button{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:4px 10px;cursor:pointer;font-size:13px;font-weight:600}
+.card .x{position:absolute;top:4px;right:4px;width:36px;height:36px;border:0;background:none;font-size:22px;cursor:pointer;color:var(--muted)}
+.card .note{font-size:13px;color:var(--muted);margin-top:6px}
+.day{margin-bottom:22px}
+.dayhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-left:4px solid var(--c);padding-left:10px;margin-bottom:10px}
+.dayhead h2{margin:0;font:700 20px/1.2 var(--display)}
+.dayhead span{color:var(--muted);font-size:14px}
+.stops{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.stop{display:grid;grid-template-columns:52px minmax(0,1fr) 30px;gap:10px;align-items:start;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;scroll-margin-top:calc(var(--maph) + 78px)}
+button.stop{cursor:pointer}
+button.stop:hover{border-color:var(--c)}
+.stop[aria-current="true"]{outline:2px solid var(--c);outline-offset:0;border-color:var(--c)}
+.stop .time{font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px;font-weight:600;padding-top:1px}
+.stop .title{font-weight:600;display:block}
+.stop .note{display:block;color:var(--muted);font-size:14px;margin-top:1px}
+.badge{width:28px;height:28px;border-radius:50%;background:var(--c);color:var(--on-pin);display:grid;place-items:center;font-size:13px;font-weight:700}
+.badge.none{background:none;border:1.5px dashed var(--muted);color:var(--muted)}
+.foot{margin-top:6px;color:var(--muted);font-size:13px;max-width:62ch}
+/* map drawing */
+.pin{cursor:pointer}
+.pin .body{stroke:var(--surface);stroke-width:2.5}
+.pin use{stroke:var(--on-pin);fill:none;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+.pin.alt .body{fill:var(--surface);stroke:var(--c);stroke-width:2;stroke-dasharray:4 3}
+.pin.alt use{stroke:var(--c)}
+.pin .num circle{fill:var(--ink);stroke:var(--surface);stroke-width:1.5}
+.pin .num text{fill:var(--bg);font:700 9px var(--body);text-anchor:middle}
+.pin .ring{fill:none;stroke:var(--c);stroke-width:2.5;opacity:.55}
+.lab{font:600 12px var(--body);fill:var(--ink);paint-order:stroke;stroke:var(--land);stroke-width:4px;stroke-linejoin:round;pointer-events:none}
+.dist{font:700 10px var(--body);letter-spacing:.14em;fill:var(--muted);opacity:.55;text-anchor:middle;pointer-events:none}
+.rivlab{font:italic 600 11px var(--body);letter-spacing:.08em;fill:var(--river-ink);text-anchor:middle;pointer-events:none}
+@media (min-width:900px){
+  :root{--maph:clamp(460px,66vh,700px)}
+  .layout{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px}
+  .mapcol{top:12px;padding-top:0}
+  .stop{scroll-margin-top:24px}
+}
+@media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto!important} }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-food" viewBox="0 0 24 24"><path d="M8 3v7M5 3v5a3 3 0 0 0 6 0V3M8 10v11M17 21V3c-2.5 1.5-4 4.5-4 8h4"/></symbol>
+    <symbol id="i-cafe" viewBox="0 0 24 24"><path d="M5 9h11v4a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5V9zM16 10h2a2 2 0 0 1 0 4h-2M8 3v3M12 3v3"/></symbol>
+    <symbol id="i-shop" viewBox="0 0 24 24"><path d="M6 8h12l1 12H5L6 8zM9 8V6a3 3 0 0 1 6 0v2"/></symbol>
+    <symbol id="i-park" viewBox="0 0 24 24"><path d="M12 21v-7M12 3a6 6 0 0 0-5 9.2c.8 1.2 2.600 1.800 5 1.800s4.200-.6 5-1.800A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-palace" viewBox="0 0 24 24"><path d="M2 10c4.500 0 7-3 10-6.500 3 3.500 5.500 6.500 10 6.500M6 10v9M18 10v9M3 19h18M10 19v-5h4v5"/></symbol>
+    <symbol id="i-stay" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M6 10v10h12V10M10 20v-5h4v5"/></symbol>
+    <symbol id="i-plane" viewBox="0 0 24 24"><path d="M21 15l-8-4V5a1 1 0 0 0-2 0v6l-8 4v2l8-2v4l-2 1.500V22l3-1 3 1v-1.500L13 19v-4l8 2z"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"/></symbol>
+    <symbol id="i-tower" viewBox="0 0 24 24"><path d="M12 2v6M9 8h6l-1 4h-4zM10 12l-2 10M14 12l2 10M8 22h8"/></symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <header>
+    <h1>Seoul, 11 to 16 November</h1>
+    <p>Your itinerary from the sheet, placed on a map. Tap a stop in the list to jump to it on the map, or tap a pin to find it in the list. The map is a schematic and positions are approximate, so use the Google Maps or Naver links on each pin for directions.</p>
+    <div class="hlinks"><a href="https://naver.me/xnO2YSWJ" target="_blank" rel="noopener noreferrer">Your Naver map collection</a></div>
+  </header>
+
+  <div class="layout">
+    <div class="mapcol">
+      <div class="chips" id="chips" role="group" aria-label="Show days"></div>
+      <div class="map" id="map">
+        <svg id="svg" role="group" aria-label="Schematic map of central Seoul with itinerary stops" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="ctrl">
+          <button type="button" id="zin" aria-label="Zoom in">+</button>
+          <button type="button" id="zout" aria-label="Zoom out">&minus;</button>
+          <button type="button" id="zfit" aria-label="Fit all stops"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+        </div>
+        <div class="card" id="card" hidden></div>
+      </div>
+    </div>
+    <main id="list"></main>
+  </div>
+  <p class="foot">Times marked ~ are suggestions. The rest come from your sheet. Dashed pins are alternatives. The airport sits at the map edge because it is about 50 km west of the city.</p>
+</div>
+
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var W=1000,H=629,LAT0=37.59,LNG0=126.89,DLAT=0.09,DLNG=0.18;
+  function proj(lat,lng){return [(lng-LNG0)/DLNG*W,(LAT0-lat)/DLAT*H];}
+
+  /* ---------- data ---------- */
+  var P={
+    icn:{name:'Incheon Airport, Terminal 1',short:'Incheon T1',ko:'인천국제공항 제1여객터미널',kind:'plane',xy:[34,440],side:'r',q:'Incheon International Airport Terminal 1',off:'About 50 km west of the city, so it is shown at the map edge.'},
+    airbnb:{name:'Airbnb',short:'Airbnb',kind:'stay',lat:37.5590,lng:126.9100,side:'t',noext:true,off:'Position is approximate. The address is in the general info tab of your sheet.'},
+    mangwon:{name:'Mangwon Market',short:'Mangwon Market',ko:'망원시장',kind:'food',lat:37.5564,lng:126.9054,side:'b'},
+    yeonnam:{name:'Yeonnamdong',short:'Yeonnamdong',ko:'연남동',kind:'cafe',lat:37.5617,lng:126.9250,side:'r'},
+    hongdae:{name:'Hongdae (Hongik Univ. Station)',short:'Hongdae',ko:'홍대입구역',kind:'shop',lat:37.5563,lng:126.9236,side:'r'},
+    hannam:{name:'Hannamdong',short:'Hannamdong',ko:'한남동',kind:'shop',lat:37.5365,lng:127.0010,side:'r'},
+    haebang:{name:'Haebangchon',short:'Haebangchon',ko:'해방촌',kind:'cafe',lat:37.5412,lng:126.9871,side:'l'},
+    namsan:{name:'Namsan Seoul Tower',short:'Namsan Tower',ko:'남산서울타워',kind:'tower',lat:37.5512,lng:126.9882,side:'r'},
+    naksan:{name:'Naksan Park',short:'Naksan Park',ko:'낙산공원',kind:'park',lat:37.5808,lng:127.0073,side:'r'},
+    myeong:{name:'Myeongdong Kyoja',short:'Myeongdong',ko:'명동교자',kind:'food',lat:37.5634,lng:126.9849,side:'l'},
+    seochon:{name:'Seochon',short:'Seochon',ko:'서촌',kind:'cafe',lat:37.5797,lng:126.9714,side:'l'},
+    gyeongbok:{name:'Gyeongbokgung Palace',short:'Gyeongbokgung',ko:'경복궁',kind:'palace',lat:37.5796,lng:126.9770,side:'b'},
+    bukchon:{name:'Bukchon Hanok Village',short:'Bukchon',ko:'북촌한옥마을',kind:'palace',lat:37.5826,lng:126.9835,side:'t'},
+    deoksu:{name:'Deoksugung stone wall',short:'Deoksugung',ko:'덕수궁 돌담길',kind:'palace',lat:37.5658,lng:126.9751,side:'l'},
+    kyobo:{name:'Kyobo Bookstore, Gwanghwamun',short:'Kyobo Books',ko:'교보문고 광화문점',kind:'shop',lat:37.5710,lng:126.9777,side:'l'},
+    cheonggye:{name:'Cheonggyecheon Stream',short:'Cheonggyecheon',ko:'청계천',kind:'park',lat:37.5692,lng:126.9890,side:'b'},
+    gwangjang:{name:'Gwangjang Market',short:'Gwangjang Market',ko:'광장시장',kind:'food',lat:37.5701,lng:126.9996,side:'r'},
+    seongsu:{name:'Seongsu',short:'Seongsu',ko:'성수동',kind:'shop',lat:37.5447,lng:127.0560,side:'l'},
+    seoulforest:{name:'Seoul Forest',short:'Seoul Forest',ko:'서울숲',kind:'park',lat:37.5444,lng:127.0374,side:'b'},
+    banpo:{name:'Banpo Hangang Park',short:'Banpo Hangang Park',ko:'반포한강공원',kind:'food',lat:37.5111,lng:126.9963,side:'l'},
+    changdeok:{name:'Changdeokgung',short:'Changdeokgung',ko:'창덕궁',kind:'palace',lat:37.5794,lng:126.9910,side:'t'},
+    ikseon:{name:'Ikseon-dong',short:'Ikseon-dong',ko:'익선동',kind:'cafe',lat:37.5746,lng:126.9893,side:'r'},
+    ddp:{name:'Dongdaemun Design Plaza',short:'DDP',ko:'동대문디자인플라자',kind:'shop',lat:37.5671,lng:127.0092,side:'r'}
+  };
+  Object.keys(P).forEach(function(id){var p=P[id];p.id=id;if(!p.xy)p.xy=proj(p.lat,p.lng);});
+
+  var DAYS=[
+    {key:'Wed 11',date:'Wednesday 11 November',title:'Arrive and settle in',items:[
+      {t:'06:35',title:'Land at Incheon T1',note:'TW-162 from Singapore. Clear immigration around 07:00.',p:'icn'},
+      {t:'07:30',title:'Breakfast at the airport',note:'Still a question mark in your sheet.',p:'icn'},
+      {t:'~11:30',title:'Drop bags at the Airbnb',note:'Ask about early check-in or luggage storage.',p:'airbnb'},
+      {t:'~12:30',title:'Lunch at Mangwon Market',p:'mangwon'},
+      {t:'15:00',title:'Airbnb check-in',p:'airbnb'},
+      {t:'~16:30',title:'Yeonnamdong',note:'Cafes, perfume shops, the frame store and the salmon flat udon place.',p:'yeonnam'},
+      {t:'~19:00',title:'Hongdae for dinner and Musinsa',p:'hongdae'},
+      {t:'~21:00',title:'Noraebang',note:'Karaoke rooms in Hongdae.',p:'hongdae'}
+    ]},
+    {key:'Thu 12',date:'Thursday 12 November',title:'Hannamdong to Myeongdong',items:[
+      {t:'~10:30',title:'Hannamdong',note:'Fashion shops and KIV.',p:'hannam'},
+      {t:'~13:00',title:'Lunch and the cafe alley in Haebangchon',p:'haebang'},
+      {t:'~16:30',title:'Namsan Tower',note:'Or Naksan Park for the city wall views.',p:'namsan',alt:['naksan']},
+      {t:'~18:30',title:'Dinner at Myeongdong Kyoja',p:'myeong'},
+      {t:'~20:00',title:'Myeongdong shopping',note:'Olive Young and Daiso.',p:'myeong'}
+    ]},
+    {key:'Fri 13',date:'Friday 13 November',title:'Palaces and Jongno',items:[
+      {t:'~10:00',title:'Breakfast at Leedorim, Seochon',p:'seochon'},
+      {t:'~11:30',title:'Gyeongbokgung Palace',p:'gyeongbok'},
+      {t:'~14:00',title:'Bukchon Hanok Village',note:'Back alleys.',p:'bukchon'},
+      {t:'~15:30',title:'Deoksugung stone wall',note:'Kyobo Bookstore is the stationery stop nearby.',p:'deoksu',alt:['kyobo']},
+      {t:'~18:00',title:'Cheonggyecheon Stream evening walk',p:'cheonggye'},
+      {t:'~19:30',title:'Dinner at Gwangjang Market',p:'gwangjang'}
+    ]},
+    {key:'Sat 14',date:'Saturday 14 November',title:'Seongsu and the Han River',items:[
+      {t:'~11:00',title:'Seongsu',note:'Nyunyu and Romand Pink Office.',p:'seongsu'},
+      {t:'~14:30',title:'Seoul Forest',p:'seoulforest'},
+      {t:'~18:30',title:'Ramyeon and chimaek at Banpo Hangang Park',p:'banpo'}
+    ]},
+    {key:'Sun 15',date:'Sunday 15 November',title:'Changdeokgung and Ikseon-dong',items:[
+      {t:'09:30',title:'Meet at Hongik Univ. Station',p:'hongdae'},
+      {t:'10:10',title:'Arrive at Changdeokgung',p:'changdeok'},
+      {t:'11:30',title:'Secret Garden tour',note:'5,000 won. Ends around 12:30.',p:'changdeok'},
+      {t:'~13:00',title:'Lunch nearby',p:'ikseon'},
+      {t:'~14:00',title:'Steffi goes to MMA',note:'Location still to be confirmed in your sheet.',p:null},
+      {t:'~14:30',title:'Ikseon-dong and Cheongsudang cafe',p:'ikseon'},
+      {t:'~17:00',title:'Dongdaemun Design Plaza',p:'ddp'}
+    ]},
+    {key:'Mon 16',date:'Monday 16 November',title:'Fly home',items:[
+      {t:'11:00',title:'Check out of the Airbnb',p:'airbnb'},
+      {t:'11:30',title:'Lunch',note:'Mangwon Market is the option from Wednesday.',p:'mangwon'},
+      {t:'12:30',title:'Leave for the airport',p:'airbnb'},
+      {t:'13:30',title:'Reach Incheon T1',p:'icn'},
+      {t:'15:30',title:'Flight TW-161 to Singapore',note:'Lands at Changi T2 at 21:25.',p:'icn'}
+    ]}
+  ];
+
+  /* ---------- state and helpers ---------- */
+  var state={day:'all',place:null,item:null};
+  var view={cx:500,cy:315,w:1000};
+  var raf=0,u=1;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $=function(id){return document.getElementById(id);};
+  var mapEl=$('map'),svg=$('svg'),card=$('card');
+
+  function el(tag,attrs,kids,ns){
+    var e=ns?document.createElementNS(ns,tag):document.createElement(tag);
+    if(attrs)Object.keys(attrs).forEach(function(k){
+      if(k==='text')e.textContent=attrs[k];else e.setAttribute(k,attrs[k]);});
+    (kids||[]).forEach(function(c){if(c)e.appendChild(c);});
+    return e;
+  }
+  var S=function(tag,attrs,kids){return el(tag,attrs,kids,NS);};
+  function dayVar(i){return 'var(--d'+(i+1)+')';}
+
+  /* places shown for a day (or all), with order numbers and alternative flags */
+  function shown(){
+    var out=[],seen={},n=0;
+    var days=state.day==='all'?DAYS.map(function(_,i){return i;}):[state.day];
+    days.forEach(function(di){
+      DAYS[di].items.forEach(function(it){
+        if(it.p&&!seen[it.p]){seen[it.p]=1;n++;out.push({id:it.p,day:di,num:state.day==='all'?null:n,alt:false});}
+      });
+    });
+    days.forEach(function(di){
+      DAYS[di].items.forEach(function(it){
+        (it.alt||[]).forEach(function(a){if(!seen[a]){seen[a]=1;out.push({id:a,day:di,num:null,alt:true});}});
+      });
+    });
+    return out;
+  }
+  function numberFor(di,id){
+    var n=0,seen={};
+    for(var i=0;i<DAYS[di].items.length;i++){
+      var p=DAYS[di].items[i].p;
+      if(p&&!seen[p]){seen[p]=1;n++;if(p===id)return n;}
+    }
+    return null;
+  }
+
+  /* ---------- map base drawing ---------- */
+  function smooth(pts){
+    var d='M'+pts[0][0]+','+pts[0][1];
+    for(var i=0;i<pts.length-1;i++){
+      var p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2;
+      var c1=[p1[0]+(p2[0]-p0[0])/6,p1[1]+(p2[1]-p0[1])/6];
+      var c2=[p2[0]-(p3[0]-p1[0])/6,p2[1]-(p3[1]-p1[1])/6];
+      d+=' C'+c1[0]+','+c1[1]+' '+c2[0]+','+c2[1]+' '+p2[0]+','+p2[1];
+    }
+    return d;
+  }
+  var gScal=[]; /* elements whose size stays constant in screen pixels */
+  var layerBase=S('g'),layerRoute=S('g'),layerPins=S('g');
+  function scal(g,x,y){g.setAttribute('data-x',x);g.setAttribute('data-y',y);g.classList.add('scal');return g;}
+
+  function drawBase(){
+    layerBase.appendChild(S('rect',{x:-3000,y:-3000,width:7000,height:7000,fill:'var(--land)'}));
+    var ns=proj(37.5520,126.9900);
+    layerBase.appendChild(S('ellipse',{cx:ns[0],cy:ns[1],rx:92,ry:32,fill:'var(--hill)',transform:'rotate(-8 '+ns[0]+' '+ns[1]+')'}));
+    var sf=proj(37.5444,127.0374);
+    layerBase.appendChild(S('rect',{x:sf[0]-34,y:sf[1]-22,width:68,height:44,rx:14,fill:'var(--hill)'}));
+    var river=[[37.5290,127.0700],[37.5312,127.0450],[37.5305,127.0200],[37.5240,127.0020],[37.5160,126.9900],[37.5130,126.9750],[37.5170,126.9550],[37.5230,126.9380],[37.5310,126.9280],[37.5390,126.9160],[37.5460,126.9040],[37.5530,126.8930]].map(function(a){return proj(a[0],a[1]);});
+    layerBase.appendChild(S('path',{d:smooth(river),fill:'none',stroke:'var(--river)','stroke-width':46,'stroke-linecap':'round','stroke-linejoin':'round'}));
+    var ccc=[[37.5692,126.9784],[37.5689,126.9890],[37.5700,127.0090],[37.5712,127.0270],[37.5690,127.0400]].map(function(a){return proj(a[0],a[1]);});
+    layerBase.appendChild(S('path',{d:smooth(ccc),fill:'none',stroke:'var(--river)','stroke-width':5,'stroke-linecap':'round'}));
+    [['MAPO',37.5470,126.9130],['JONGNO',37.5870,126.9930],['JUNG',37.5600,126.9990],['YONGSAN',37.5330,126.9770],['SEONGDONG',37.5560,127.0450],['NAMSAN',37.5470,126.9960]].forEach(function(a){
+      var xy=proj(a[1],a[2]);
+      var g=scal(S('g'),xy[0],xy[1]);g.appendChild(S('text',{class:'dist',text:a[0]}));layerBase.appendChild(g);
+    });
+    var rl=proj(37.5318,127.0450);
+    var rg=scal(S('g'),rl[0],rl[1]);rg.appendChild(S('text',{class:'rivlab',text:'Han River · 한강'}));layerBase.appendChild(rg);
+  }
+
+  /* ---------- pins ---------- */
+  function drawPins(){
+    while(layerPins.firstChild)layerPins.removeChild(layerPins.firstChild);
+    while(layerRoute.firstChild)layerRoute.removeChild(layerRoute.firstChild);
+    var list=shown();
+    var dayView=state.day!=='all';
+    if(dayView){
+      var pts=[];
+      DAYS[state.day].items.forEach(function(it){
+        if(!it.p)return;
+        var last=pts[pts.length-1];
+        if(last!==it.p)pts.push(it.p);
+      });
+      if(pts.length>1){
+        layerRoute.appendChild(S('polyline',{points:pts.map(function(id){return P[id].xy.join(',');}).join(' '),fill:'none',stroke:dayVar(state.day),'stroke-width':2.5,'stroke-dasharray':'7 6','stroke-linecap':'round','stroke-linejoin':'round','vector-effect':'non-scaling-stroke',opacity:.8}));
+      }
+    }
+    var order=list.slice().sort(function(a,b){return (a.id===state.place)-(b.id===state.place);});
+    order.forEach(function(s){
+      var p=P[s.id],sel=s.id===state.place;
+      var R=dayView?13:10;
+      var g=scal(S('g',{'class':'pin'+(s.alt?' alt':''),role:'button',tabindex:0,'data-id':s.id,'aria-label':p.name+(s.alt?' (alternative)':''),style:'--c:'+dayVar(s.day)}),p.xy[0],p.xy[1]);
+      if(sel)g.appendChild(S('circle',{'class':'ring',r:R+7}));
+      var body=S('g',{transform:sel?'scale(1.2)':''});
+      body.appendChild(S('circle',{'class':'body',r:R,fill:dayVar(s.day)}));
+      body.appendChild(S('use',{href:'#i-'+p.kind,x:-R*0.62,y:-R*0.62,width:R*1.24,height:R*1.24}));
+      g.appendChild(body);
+      if(dayView&&s.num){
+        var nm=S('g',{'class':'num',transform:'translate('+(R*0.78)+','+(-R*0.78)+')'});
+        nm.appendChild(S('circle',{r:7.5}));
+        nm.appendChild(S('text',{y:3.2,text:String(s.num)}));
+        g.appendChild(nm);
+      }
+      if(dayView||sel){
+        var side=p.side||'r',tx=0,ty=0,anchor='start';
+        if(side==='r'){tx=R+7;ty=4;}
+        if(side==='l'){tx=-R-7;ty=4;anchor='end';}
+        if(side==='t'){ty=-R-8;anchor='middle';}
+        if(side==='b'){ty=R+17;anchor='middle';}
+        g.appendChild(S('text',{'class':'lab',x:tx,y:ty,'text-anchor':anchor,text:p.short}));
+      }
+      g.addEventListener('click',function(e){if(dragMoved){return;}selectPlace(s.id,null,true);});
+      g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();selectPlace(s.id,null,true);}});
+      layerPins.appendChild(g);
+    });
+    applyScale();
+  }
+
+  /* ---------- view ---------- */
+  function size(){return [mapEl.clientWidth||360,mapEl.clientHeight||320];}
+  function applyView(){
+    var s=size(),h=view.w*s[1]/s[0];
+    svg.setAttribute('viewBox',(view.cx-view.w/2)+' '+(view.cy-h/2)+' '+view.w+' '+h);
+    u=view.w/s[0];
+    applyScale();
+  }
+  function applyScale(){
+    var nodes=svg.querySelectorAll('.scal');
+    for(var i=0;i<nodes.length;i++){
+      var n=nodes[i];
+      n.setAttribute('transform','translate('+n.getAttribute('data-x')+','+n.getAttribute('data-y')+') scale('+u+')');
+    }
+  }
+  function animateTo(t,instant){
+    cancelAnimationFrame(raf);
+    if(instant||reduce){view=t;applyView();return;}
+    var s={cx:view.cx,cy:view.cy,w:view.w},t0=performance.now(),D=420;
+    (function f(now){
+      var k=Math.min(1,(now-t0)/D),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+      view={cx:s.cx+(t.cx-s.cx)*e,cy:s.cy+(t.cy-s.cy)*e,w:s.w+(t.w-s.w)*e};
+      applyView();
+      if(k<1)raf=requestAnimationFrame(f);
+    })(t0);
+  }
+  function fitTarget(){
+    var all=shown(),main=all.filter(function(s){return !s.alt;});
+    var pts=(main.length?main:all).map(function(s){return P[s.id].xy;});
+    var x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;
+    pts.forEach(function(p){x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1]);});
+    var s=size(),ar=s[0]/s[1];
+    var w=Math.max((x1-x0)+130,((y1-y0)+130)*ar,260);
+    return {cx:(x0+x1)/2,cy:(y0+y1)/2,w:Math.min(w,1500)};
+  }
+  function focusOn(id){
+    var s=size(),p=P[id].xy,w=Math.min(view.w,300);
+    var h=w*s[1]/s[0];
+    animateTo({cx:p[0],cy:p[1]+h*0.16,w:Math.max(w,200)});
+  }
+  function zoomBy(f){
+    animateTo({cx:view.cx,cy:view.cy,w:Math.max(120,Math.min(1500,view.w*f))});
+  }
+
+  /* ---------- selection and card ---------- */
+  function visitsOf(id){
+    var out=[];
+    DAYS.forEach(function(d){d.items.forEach(function(it){
+      if(it.p===id)out.push({day:d.key,t:it.t,title:it.title,alt:false});
+      else if((it.alt||[]).indexOf(id)>=0)out.push({day:d.key,t:it.t,title:it.title,alt:true});
+    });});
+    return out;
+  }
+  function gmaps(p){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.q||(p.name+' Seoul'));}
+  function naver(p){return 'https://map.naver.com/p/search/'+encodeURIComponent(p.ko||p.name);}
+  function renderCard(){
+    card.innerHTML='';
+    if(!state.place){card.hidden=true;return;}
+    var p=P[state.place];
+    card.hidden=false;
+    card.appendChild(el('h3',{text:p.name}));
+    if(p.ko)card.appendChild(el('div',{'class':'ko',text:p.ko}));
+    var ul=el('ul',{'class':'visits'});
+    var vs=visitsOf(p.id);
+    if(vs.length===1&&!vs[0].alt&&window.innerWidth<600)vs=[];
+    vs.forEach(function(v){
+      var li=el('li');
+      li.appendChild(el('b',{text:v.day+' '+v.t}));
+      li.appendChild(document.createTextNode(' '+(v.alt?'Alternative to: ':'')+v.title));
+      ul.appendChild(li);
+    });
+    card.appendChild(ul);
+    if(p.off)card.appendChild(el('div',{'class':'note',text:p.off}));
+    if(!p.noext){
+      card.appendChild(el('div',{'class':'links'},[
+        el('a',{href:gmaps(p),target:'_blank',rel:'noopener noreferrer',text:'Google Maps'}),
+        el('a',{href:naver(p),target:'_blank',rel:'noopener noreferrer',text:'Naver Map'})
+      ]));
+    }
+    var alts=[];
+    DAYS.forEach(function(d){d.items.forEach(function(it){
+      if(it.p===p.id)(it.alt||[]).forEach(function(a){if(alts.indexOf(a)<0)alts.push(a);});
+      if((it.alt||[]).indexOf(p.id)>=0&&alts.indexOf(it.p)<0)alts.push(it.p);
+    });});
+    if(alts.length){
+      var box=el('div',{'class':'alts'},[el('span',{text:'Or:'})]);
+      alts.forEach(function(a){
+        var b=el('button',{type:'button',text:P[a].short});
+        b.addEventListener('click',function(){selectPlace(a,null,true);});
+        box.appendChild(b);
+      });
+      card.appendChild(box);
+    }
+    var x=el('button',{'class':'x',type:'button','aria-label':'Close',text:'×'});
+    x.addEventListener('click',function(){state.place=null;state.item=null;drawPins();renderCard();markList();});
+    card.appendChild(x);
+  }
+  function markList(){
+    var items=document.querySelectorAll('.stop[data-key]');
+    for(var i=0;i<items.length;i++){
+      var on=items[i].getAttribute('data-key')===state.item;
+      if(on)items[i].setAttribute('aria-current','true');else items[i].removeAttribute('aria-current');
+    }
+  }
+  function selectPlace(id,itemKey,fromPin){
+    if(!P[id])return;
+    state.place=id;state.item=itemKey;
+    /* a tapped pin is matched to the first listed stop that uses it */
+    if(fromPin){
+      var m=document.querySelector('.stop[data-place="'+id+'"]');
+      if(m){state.item=m.getAttribute('data-key');}
+    }
+    drawPins();renderCard();markList();focusOn(id);
+    if(fromPin){
+      var t=document.querySelector('.stop[aria-current="true"]');
+      if(t)t.scrollIntoView({block:'nearest',behavior:reduce?'auto':'smooth'});
+    }
+  }
+
+  /* ---------- list and chips ---------- */
+  function renderChips(){
+    var box=$('chips');box.innerHTML='';
+    var all=el('button',{type:'button','class':'chip','aria-pressed':String(state.day==='all')},[el('i'),el('span',{text:'All days'})]);
+    all.addEventListener('click',function(){setDay('all');});
+    box.appendChild(all);
+    DAYS.forEach(function(d,i){
+      var b=el('button',{type:'button','class':'chip','aria-pressed':String(state.day===i),style:'--c:'+dayVar(i)},[el('i'),el('span',{text:d.key})]);
+      b.addEventListener('click',function(){setDay(i);});
+      box.appendChild(b);
+    });
+  }
+  function renderList(){
+    var main=$('list');main.innerHTML='';
+    DAYS.forEach(function(d,di){
+      if(state.day!=='all'&&state.day!==di)return;
+      var sec=el('section',{'class':'day',style:'--c:'+dayVar(di)});
+      sec.appendChild(el('div',{'class':'dayhead'},[el('h2',{text:d.date}),el('span',{text:d.title})]));
+      var ul=el('ul',{'class':'stops'});
+      d.items.forEach(function(it,ii){
+        var key=di+'-'+ii;
+        var num=it.p?numberFor(di,it.p):null;
+        var inner=[
+          el('span',{'class':'time',text:it.t}),
+          el('span',null,[el('span',{'class':'title',text:it.title}),it.note?el('span',{'class':'note',text:it.note}):null]),
+          el('span',{'class':'badge'+(it.p?'':' none'),text:it.p?String(num):'–','aria-hidden':'true'})
+        ];
+        var node;
+        if(it.p){
+          node=el('button',{type:'button','class':'stop','data-key':key,'data-place':it.p,'aria-label':it.t+' '+it.title+'. Show on map.'},inner);
+          node.addEventListener('click',function(){selectPlace(it.p,key,false);});
+        }else{
+          node=el('div',{'class':'stop'},inner);
+        }
+        node.style.setProperty('--c',dayVar(di));
+        ul.appendChild(el('li',null,[node]));
+      });
+      sec.appendChild(ul);
+      main.appendChild(sec);
+    });
+    markList();
+  }
+  function setDay(d){
+    state.day=d;
+    if(state.place){
+      var ids=shown().map(function(s){return s.id;});
+      if(ids.indexOf(state.place)<0){state.place=null;state.item=null;}
+    }
+    renderChips();renderList();drawPins();renderCard();
+    animateTo(fitTarget());
+  }
+
+  /* ---------- drag and pinch ---------- */
+  var ptrs={},dragMoved=false,startPt=null,pinch0=null;
+  svg.addEventListener('pointerdown',function(e){
+    ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+    startPt={x:e.clientX,y:e.clientY};
+    dragMoved=false;
+    var ids=Object.keys(ptrs);
+    if(ids.length===2){
+      var a=ptrs[ids[0]],b=ptrs[ids[1]];
+      pinch0={d:Math.hypot(a.x-b.x,a.y-b.y),w:view.w};
+    }
+  });
+  svg.addEventListener('pointermove',function(e){
+    var p=ptrs[e.pointerId];if(!p)return;
+    var ids=Object.keys(ptrs);
+    if(ids.length===2&&pinch0){
+      ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+      var a=ptrs[ids[0]],b=ptrs[ids[1]];
+      var d=Math.hypot(a.x-b.x,a.y-b.y);
+      cancelAnimationFrame(raf);
+      view.w=Math.max(120,Math.min(1500,pinch0.w*pinch0.d/Math.max(d,1)));
+      dragMoved=true;applyView();return;
+    }
+    var dx=e.clientX-p.x,dy=e.clientY-p.y;
+    if(!dragMoved&&Math.hypot(e.clientX-startPt.x,e.clientY-startPt.y)>6){
+      dragMoved=true;
+      try{svg.setPointerCapture(e.pointerId);}catch(err){}
+      svg.classList.add('drag');
+    }
+    if(dragMoved){
+      cancelAnimationFrame(raf);
+      view.cx-=dx*u;view.cy-=dy*u;
+      ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+      applyView();
+    }
+  });
+  function endPtr(e){
+    delete ptrs[e.pointerId];
+    if(Object.keys(ptrs).length<2)pinch0=null;
+    svg.classList.remove('drag');
+    setTimeout(function(){dragMoved=false;},0);
+  }
+  svg.addEventListener('pointerup',endPtr);
+  svg.addEventListener('pointercancel',endPtr);
+
+  $('zin').addEventListener('click',function(){zoomBy(0.65);});
+  $('zout').addEventListener('click',function(){zoomBy(1.55);});
+  $('zfit').addEventListener('click',function(){animateTo(fitTarget());});
+  if(window.ResizeObserver)new ResizeObserver(function(){applyView();}).observe(mapEl);
+  window.addEventListener('resize',applyView);
+
+  /* ---------- start ---------- */
+  svg.appendChild(layerBase);svg.appendChild(layerRoute);svg.appendChild(layerPins);
+  drawBase();
+  renderChips();renderList();drawPins();
+  view=fitTarget();applyView();
+  /* sizes can settle after fonts and layout, so fit once more */
+  requestAnimationFrame(function(){view=fitTarget();applyView();});
+})();
+</script>
+</body>
+</html>
