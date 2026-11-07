@@ -296,7 +296,9 @@ window.PLACES = {
     why:'Olive Young and Daiso, both open late.'},
   kyobo:{name:'Kyobo Bookstore, Gwanghwamun', short:'Kyobo Books', ko:'교보문고', type:'shopping',
     area:'Gwanghwamun', gu:'Jongno-gu', lat:37.5710, lng:126.9777, side:'l',
-    why:'The stationery stop.'},
+    q:'교보문고 광화문점',
+    why:'The stationery stop. Hottracks in the basement is the widest range of Korean stationery in one room, and the easiest place to spend the last of the cash.',
+    meta:'Kyobo Life Building B1 · 2 min from Gwanghwamun Stn exit 4 · daily 09:30–22:00 · tax refund'},
 
   /* ---- nyunyu (뉴뉴) — accessory and jewellery chain, 16 stores, biggest cluster in Seongsu ---- */
   nyunyuss:{name:'nyunyu Seongsu', short:'nyunyu Seongsu', ko:'뉴뉴 성수점', type:'shopping',
@@ -494,6 +496,16 @@ window.PLACES = {
     q:'경의선숲길 연남동 연트럴파크',
     why:'The old railway line turned into a long strip of grass, running from the end of your street down to Hongik Univ. Station. It is also the walking route into Hongdae, so you get it twice a day without trying.',
     meta:'Locally "Yeontral Park" · free, always open · the Hongdae end is 10 min south of the flat'},
+  ssamziegil:{name:'Ssamziegil', short:'Ssamziegil', ko:'쌈지길', type:'shopping',
+    area:'Insadong', gu:'Jongno-gu', lat:37.5742, lng:126.9857, side:'l',
+    q:'쌈지길 인사동길 44',
+    why:'Seventy-odd craft studios and small shops wound up a spiral ramp around a courtyard, with a roof garden at the top. The densest single building of the Insadong stuff — ceramics, leather, paper.',
+    meta:'44 Insadong-gil · daily 10:30–20:30 · 5 min from Anguk Stn exit 6 · individual shops keep their own hours'},
+  insadong:{name:'Insadong-gil', short:'Insadong-gil', ko:'인사동길', type:'shopping',
+    area:'Insadong', gu:'Jongno-gu', lat:37.5728, lng:126.9849, side:'r',
+    q:'인사동길 종로구',
+    why:'The street itself — galleries and antiques at the Anguk end, craft shops and hanji stationery down the middle. The traditional-paper and brush shops are the ones worth the detour.',
+    meta:'Runs Anguk down to Jonggak · small antique and stationery shops often prefer cash'},
 };
 
 /* Days. Each slot is a bucket: a time, a label, and the options that fit it.
@@ -507,9 +519,9 @@ window.DAYS = [
   {t:'~13:00', label:'Walk off the flight', hint:'the Gyeongui Line park starts at the end of your street — daylight is the fastest way through the jet lag, and it kills the gap before check-in', opts:['yeontral','yeonnam']},
   {t:'15:00', label:'Airbnb check-in', hint:'', opts:['airbnb']},
   {t:'~16:00', label:'Afternoon coffee', hint:'Yeonnam — Overdeep is two doors down, the rest are a short walk', opts:['overdeep','coffeenap','nothink','oats','koriko','meltingof','longvacation','layeredy','donggyo','yeonnam','heytea','unyoke']},
-  {t:'~17:00', dur:'2 hr', label:'Shopping', hint:'Hongdae — 10 min down the park from the flat. Olive Young Town, LOOF, Musinsa Standard, the shoe shops and both nyunyu stores', opts:['oyhongdae','loof','musinsa','sappun','chaakan','nyunyuhd','nyunyuhdhouse']},
+  {t:'~17:00', dur:'2 hr', label:'Shopping', hint:'Hongdae — 10 min down the park from the flat. Early closers first: Musinsa Standard shuts at 21:00, SAPPUN and Chaakan Gudu at 22:00', opts:['musinsa','sappun','chaakan','oyhongdae','loof','nyunyuhd','nyunyuhdhouse']},
   {t:'~19:15', label:'Dinner', hint:'Hongdae', opts:['hongdae','gitteul','mibbedong','geudongne']},
-  {t:'~21:00', label:'Noraebang', hint:'karaoke rooms in Hongdae', opts:['hongdae']}
+  {t:'~20:30', dur:'2 hr', label:'Late shopping', hint:'what was the noraebang slot. Only the late ones are still open — LOOF and Olive Young Town run to 23:00 and both nyunyu stores keep going', opts:['loof','oyhongdae','nyunyuhd','nyunyuhdhouse']}
  ]},
  {key:'Thu 12', date:'Thursday 12 November', title:'Hannam, then the wall at sunset', slots:[
   {t:'~10:30', label:'Brunch', hint:'Hannam', opts:['keem','summerlane','motheroffline','milestone','narrowpath']},
@@ -520,14 +532,14 @@ window.DAYS = [
   {t:'~18:00', dur:'2 hr', label:'Shopping', hint:'Myeongdong — Olive Young Town, nyunyu and Daiso, all open to 22:00 or later', opts:['oymyeongdong','nyunyumd','myeongdong']},
   {t:'~20:15', label:'Dinner', hint:'Myeongdong — Myeongdong Kyoja stops serving around 21:00, Veteran runs later', opts:['veteran','myeongdongkyoja']}
  ]},
- {key:'Fri 13', date:'Friday 13 November', title:'Morning market, then the palaces', slots:[
+ {key:'Fri 13', date:'Friday 13 November', title:'Market, hanok alleys and Insadong', slots:[
   {t:'~08:30', label:'Market breakfast', hint:'Jongno — go early while it is calm', opts:['gwangjang','abebe']},
   {t:'~10:15', label:'Coffee', hint:'Seochon', opts:['leedorim','rafre','seochon']},
-  {t:'~11:30', label:'Palace', hint:'', opts:['gyeongbok']},
-  {t:'~13:30', label:'Lunch', hint:'by the palace', opts:['tosokchon','sujebi']},
-  {t:'~15:00', label:'Hanok village', hint:'back alleys', opts:['bukchon']},
-  {t:'~15:45', label:'Dessert and tea', hint:'Bukchon, Anguk, Ikseon', opts:['osulloc','layereda','cafesudal','jaiso','dotori','miltoast']},
-  {t:'~17:00', label:'Wall walk', hint:'Kyobo Books is the stationery stop nearby', opts:['deoksu','kyobo']},
+  {t:'~11:30', label:'Lunch', hint:'Seochon — pulled earlier now the palace is out, and Tosokchon queues less before noon', opts:['tosokchon','sujebi']},
+  {t:'~13:00', label:'Hanok village', hint:'back alleys', opts:['bukchon']},
+  {t:'~14:00', label:'Dessert and tea', hint:'Bukchon and Anguk, on the way down to Insadong', opts:['osulloc','layereda','cafesudal','jaiso','dotori','miltoast']},
+  {t:'~15:00', dur:'2 hr', label:'Shopping', hint:'what was the palace slot. Insadong-gil and Ssamziegil, then west to Hottracks in the Kyobo basement — one straight walk, and it ends at the wall', opts:['ssamziegil','insadong','kyobo']},
+  {t:'~17:15', label:'Wall walk', hint:'Deoksugung stone wall, 15 min south of Gwanghwamun', opts:['deoksu']},
   {t:'~18:30', label:'Evening walk', hint:'', opts:['cheonggye']},
   {t:'~19:30', label:'Dinner', hint:'', opts:['veteran','myeongdongkyoja','gitteul']}
  ]},
@@ -558,6 +570,7 @@ window.DAYS = [
  {key:'Spare', date:'Did not fit anywhere', title:'saved, but nowhere to put them', spare:true, slots:[
   {t:'', label:'Gangnam side', hint:'', opts:['paldang','londonbagel','cafeeero','oygangnam','nyunyugn','nyunyugnhouse']},
   {t:'', label:'Further out', hint:'', opts:['deepin','simdu','oneinonejan']},
+  {t:'', label:'Cut to make room for shopping', hint:'Gyeongbokgung came out of Friday — say the word and it goes back', opts:['gyeongbok']},
   {t:'', label:'Shops I could not place', hint:'on your list, but no findable address — open your Naver collection and tell me where they are', opts:['miramira','creammarket','clo','hauseaver','minibrand','chunmong']},
   {t:'', label:'Night in', hint:'rose tteokbokki from Yeopgi, original fried chicken from BBQ Chicken', opts:[]}
  ]}

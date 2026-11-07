@@ -177,6 +177,18 @@ Ikseon, Hannam, Jongno) has standard-size branches only.
 | Olive Young Hongdae Town | 57 Hongik-ro 6-gil, Mapo-gu | ~300 pyeong, 1–3F. Second-largest Town store. Half of 1F is brand pop-ups |
 | Olive Young Gangnam Town | 429 Gangnam-daero, Seocho-gu (Dongil Building 1–3F) | Town store. Premium brands and beauty devices |
 
+## Cut from the plan
+
+- **Noraebang** (Wed ~21:00) — the slot is now a second Hongdae shopping block.
+  Only the late openers are in it: LOOF and Olive Young Hongdae Town run to
+  23:00, both nyunyu stores keep going. The pre-dinner block was resequenced to
+  put the early closers first (Musinsa Standard 21:00, SAPPUN and Chaakan 22:00).
+- **Gyeongbokgung** (Fri ~11:30) — the slot is now 2 hours of Insadong shopping:
+  Insadong-gil and Ssamziegil, then west to Hottracks in the Kyobo basement.
+  Friday resequenced around it — lunch pulled to 11:30, Bukchon to 13:00,
+  dessert to 14:00, wall walk to 17:15. The palace is still pinned and sits in
+  **Spare → Cut to make room for shopping** if you want it back.
+
 ## Travel time between stops
 
 Checked 7 Nov: every consecutive pair of default picks, straight-line distance
