@@ -271,6 +271,13 @@ body.notes-off .srow{padding-top:8px;padding-bottom:8px}
 .owhy{font-size:13px;color:var(--muted);margin-top:2px;line-height:1.45}
 .ometa{font-size:12px;color:var(--faint);margin-top:3px}
 .olinks{display:flex;gap:12px;margin-top:5px;font-size:12.5px;font-weight:600}
+.facts{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 10px;margin:7px 0 2px;font-size:12.5px;line-height:1.45}
+.facts dt{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);padding-top:2px;white-space:nowrap}
+.facts dd{margin:0;color:var(--muted);overflow-wrap:anywhere}
+.facts dd.f-closed{color:var(--d2);font-weight:600}
+.facts dt.f-closed{color:var(--d2)}
+.facts dt.f-warn,.facts dd.f-warn{color:var(--d3)}
+body.notes-off .opt .facts,body.notes-off .pcard .facts{display:none}
 .opick{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;
   margin-top:12px;flex:none;color:transparent}
 .opt[aria-pressed="true"] .opick{border-color:var(--c);background:var(--c);color:#fff}
@@ -662,6 +669,19 @@ function gmaps(p){return 'https://www.google.com/maps/search/?api=1&query='+enco
 function naverQuery(p){return p.nq||p.ko||p.name;}
 function naver(p){return 'https://map.naver.com/p/search/'+encodeURIComponent(naverQuery(p));}
 
+/* place details, always the same labels in the same order */
+var FACTS=[['addr','Address'],['hours','Hours'],['closed','Closed'],['go','Getting there'],['tip','Tip'],['warn','Check']];
+function facts(p){
+  var rows=FACTS.filter(function(f){return p[f[0]];});
+  if(!rows.length)return null;
+  var dl=el('dl',{'class':'facts'});
+  rows.forEach(function(f){
+    dl.appendChild(el('dt',{'class':'f-'+f[0],text:f[1]}));
+    dl.appendChild(el('dd',{'class':'f-'+f[0],text:p[f[0]]}));
+  });
+  return dl;
+}
+
 /* thumbnail: real photo when we have one, otherwise the category icon */
 function thumb(p,cls){
   var box=el('div',{'class':cls});
@@ -848,7 +868,7 @@ function renderCard(){
   var sub=[typeLabel(p.type), p.area&&p.area!=='Unconfirmed'?p.area:null].filter(Boolean).join(' · ');
   b.appendChild(el('div',{'class':'ko',text:p.ko?p.ko+' · '+sub:sub}));
   if(p.why)b.appendChild(el('div',{'class':'why',text:p.why}));
-  if(p.meta)b.appendChild(el('div',{'class':'meta',text:p.meta}));
+  var fx3=facts(p); if(fx3)b.appendChild(fx3);
   if(!p.noext){
     b.appendChild(el('div',{'class':'links'},[
       el('a',{href:gmaps(p),target:'_blank',rel:'noopener noreferrer',text:'Google Maps'}),
@@ -927,8 +947,8 @@ function optionRow(id,di,si,isPick){
   var bits=[typeLabel(p.type)];
   if(p.area&&p.area!=='Unconfirmed')bits.push(p.area);
   else if(p.area==='Unconfirmed')bits.push('area unconfirmed');
-  if(p.meta)bits.push(p.meta);
   mid.appendChild(el('div',{'class':'ometa',text:bits.join(' · ')}));
+  var fx=facts(p); if(fx)mid.appendChild(fx);
   if(!p.noext){
     var lk=el('div',{'class':'olinks'});
     ['Google Maps','Naver'].forEach(function(t,i){
@@ -1062,8 +1082,8 @@ function placeCard(p,ci){
   var bits=[];
   if(p.area&&p.area!=='Unconfirmed')bits.push(p.area+(p.gu?', '+p.gu:''));
   else if(p.area==='Unconfirmed')bits.push('Neighbourhood unconfirmed');
-  if(p.meta)bits.push(p.meta);
   if(bits.length)mid.appendChild(el('div',{'class':'pmeta',text:bits.join(' · ')}));
+  var fx2=facts(p); if(fx2)mid.appendChild(fx2);
   var ap=APPEARS[p.id];
   if(ap&&ap.length){
     var w=el('div',{'class':'pwhen'});
