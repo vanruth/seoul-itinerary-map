@@ -84,6 +84,24 @@ and every option shows on the map whether or not it is the current pick.
 | Mangwon Market | Mapo-gu | Spoilt for choice, walkable from the Airbnb |
 | abebe | Just past Gwangjang Market | Donuts. Converts people who don't like donuts |
 
+## Walking distance of the flat (Yeonnam)
+
+Added 7 Nov after the address was corrected. Everything here is on or just off
+Seongmisan-ro, the street the Airbnb is on.
+
+| Place | Address | Notes |
+|---|---|---|
+| Overdeep (오버딥) | 149-8 Seongmisan-ro, 2–3F + rooftop | Literally two doors down. Wave cream latte |
+| Thing How (띵하우) | 151 Seongmisan-ro, 1F | Next building. Neighbourhood Chinese, fried dumplings. 11:00–22:30, LO 21:30, **closed Sundays** |
+| Tuk Tuk Noodle Thai (툭툭누들타이) | 161-8 Seongmisan-ro, 2F | Michelin-listed, 3 min up the road. 11:30–21:30, **closed Wednesdays** — so it is on Monday, not arrival day |
+| Choi Sajangne Dak (최사장네 닭) | 4-1 Yeonnam-ro | Dak-gomtang, solo-friendly set. Daily 11:30–22:00 |
+| Hisashi Donburi (히사시 돈부리) | 383-40 Yeonnam-dong | Mentaiko cream udon, three-colour salmon don. Queues ~30 min at peak |
+| Gyeongui Line Forest Park (경의선숲길) | Runs through Yeonnam | "Yeontral Park". Starts at the end of the street, ends at Hongik Univ. Station — the walking route into Hongdae |
+
+Getting in from the airport: the **AREX all-stop** train runs Incheon T1 → Hongik
+Univ. with no transfer, roughly 50 minutes. The express is faster but only stops
+at Seoul Station, so it is the wrong train for this flat.
+
 ## Shopping — clothes, shoes and k-fashion
 
 From the spreadsheet screenshot shared 7 Nov. Confirmed addresses only; the
