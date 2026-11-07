@@ -4,7 +4,9 @@ Extracted 7 Nov 2026 from links shared 6–7 Nov. Neighbourhoods and addresses w
 filled in by search where the post never said. Anything still unconfirmed is
 marked as such rather than guessed.
 
-These feed the dropdowns in `index.html`.
+`data.js` is the canonical source the app reads — this file is the human-readable
+index. Each slot in the itinerary is a bucket with an expandable list of options,
+and every option shows on the map whether or not it is the current pick.
 
 ---
 
@@ -15,6 +17,7 @@ These feed the dropdowns in `index.html`.
 | 5 to 7 | Seongsu | Fluffiest pancakes; ube ones good and not too sweet |
 | Moment Coffee | Hongdae | Perfect breakfast / brunch spot |
 | Mother Offline | Hannam-dong | Signature coffee drinks — corn coffee latte |
+| Oats Coffee | Yeonnam (29-8 Seongmisan-ro 29-gil) | Einspänner — espresso under a thick cap of cream. Second branch in Munbae-dong |
 | Tea Nomad | Mangwon | All-time fav 10/10. Traditional dessert & tea set, matcha + hojicha |
 | Simdu | Seodaemun | Reservations only. Homely dishes, like an artist's studio |
 | Osulloc Tea House | Bukchon | Dessert sets, fragrant tea, rooftop views. Several floors |
@@ -58,6 +61,7 @@ These feed the dropdowns in `index.html`.
 
 | Place | Area | Why |
 |---|---|---|
+| Geudongne Tteokbokki | Yeonnam | Neighbourhood tteokbokki spot |
 | anmok | Seongsu | Full of tourists and still good. Add salted shrimp to the soup |
 | deepin | Oksu | By a Culinary Class Wars chef. Pastas; olive oil ice cream is the thing |
 | git teul | Hongdae | Looks like a trap, isn't. Meat is the point, skip the stews |
