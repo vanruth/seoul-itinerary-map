@@ -82,6 +82,15 @@ header h1{font:700 clamp(28px,5vw,38px)/1.08 var(--display);margin:0 0 8px;lette
 .share:active{transform:translateY(1px)}
 .share[data-done="1"]{border-color:var(--accent);color:var(--accent-ink)}
 .headbtns{display:flex;gap:8px;flex-wrap:wrap}
+.notesw .knob{position:relative;width:30px;height:18px;border-radius:999px;background:var(--line);flex:none;transition:background .18s}
+.notesw .knob::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--surface);
+  box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .18s}
+.notesw[aria-checked="true"] .knob{background:var(--accent)}
+.notesw[aria-checked="true"] .knob::after{transform:translateX(12px)}
+/* Notes off: keep names, times, picks and travel; drop the explanations */
+body.notes-off .shint,body.notes-off .owhy,body.notes-off .ometa,
+body.notes-off .pwhy,body.notes-off .pmeta,body.notes-off .catblurb{display:none}
+body.notes-off .srow{padding-top:8px;padding-bottom:8px}
 .sheet{position:fixed;inset:0;z-index:80;background:rgba(10,16,13,.45);display:flex;justify-content:center;align-items:flex-end}
 .sheet[hidden]{display:none}
 .sheetpanel{background:var(--bg);width:min(680px,100%);max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;
@@ -369,6 +378,7 @@ footer .credhead:first-child{margin-top:0}
         <button class="tab" role="tab" id="tab-categories" aria-selected="false"><svg><use href="#i-grid"/></svg>Categories</button>
       </div>
       <div class="headbtns">
+        <button class="share notesw" type="button" id="notesToggle" role="switch" aria-checked="true"><span class="knob" aria-hidden="true"></span><span>Notes</span></button>
         <button class="share" type="button" id="naverOpen"><svg><use href="#i-pin"/></svg><span>Save to Naver</span></button>
         <button class="share" type="button" id="googleOpen"><svg><use href="#i-pin"/></svg><span>Google Maps</span></button>
         <button class="share" type="button" id="share"><svg><use href="#i-share"/></svg><span id="shareLabel">Share my picks</span></button>
@@ -396,7 +406,7 @@ footer .credhead:first-child{margin-top:0}
   <footer>
     <p>Times marked ~ are suggestions; fixed times come from your sheet. Every option in a bucket is on the map at once — the dashed pins are the ones you have not picked. The map is schematic, so use the Google Maps and Naver links for real directions.</p>
     <p>The minutes between stops are estimates from the distance between pins, not routed times — walking under about a kilometre, otherwise subway or bus with time added for stations and changes. Google Maps cannot route walks in Korea and will offer a bus even for two minutes on foot, so use Naver or Kakao for directions. Hills and transfers are where they are weakest, so check anything tight on Naver.</p>
-    <p>Your picks are saved in this browser. <b>Share my picks</b> copies a link that carries them, so whoever opens it sees the same choices — they can then change their own copy without touching yours.</p>
+    <p>Your picks are saved in this browser. <b>Share my picks</b> copies a link that carries them, so whoever opens it sees the same choices — they can then change their own copy without touching yours. Inside Claude it copies the artifact link, which opens for people you have shared the artifact with. <b>Notes</b> hides or shows the explanations, keeping times and picks.</p>
     <details>
       <summary>Photo credits</summary>
       <div class="credits" id="credits"></div>
@@ -530,6 +540,7 @@ function picksParam(){
    #p-0-3-choidining-0-4-oats (hyphens only), and links it hands out point at
    the public site, which is what a friend can actually open. */
 var SITE='https://eloquent-hamster-c8aade.netlify.app/';
+var ARTIFACT='https://claude.ai/artifact/SrU4b2nZQ3tyx8i3fBtdUh';
 var IN_FRAME=(function(){try{return window.self!==window.top;}catch(e){return true;}})();
 function pickTriples(){
   var h=location.hash||'', m=/[#&]p=([^&]*)/.exec(h), out=[];
@@ -564,10 +575,13 @@ function readPicks(){
   if(n)persist();
   return n;
 }
+/* Inside the artifact, hand out the artifact link, with picks in the
+   hyphen-only form that an artifact URL will pass through. Elsewhere, the
+   page's own address with the usual #p= form. */
 function shareUrl(){
   var q=picksParam();
-  var base=IN_FRAME?SITE:location.origin+location.pathname+location.search;
-  return base+(q?'#p='+q:'');
+  if(IN_FRAME)return ARTIFACT+(q?'#p-'+q.replace(/[._]/g,'-'):'');
+  return location.origin+location.pathname+location.search+(q?'#p='+q:'');
 }
 function syncUrl(){
   if(IN_FRAME)return;                    /* the frame's address is not the page's to change */
@@ -1167,6 +1181,7 @@ $('share').addEventListener('click',function(){
   var url=shareUrl(), n=picksParam()?picksParam().split('_').length:0;
   var msg=n?'Link copied — it opens with your '+n+' pick'+(n===1?'':'s')+' already chosen'
            :'Link copied — no changes yet, so it opens on the default picks';
+  if(IN_FRAME)msg+='. It opens for anyone you have shared this artifact with in Claude';
   var done=function(){flashShare();toast(msg);};
   if(navigator.share&&navigator.canShare&&navigator.canShare({url:url})){
     navigator.share({title:document.title,url:url}).catch(function(e){
@@ -1175,6 +1190,21 @@ $('share').addEventListener('click',function(){
     });
   }else copyText(url,done);
 });
+/* ---------- notes switch ---------- */
+var LSNOTES='seoul-notes';
+function setNotes(on){
+  document.body.classList.toggle('notes-off',!on);
+  $('notesToggle').setAttribute('aria-checked',String(on));
+  try{localStorage.setItem(LSNOTES,on?'on':'off');}catch(e){}
+}
+(function(){
+  var v=null; try{v=localStorage.getItem(LSNOTES);}catch(e){}
+  setNotes(v!=='off');
+})();
+$('notesToggle').addEventListener('click',function(){
+  setNotes(document.body.classList.contains('notes-off'));
+});
+
 /* ---------- save to Naver ----------
    One row per place in the current picks, in trip order, first appearance
    only. Spare buckets count only where something was actually chosen. The
