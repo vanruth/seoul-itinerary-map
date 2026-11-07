@@ -95,6 +95,7 @@ Seongmisan-ro, the street the Airbnb is on.
 | Thing How (띵하우) | 151 Seongmisan-ro, 1F | Next building. Neighbourhood Chinese, fried dumplings. 11:00–22:30, LO 21:30, **closed Sundays** |
 | Tuk Tuk Noodle Thai (툭툭누들타이) | 161-8 Seongmisan-ro, 2F | Michelin-listed, 3 min up the road. 11:30–21:30, **closed Wednesdays** — so it is on Monday, not arrival day |
 | Choi Sajangne Dak (최사장네 닭) | 4-1 Yeonnam-ro | Dak-gomtang, solo-friendly set. Daily 11:30–22:00 |
+| Choi Dining (초이다이닝 연남점) | 3 Donggyo-ro 36-gil, B1 (연남동 260-25) | **The salmon flat udon place** the sheet kept referring to. Salmon futomaki is the signature. 11:30–21:00, break 15:00–17:00, LO 20:20 |
 | Hisashi Donburi (히사시 돈부리) | 383-40 Yeonnam-dong | Mentaiko cream udon, three-colour salmon don. Queues ~30 min at peak |
 | Gyeongui Line Forest Park (경의선숲길) | Runs through Yeonnam | "Yeontral Park". Starts at the end of the street, ends at Hongik Univ. Station — the walking route into Hongdae |
 

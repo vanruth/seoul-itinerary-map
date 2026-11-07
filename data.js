@@ -243,7 +243,7 @@ window.PLACES = {
   /* ---- neighbourhoods ---- */
   yeonnam:{name:'Yeonnam-dong', short:'Yeonnam', ko:'연남동', type:'area', area:'Yeonnam', gu:'Mapo-gu',
     img:'yeonnam', lat:37.5617, lng:126.9250, side:'r',
-    why:'Cafes, perfume shops, the frame store and the salmon flat udon place.'},
+    why:'Cafes, perfume shops, the frame store, and Choi Dining for the salmon flat udon.'},
   hongdae:{name:'Hongdae', short:'Hongdae', ko:'홍대입구역', type:'area', area:'Hongdae', gu:'Mapo-gu',
     img:'hongdae', lat:37.5563, lng:126.9236, side:'r',
     why:'Dinner, Musinsa, and the noraebang rooms afterwards.'},
@@ -471,6 +471,11 @@ window.PLACES = {
     q:'오버딥 연남 성미산로 149-8',
     why:'Two doors from the flat — 2F, 3F and a rooftop. The wave cream latte is the one people order. Closest thing you have to a kitchen table.',
     meta:'149-8 Seongmisan-ro, 2–3F + rooftop · about 30 seconds from the front door'},
+  choidining:{name:'Choi Dining Yeonnam', short:'Choi Dining', ko:'초이다이닝 연남점', type:'restaurant',
+    area:'Yeonnam', gu:'Mapo-gu', lat:37.5609, lng:126.9247, side:'r',
+    q:'초이다이닝 연남점 동교로36길 3',
+    why:'This is the salmon flat udon place your sheet keeps referring to without naming. Salmon futomaki is the signature — 13,900 for five pieces, 26,000 for ten — plus the bone-in tonkatsu and a dontoro don. Good value for a sit-down Japanese meal.',
+    meta:'3 Donggyo-ro 36-gil, B1 (jibun 연남동 260-25) · 11:30–21:00 with a 15:00–17:00 break, last order 20:20 · about 3 min from the flat'},
   thinghow:{name:'Thing How', short:'Thing How', ko:'띵하우', type:'restaurant',
     area:'Yeonnam', gu:'Mapo-gu', lat:37.5621, lng:126.9228, side:'l',
     q:'띵하우 연남동 성미산로 151',
@@ -515,7 +520,7 @@ window.DAYS = [
   {t:'06:35', label:'Land at Incheon T1', hint:'TW-162 from Singapore, immigration around 07:00', opts:['icn']},
   {t:'07:30', label:'Breakfast', hint:'at the airport — still a question mark in your sheet', opts:['icn']},
   {t:'~10:30', label:'Drop bags', hint:'AREX all-stop runs straight to Hongik Univ. in about 50 min with no transfer — the express does not stop there. Then 10 min north up Seongmisan-ro', opts:['airbnb']},
-  {t:'~11:30', label:'Lunch', hint:'Yeonnam — the first three are a few minutes from the flat', opts:['thinghow','choidak','hisashi','mibbedong','gitteul','sunnyhouse','mangwonmkt']},
+  {t:'~11:30', label:'Lunch', hint:'Yeonnam — the first four are a few minutes from the flat', opts:['thinghow','choidining','choidak','hisashi','mibbedong','gitteul','sunnyhouse','mangwonmkt']},
   {t:'~13:00', label:'Walk off the flight', hint:'the Gyeongui Line park starts at the end of your street — daylight is the fastest way through the jet lag, and it kills the gap before check-in', opts:['yeontral','yeonnam']},
   {t:'15:00', label:'Airbnb check-in', hint:'', opts:['airbnb']},
   {t:'~16:00', label:'Afternoon coffee', hint:'Yeonnam — Overdeep is two doors down, the rest are a short walk', opts:['overdeep','coffeenap','nothink','oats','koriko','meltingof','longvacation','layeredy','donggyo','yeonnam','heytea','unyoke']},
@@ -562,7 +567,7 @@ window.DAYS = [
  ]},
  {key:'Mon 16', date:'Monday 16 November', title:'Fly home', slots:[
   {t:'11:00', label:'Check out', hint:'', opts:['airbnb']},
-  {t:'11:30', label:'Last lunch', hint:'all two minutes from the door, so you can eat with the bags. Tuk Tuk opens 11:30 and is shut Wednesdays, so this is the day for it — ask the host to hold the cases, or use the lockers at Hongik Univ. Stn on the way', opts:['tuktuk','thinghow','choidak','overdeep','nothink','coffeenap','oats','mangwonmkt','teanomad','floormangwon']},
+  {t:'11:30', label:'Last lunch', hint:'all two minutes from the door, so you can eat with the bags. Tuk Tuk opens 11:30 and is shut Wednesdays, so this is the day for it — ask the host to hold the cases, or use the lockers at Hongik Univ. Stn on the way', opts:['tuktuk','choidining','thinghow','choidak','overdeep','nothink','coffeenap','oats','mangwonmkt','teanomad','floormangwon']},
   {t:'12:30', label:'Leave for the airport', hint:'', opts:['airbnb']},
   {t:'13:30', label:'Reach Incheon T1', hint:'', opts:['icn']},
   {t:'15:30', label:'Flight TW-161', hint:'lands at Changi T2 at 21:25', opts:['icn']}
