@@ -196,6 +196,22 @@ Ikseon, Hannam, Jongno) has standard-size branches only.
 | Olive Young Hongdae Town | 57 Hongik-ro 6-gil, Mapo-gu | ~300 pyeong, 1–3F. Second-largest Town store. Half of 1F is brand pop-ups |
 | Olive Young Gangnam Town | 429 Gangnam-daero, Seocho-gu (Dongil Building 1–3F) | Town store. Premium brands and beauty devices |
 
+## Saving the picks to Naver Map
+
+Naver has no way for another app to create or fill a saved list, so the app
+can't push these in. **Save to Naver** in the header opens every place in the
+current picks, in trip order (each place once, airport left out, Spare only
+where something was chosen), each with a button straight to Naver Map. Tap it,
+press 저장, pick the same list. Ticks persist on the device; **Copy all names**
+copies the search phrases one per line.
+
+Naver search phrases (`nq`) were added where the Korean name was missing or
+ambiguous. Two Korean names were confirmed by search — 빌라커피바 and
+삼청동수제비. The rest are my romanisation or the street address and are
+flagged in the list as "check the result": Milestone (branch), Veteran,
+Leedorim, Dotori Garden, To Find Peter, Cheongsudang, Simdu, and — by address
+only — Cofe de Palezze and Cafe Eero.
+
 ## Every day starts at the flat
 
 Added 7 Nov. Each day after arrival now opens with a "Leave the flat" stop at

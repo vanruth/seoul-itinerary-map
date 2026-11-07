@@ -81,6 +81,31 @@ header h1{font:700 clamp(28px,5vw,38px)/1.08 var(--display);margin:0 0 8px;lette
 .share:hover{border-color:var(--accent);color:var(--accent-ink)}
 .share:active{transform:translateY(1px)}
 .share[data-done="1"]{border-color:var(--accent);color:var(--accent-ink)}
+.headbtns{display:flex;gap:8px;flex-wrap:wrap}
+.sheet{position:fixed;inset:0;z-index:80;background:rgba(10,16,13,.45);display:flex;justify-content:center;align-items:flex-end}
+.sheet[hidden]{display:none}
+.sheetpanel{background:var(--bg);width:min(680px,100%);max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;
+  padding:20px 18px 28px;box-shadow:var(--shadow-m)}
+@media (min-width:760px){.sheet{align-items:center}.sheetpanel{border-radius:18px;max-height:86vh}}
+.sheethead{display:flex;gap:12px;align-items:flex-start;justify-content:space-between}
+.sheethead h2{font:700 22px/1.2 var(--display);margin:0 0 6px}
+.sheetnote{margin:0;color:var(--muted);font-size:13.5px;line-height:1.5}
+.sheetx{flex:none;width:36px;height:36px;border-radius:999px;border:1px solid var(--line);background:var(--surface);cursor:pointer;display:grid;place-items:center;color:var(--ink)}
+.sheetx svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.sheetbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:16px 0 4px;position:sticky;top:-20px;background:var(--bg);padding:8px 0;z-index:2}
+#sheetCount{font-weight:700;font-size:14px;font-variant-numeric:tabular-nums}
+.nvday{font:700 15px/1.3 var(--display);margin:18px 0 8px;padding-left:10px;border-left:3px solid var(--c)}
+.nvlist{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.nvrow{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--surface);
+  border:1px solid var(--line-soft);border-radius:12px;padding:9px 10px}
+.nvtick{width:24px;height:24px;border-radius:999px;border:1.5px solid var(--line);display:grid;place-items:center;cursor:pointer;color:transparent}
+.nvtick svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.nvrow[data-done="1"] .nvtick{background:var(--accent);border-color:var(--accent);color:var(--on-pin)}
+.nvrow[data-done="1"] .nvname{color:var(--muted)}
+.nvname{font-weight:700;font-size:14.5px;overflow-wrap:anywhere}
+.nvsub{color:var(--faint);font-size:12.5px;margin-top:2px;overflow-wrap:anywhere}
+.nvwarn{color:var(--d3);font-size:12px;margin-top:3px;font-weight:600}
+.nvgo{flex:none;text-decoration:none;font-weight:700;font-size:13.5px;color:#fff;background:#03C75A;border-radius:999px;padding:8px 14px}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,14px);z-index:90;
   background:var(--ink);color:var(--bg);font:600 14px/1.35 var(--body);padding:11px 18px;border-radius:999px;
   box-shadow:var(--shadow-m);opacity:0;pointer-events:none;transition:opacity .2s, transform .2s;max-width:88vw;text-align:center}
@@ -341,7 +366,10 @@ footer .credhead:first-child{margin-top:0}
         <button class="tab" role="tab" id="tab-itinerary" aria-selected="true"><svg><use href="#i-list"/></svg>Itinerary</button>
         <button class="tab" role="tab" id="tab-categories" aria-selected="false"><svg><use href="#i-grid"/></svg>Categories</button>
       </div>
-      <button class="share" type="button" id="share"><svg><use href="#i-share"/></svg><span id="shareLabel">Share my picks</span></button>
+      <div class="headbtns">
+        <button class="share" type="button" id="naverOpen"><svg><use href="#i-pin"/></svg><span>Save to Naver</span></button>
+        <button class="share" type="button" id="share"><svg><use href="#i-share"/></svg><span id="shareLabel">Share my picks</span></button>
+      </div>
     </div>
   </header>
 
@@ -371,6 +399,23 @@ footer .credhead:first-child{margin-top:0}
       <div class="credits" id="credits"></div>
     </details>
   </footer>
+</div>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="sheetpanel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheethead">
+      <div>
+        <h2 id="sheetTitle">Save your picks to Naver Map</h2>
+        <p class="sheetnote">Naver doesn't let other apps add to your saved lists, so this is the quick way: tap <b>Naver</b> on each place, press <b>저장</b> in Naver Map, and pick the same list every time. Ticks are remembered on this device, so you can do it in more than one go.</p>
+      </div>
+      <button type="button" class="sheetx" id="sheetClose" aria-label="Close"><svg><use href="#i-x"/></svg></button>
+    </div>
+    <div class="sheetbar">
+      <span id="sheetCount"></span>
+      <button type="button" class="share" id="copyNames"><span>Copy all names</span></button>
+    </div>
+    <div id="sheetBody"></div>
+  </div>
 </div>
 
 <script src="data.js"></script>
@@ -502,7 +547,8 @@ function icon(name,cls){
 }
 function dayVar(i){return 'var(--d'+(i+1)+')';}
 function gmaps(p){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.q||(p.name+(p.area&&p.area!=='Unconfirmed'?' '+p.area:'')+' Seoul'));}
-function naver(p){return 'https://map.naver.com/p/search/'+encodeURIComponent(p.ko||p.name);}
+function naverQuery(p){return p.nq||p.ko||p.name;}
+function naver(p){return 'https://map.naver.com/p/search/'+encodeURIComponent(naverQuery(p));}
 
 /* thumbnail: real photo when we have one, otherwise the category icon */
 function thumb(p,cls){
@@ -1077,6 +1123,78 @@ $('share').addEventListener('click',function(){
     });
   }else copyText(url,done);
 });
+/* ---------- save to Naver ----------
+   One row per place in the current picks, in trip order, first appearance
+   only. Spare buckets count only where something was actually chosen. The
+   airport is left out — nobody needs it in a saved list. */
+var LSN='seoul-naver-saved';
+var nvDone={};
+try{nvDone=JSON.parse(localStorage.getItem(LSN)||'{}')||{};}catch(e){nvDone={};}
+function nvPersist(){try{localStorage.setItem(LSN,JSON.stringify(nvDone));}catch(e){}}
+function nvGroups(){
+  var out=[],seen={icn:1};
+  DAYS.forEach(function(d,di){
+    var rows=[];
+    d.slots.forEach(function(s,si){
+      if(!s.opts.length)return;
+      if(d.spare&&!choices[slotKey(di,si)])return;
+      var id=pickOf(di,si);
+      if(!id||seen[id])return;
+      seen[id]=1; rows.push({id:id,s:s});
+    });
+    if(rows.length)out.push({d:d,di:di,rows:rows});
+  });
+  return out;
+}
+function nvCount(){
+  var n=0,k=0;
+  nvGroups().forEach(function(g){g.rows.forEach(function(r){n++;if(nvDone[r.id])k++;});});
+  $('sheetCount').textContent=k+' of '+n+' saved';
+}
+function renderSheet(){
+  var box=$('sheetBody'); box.innerHTML='';
+  nvGroups().forEach(function(g){
+    box.appendChild(el('h3',{'class':'nvday',style:'--c:'+dayVar(g.di),text:g.d.spare?'Extras you picked':g.d.date}));
+    var ul=el('ul',{'class':'nvlist'});
+    g.rows.forEach(function(r){
+      var p=P[r.id], li=el('li',{'class':'nvrow'});
+      if(nvDone[r.id])li.setAttribute('data-done','1');
+      var tick=el('span',{'class':'nvtick',role:'checkbox','aria-checked':String(!!nvDone[r.id]),tabindex:'0','aria-label':'Saved: '+p.name},[icon('check')]);
+      function toggle(on){
+        if(on)nvDone[r.id]=1; else delete nvDone[r.id];
+        nvPersist();
+        if(on)li.setAttribute('data-done','1'); else li.removeAttribute('data-done');
+        tick.setAttribute('aria-checked',String(!!on)); nvCount();
+      }
+      tick.addEventListener('click',function(){toggle(!nvDone[r.id]);});
+      tick.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();toggle(!nvDone[r.id]);}});
+      var mid=el('div');
+      mid.appendChild(el('div',{'class':'nvname',text:p.name}));
+      var sub=[naverQuery(p)!==p.name?naverQuery(p):'', (r.s.t?r.s.t+' ':'')+r.s.label].filter(Boolean);
+      mid.appendChild(el('div',{'class':'nvsub',text:sub.join(' · ')}));
+      if(p.nqNote)mid.appendChild(el('div',{'class':'nvwarn',text:p.nqNote}));
+      var go=el('a',{'class':'nvgo',href:naver(p),target:'_blank',rel:'noopener noreferrer',text:'Naver'});
+      go.addEventListener('click',function(){toggle(true);});
+      li.appendChild(tick); li.appendChild(mid); li.appendChild(go);
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+  });
+  nvCount();
+}
+var sheetReturn=null;
+function openSheet(){sheetReturn=document.activeElement;renderSheet();$('sheet').hidden=false;document.body.style.overflow='hidden';$('sheetClose').focus();}
+function closeSheet(){$('sheet').hidden=true;document.body.style.overflow='';if(sheetReturn&&sheetReturn.focus)sheetReturn.focus();}
+$('naverOpen').addEventListener('click',openSheet);
+$('sheetClose').addEventListener('click',closeSheet);
+$('sheet').addEventListener('click',function(e){if(e.target===$('sheet'))closeSheet();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('sheet').hidden)closeSheet();});
+$('copyNames').addEventListener('click',function(){
+  var lines=[];
+  nvGroups().forEach(function(g){g.rows.forEach(function(r){lines.push(naverQuery(P[r.id]));});});
+  copyText(lines.join('\n'),function(){toast('Copied '+lines.length+' names, one per line');});
+});
+
 window.addEventListener('hashchange',function(){
   if(readPicks()){render();animateTo(fitTarget());toast('Loaded the picks from that link');}
 });
