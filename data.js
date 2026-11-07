@@ -546,16 +546,19 @@ window.DAYS = [
  {key:'Wed 11', date:'Wednesday 11 November', title:'Arrive and settle in', slots:[
   {t:'06:35', label:'Land at Incheon T1', hint:'TW-162 from Singapore, immigration around 07:00', opts:['icn']},
   {t:'07:30', label:'Breakfast', hint:'at the airport — still a question mark in your sheet', opts:['icn']},
-  {t:'~10:30', leg:'about 60 min — AREX all-stop, then 10 min on foot', label:'Drop bags', hint:'AREX all-stop runs straight to Hongik Univ. in about 50 min with no transfer — the express does not stop there. Then 10 min north up Seongmisan-ro. Leave the cases and go: no need to come back until tonight', opts:['airbnb']},
+  {t:'~10:30', leg:'about 60 min — AREX all-stop, then 10 min on foot', label:'Drop bags', hint:'AREX all-stop runs straight to Hongik Univ. in about 50 min with no transfer — the express does not stop there. Then 10 min north up Seongmisan-ro', opts:['airbnb']},
   {t:'~11:30', label:'Lunch', hint:'Yeonnam — the first four are a few minutes from the flat', opts:['thinghow','choidining','choidak','hisashi','mibbedong','gitteul','sunnyhouse','mangwonmkt']},
-  {t:'~12:45', dur:'5 hr', label:'Shopping', hint:'straight from lunch, down through Yeonnam into Hongdae — the Gyeongui Line park is the walk. Everything is open by now; Vint New York\'s perfume room is on the way', opts:['musinsa','sappun','chaakan','oyhongdae','loof','nyunyuhd','nyunyuhdhouse','vintny']},
-  {t:'~18:00', label:'Dinner', hint:'Hongdae — dak galbi on the hotplate, then the fried rice in the leftover sauce. 18:00 beats the evening queue', opts:['yoogane','shinmikyung','gitteul','mibbedong','geudongne','hongdae']},
-  {t:'~19:30', dur:'2 hr', label:'Late shopping', hint:'only the late ones are still open — LOOF and Olive Young Town run to 23:00 and both nyunyu stores keep going. Then home to check in', opts:['loof','oyhongdae','nyunyuhd','nyunyuhdhouse']}
+  {t:'~13:00', label:'Coffee', hint:'Yeonnam, straight after lunch — Overdeep is two doors down, the rest are a short walk', opts:['overdeep','coffeenap','nothink','oats','koriko','meltingof','longvacation','layeredy','donggyo','yeonnam','heytea','unyoke']},
+  {t:'14:00', label:'Airbnb check-in', hint:'pulled forward an hour — worth confirming with the host, since the posted time was 15:00', opts:['airbnb']},
+  {t:'~15:00', label:'Walk off the flight', hint:'the Gyeongui Line park starts at the end of your street and comes out at Hongik Univ. Station, so this is also how you get to the shops. Sunset is about 17:20, so you get it in daylight', opts:['yeontral','yeonnam']},
+  {t:'~16:30', dur:'2 hr', label:'Shopping', hint:'Hongdae, straight off the end of the park. Early closers first: Musinsa Standard shuts at 21:00, SAPPUN and Chaakan Gudu at 22:00', opts:['musinsa','sappun','chaakan','oyhongdae','loof','nyunyuhd','nyunyuhdhouse']},
+  {t:'~18:45', label:'Dinner', hint:'Hongdae — dak galbi on the hotplate, then the fried rice in the leftover sauce', opts:['yoogane','shinmikyung','gitteul','mibbedong','geudongne','hongdae']},
+  {t:'~20:15', dur:'2 hr', label:'Late shopping', hint:'what was the noraebang slot. Only the late ones are still open — LOOF and Olive Young Town run to 23:00 and both nyunyu stores keep going', opts:['loof','oyhongdae','nyunyuhd','nyunyuhdhouse']}
  ]},
  {key:'Thu 12', date:'Thursday 12 November', title:'Hannam, a rooftop, and Myeongdong', slots:[
-  {t:'~09:50', label:'Leave the flat', hint:'coffee first, a few minutes away in Yeonnam', opts:['airbnb']},
-  {t:'~10:00', label:'Coffee', hint:'Yeonnam, before crossing town. Coffee Nap opens at 10:00 on weekdays; Oats, Overdeep, Cafe Layered and Oscar not until 11:00 — pick one of those and the rest of the morning slides about an hour', opts:['coffeenap','overdeep','oats','nothink','koriko','meltingof','longvacation','layeredy','donggyo','heytea','unyoke','yeonnam']},
-  {t:'~11:45', leg:'about 40 min — 10 min to Hongik Univ., then the Gyeongui-Jungang line to Hannam, no change; trains every 10–15 min', legFar:true, dur:'2 hr', label:'Shopping', hint:'Hannam — KIV and the three k-fashion flagships, plus Youssoful for homeware', opts:['kiv','raive','glowny','asura','youssoful','hannam']},
+  {t:'~09:45', label:'Leave the flat', hint:'Hannam is across town. Walk 10 min to Hongik Univ., then the Gyeongui-Jungang line runs straight to Hannam — no change, but trains are every 10–15 min', opts:['airbnb']},
+  {t:'~10:30', leg:'about 40 min — Gyeongui-Jungang line, Hongik Univ. to Hannam, then 10 min up the hill', legFar:true, label:'Brunch', hint:'Hannam', opts:['keem','summerlane','motheroffline','milestone','narrowpath']},
+  {t:'~11:45', dur:'2 hr', label:'Shopping', hint:'Hannam — KIV and the three k-fashion flagships, plus Youssoful for homeware', opts:['kiv','raive','glowny','asura','youssoful','hannam']},
   {t:'~14:00', label:'Lunch', hint:'Hannam and Haebangchon', opts:['gamjatang','haebang','gml']},
   {t:'~15:30', dur:'2 hr', label:'Coffee with a view', hint:'Huam-dong — Villa Coffee is a rooftop over the city, so you get the light going from a chair. Naksan has moved to Friday, where it is 20 min away instead of 40', opts:['villacoffee','aanzee','rainreport']},
   {t:'~17:30', dur:'2 hr', label:'Shopping', hint:'Myeongdong — Olive Young Town, nyunyu and Daiso, all open to 22:00 or later', opts:['oymyeongdong','nyunyumd','myeongdong']},
