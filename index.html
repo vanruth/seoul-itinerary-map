@@ -64,13 +64,28 @@ header h1{font:700 clamp(28px,5vw,38px)/1.08 var(--display);margin:0 0 8px;lette
 .trip b{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
 
 /* tabs */
-.tabs{display:flex;gap:4px;margin:20px 0 0;padding:4px;background:var(--sunk);border-radius:999px;
+.headrow{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin:20px 0 0}
+.tabs{display:flex;gap:4px;margin:0;padding:4px;background:var(--sunk);border-radius:999px;
   width:max-content;max-width:100%;border:1px solid var(--line-soft)}
 .tab{display:inline-flex;align-items:center;gap:8px;border:0;background:none;padding:9px 18px;border-radius:999px;
   font-size:14.5px;font-weight:600;color:var(--muted);cursor:pointer;transition:color .18s, background .18s}
 .tab svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .tab:hover{color:var(--ink)}
 .tab[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow-s)}
+
+/* share */
+.share{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 14px/1 var(--body);
+  box-shadow:var(--shadow-s);transition:border-color .18s, color .18s, transform .1s}
+.share svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.share:hover{border-color:var(--accent);color:var(--accent-ink)}
+.share:active{transform:translateY(1px)}
+.share[data-done="1"]{border-color:var(--accent);color:var(--accent-ink)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,14px);z-index:90;
+  background:var(--ink);color:var(--bg);font:600 14px/1.35 var(--body);padding:11px 18px;border-radius:999px;
+  box-shadow:var(--shadow-m);opacity:0;pointer-events:none;transition:opacity .2s, transform .2s;max-width:88vw;text-align:center}
+.toast[data-show="1"]{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion: reduce){.toast{transition:none}.share{transition:none}}
 
 .layout{display:grid;gap:18px;grid-template-columns:minmax(0,1fr);margin-top:16px;align-items:start}
 .layout>*{min-width:0}
@@ -301,6 +316,7 @@ footer .credhead:first-child{margin-top:0}
   <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
   <symbol id="i-fit" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><path d="M11 18.5a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15zM16.5 16.5 21 21"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M18 8.2a2.9 2.9 0 1 0 0-5.8 2.9 2.9 0 0 0 0 5.8zM6 14.9a2.9 2.9 0 1 0 0-5.8 2.9 2.9 0 0 0 0 5.8zM18 21.6a2.9 2.9 0 1 0 0-5.8 2.9 2.9 0 0 0 0 5.8zM8.6 13.6l6.8 3.4M15.4 7l-6.8 3.4"/></symbol>
 </defs></svg>
 
 <div class="wrap">
@@ -312,9 +328,12 @@ footer .credhead:first-child{margin-top:0}
       <span><svg><use href="#i-pace"/></svg> Relaxed pace</span>
       <span><a href="https://naver.me/xnO2YSWJ" target="_blank" rel="noopener noreferrer">Naver collection</a></span>
     </div>
-    <div class="tabs" role="tablist">
-      <button class="tab" role="tab" id="tab-itinerary" aria-selected="true"><svg><use href="#i-list"/></svg>Itinerary</button>
-      <button class="tab" role="tab" id="tab-categories" aria-selected="false"><svg><use href="#i-grid"/></svg>Categories</button>
+    <div class="headrow">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" id="tab-itinerary" aria-selected="true"><svg><use href="#i-list"/></svg>Itinerary</button>
+        <button class="tab" role="tab" id="tab-categories" aria-selected="false"><svg><use href="#i-grid"/></svg>Categories</button>
+      </div>
+      <button class="share" type="button" id="share"><svg><use href="#i-share"/></svg><span id="shareLabel">Share my picks</span></button>
     </div>
   </header>
 
@@ -337,6 +356,7 @@ footer .credhead:first-child{margin-top:0}
 
   <footer>
     <p>Times marked ~ are suggestions; fixed times come from your sheet. Every option in a bucket is on the map at once — the dashed pins are the ones you have not picked. The map is schematic, so use the Google Maps and Naver links for real directions.</p>
+    <p>Your picks are saved in this browser. <b>Share my picks</b> copies a link that carries them, so whoever opens it sees the same choices — they can then change their own copy without touching yours.</p>
     <details>
       <summary>Photo credits</summary>
       <div class="credits" id="credits"></div>
@@ -389,6 +409,46 @@ function pickOf(di,si){
   var c=choices[slotKey(di,si)];
   return (c&&s.opts.indexOf(c)>=0)?c:s.opts[0];
 }
+/* ---------- shareable picks ----------
+   Only picks that differ from a slot's default travel in the link, as
+   day.slot.placeid joined by _ . Unknown or stale entries are dropped on
+   read, so an old link still opens rather than breaking. */
+function picksParam(){
+  var out=[];
+  DAYS.forEach(function(d,di){
+    d.slots.forEach(function(s,si){
+      if(s.opts.length<2)return;
+      var id=pickOf(di,si);
+      if(id&&id!==s.opts[0])out.push(di+'.'+si+'.'+id);
+    });
+  });
+  return out.join('_');
+}
+function readPicks(){
+  var m=/[#&]p=([^&]*)/.exec(location.hash||'');
+  if(!m)return 0;
+  var n=0;
+  decodeURIComponent(m[1]).split('_').forEach(function(t){
+    var a=t.split('.');
+    if(a.length!==3)return;
+    var di=+a[0], si=+a[1], id=a[2];
+    var d=DAYS[di]; if(!d)return;
+    var s=d.slots[si]; if(!s||s.opts.indexOf(id)<0)return;
+    choices[slotKey(di,si)]=id; n++;
+  });
+  if(n)persist();
+  return n;
+}
+function shareUrl(){
+  var q=picksParam();
+  return location.origin+location.pathname+location.search+(q?'#p='+q:'');
+}
+function syncUrl(){
+  if(!window.history||!history.replaceState)return;
+  var q=picksParam();
+  try{history.replaceState(null,'',location.pathname+location.search+(q?'#p='+q:''));}catch(e){}
+}
+
 var state={tab:'itinerary',day:'all',cat:null,q:'',place:null,slot:null};
 var view={cx:500,cy:315,w:1000}, raf=0, u=1;
 var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -684,7 +744,7 @@ function optionRow(id,di,si,isPick){
   row.appendChild(mid);
   row.appendChild(el('div',{'class':'opick'},[icon('check')]));
   row.addEventListener('click',function(){
-    choices[slotKey(di,si)]=id; persist();
+    choices[slotKey(di,si)]=id; persist(); syncUrl();
     state.place=id; state.slot=slotKey(di,si);
     render(); focusOn(id);
   });
@@ -929,6 +989,50 @@ svg.addEventListener('wheel',function(e){
   e.preventDefault(); zoomBy(e.deltaY>0?1.12:0.89);
 },{passive:false});
 
+/* ---------- share ---------- */
+var toastEl=null, toastT=0;
+function toast(msg){
+  if(!toastEl){toastEl=el('div',{'class':'toast',role:'status','aria-live':'polite'});document.body.appendChild(toastEl);}
+  toastEl.textContent=msg;
+  toastEl.setAttribute('data-show','1');
+  clearTimeout(toastT);
+  toastT=setTimeout(function(){toastEl.removeAttribute('data-show');},3200);
+}
+function flashShare(){
+  var b=$('share'), l=$('shareLabel'), was=l.textContent;
+  b.setAttribute('data-done','1'); l.textContent='Link copied';
+  setTimeout(function(){b.removeAttribute('data-done');l.textContent=was;},2400);
+}
+function copyText(text,done){
+  function manual(){window.prompt('Copy this link',text);}
+  function legacy(){
+    var ta=el('textarea',{readonly:'','aria-hidden':'true'});
+    ta.value=text; ta.style.position='fixed'; ta.style.top='-1000px'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    var ok=false; try{ok=document.execCommand('copy');}catch(e){}
+    document.body.removeChild(ta);
+    if(ok)done(); else manual();
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done,legacy);
+  }else legacy();
+}
+$('share').addEventListener('click',function(){
+  var url=shareUrl(), n=picksParam()?picksParam().split('_').length:0;
+  var msg=n?'Link copied — it opens with your '+n+' pick'+(n===1?'':'s')+' already chosen'
+           :'Link copied — no changes yet, so it opens on the default picks';
+  var done=function(){flashShare();toast(msg);};
+  if(navigator.share&&navigator.canShare&&navigator.canShare({url:url})){
+    navigator.share({title:document.title,url:url}).catch(function(e){
+      if(e&&e.name==='AbortError')return;
+      copyText(url,done);
+    });
+  }else copyText(url,done);
+});
+window.addEventListener('hashchange',function(){
+  if(readPicks()){render();animateTo(fitTarget());toast('Loaded the picks from that link');}
+});
+
 $('zin').addEventListener('click',function(){zoomBy(0.7);});
 $('zout').addEventListener('click',function(){zoomBy(1.42);});
 $('zfit').addEventListener('click',function(){animateTo(fitTarget());});
@@ -950,7 +1054,9 @@ $('placeCount').textContent=Object.keys(P).length;
     box.appendChild(el('div',{text:c[1]+' — '+c[2]+', '+c[3]}));
   });
 })();
+var shared=readPicks();
 render();
+if(shared)toast('Showing a shared set of picks — '+shared+' slot'+(shared===1?'':'s')+' differ from the defaults');
 view=fitTarget(); applyView();
 requestAnimationFrame(function(){view=fitTarget();applyView();});
 })();
