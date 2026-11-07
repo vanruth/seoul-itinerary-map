@@ -84,6 +84,24 @@ and every option shows on the map whether or not it is the current pick.
 | Mangwon Market | Mapo-gu | Spoilt for choice, walkable from the Airbnb |
 | abebe | Just past Gwangjang Market | Donuts. Converts people who don't like donuts |
 
+## Day 1 order
+
+Resequenced 7 Nov so the day runs one way, north to south, and the park walk
+doubles as the journey into Hongdae:
+
+lunch (11:30, Yeonnam) → coffee (13:00, Overdeep) → check-in (14:00, pulled
+forward from 15:00) → Gyeongui Line park (15:00, in daylight — sunset is 17:20)
+→ Hongdae shopping (16:30, 2 hr) → dak galbi (18:45) → late shopping (20:15, 2 hr).
+
+Nothing after the airport is more than 7 minutes from the thing before it.
+
+**Dinner — dak galbi in Hongdae:**
+
+| Place | Address | Notes |
+|---|---|---|
+| Yoogane (유가네 닭갈비 홍대) | 109 Eoulmadang-ro | The famous one, 40 years in Hongdae. 11:30–23:00. Order the fried rice at the end |
+| Shin Mi Kyung (신미경 홍대닭갈비) | 31-10 Wausan-ro 21-gil | The backup if Yoogane has a queue, and better for cheese — self-serve melted cheese bar. 4.6 on Tripadvisor |
+
 ## Walking distance of the flat (Yeonnam)
 
 Added 7 Nov after the address was corrected. Everything here is on or just off
