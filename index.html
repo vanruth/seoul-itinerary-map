@@ -99,7 +99,6 @@ header h1{font:700 clamp(28px,5vw,38px)/1.08 var(--display);margin:0 0 8px;lette
 .nowtag{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;font:700 10.5px/1.6 var(--body);
   letter-spacing:.05em;text-transform:uppercase;vertical-align:1px;background:var(--c);color:var(--on-pin)}
 .nowtag.next{background:none;color:var(--c);box-shadow:inset 0 0 0 1.5px var(--c)}
-.slot[data-now="now"]{border-color:var(--c);box-shadow:0 0 0 1.5px var(--c)}
 @media (max-width:919px){
   /* the pinned header must be wider than the cards scrolling under it,
      or a highlighted card's outline shows down both sides */
@@ -113,6 +112,9 @@ header h1{font:700 clamp(28px,5vw,38px)/1.08 var(--display);margin:0 0 8px;lette
   #card .meta{font-size:12px}
   #card .links{margin-top:7px}
   .chip.maptog{display:inline-flex}
+  /* options open as a drawer across the whole card, not squeezed beside the timeline */
+  .slot .sbody{position:relative;z-index:1;margin:0 2px 10px;padding:4px;background:var(--sunk);border-radius:14px}
+  .slot[data-open="1"] .opt[aria-pressed="true"]{background:var(--surface)}
   .chiprow:has(.daypick) .chip.maptog{min-height:40px}
   body.map-off .map{display:none}
   body.map-off .mapcol{padding-bottom:4px}
@@ -216,51 +218,76 @@ body.notes-off .srow{padding-top:8px;padding-bottom:8px}
 .card .x:hover{color:var(--ink);background:var(--sunk)}
 .card .x svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
 
-/* ---------- itinerary ---------- */
-.day{margin-bottom:26px}
-.dayhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0 0 12px;padding-left:12px;
-  border-left:3px solid var(--c)}
-.dayhead h2{margin:0;font:700 19px/1.2 var(--display)}
-.dayhead span{color:var(--muted);font-size:13.5px}
-.slots{list-style:none;margin:0;padding:0;display:grid;gap:7px}
-.leg{display:flex;align-items:center;gap:10px;padding:0 0 0 20px}
-.legbar{flex:none;width:0;height:15px;border-left:2px dotted var(--line)}
-.legtxt{font-size:11.5px;font-weight:600;color:var(--faint);letter-spacing:.01em}
-.leg[data-far="1"] .legtxt{color:var(--d2)}
-.leg[data-far="1"] .legbar{border-color:var(--d2);opacity:.55}
+/* ---------- itinerary: one sheet per day, a timeline down the left ---------- */
+.day{margin-bottom:18px;background:var(--surface);border:1px solid var(--line-soft);border-radius:18px;
+  padding:16px 6px 8px;box-shadow:var(--shadow-s)}
+.dayhead{display:flex;align-items:baseline;gap:4px 10px;flex-wrap:wrap;margin:0 0 10px;padding:0 10px 0 12px}
+.dayhead h2{margin:0;font:700 19px/1.2 var(--display);display:flex;align-items:center;gap:9px}
+.dayhead h2::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--c);flex:none;transform:translateY(-1px)}
+.dayhead .daytitle{color:var(--muted);font-size:13.5px}
+.slots{list-style:none;margin:0;padding:0;--tw:50px;--rail:22px;--rx:calc(8px + var(--tw) + 8px + var(--rail)/2)}
+.slots>li{position:relative}
+/* the rail: one line through every stop and leg, starting and ending at a dot */
+.slots>li::before{content:"";position:absolute;left:calc(var(--rx) - 1px);top:0;bottom:0;border-left:2px solid var(--line-soft)}
+.slots>li:first-child::before{top:19px}
+.slots>li:last-child::before{bottom:auto;height:19px}
+.leg{display:grid;grid-template-columns:var(--tw) var(--rail) minmax(0,1fr);gap:0 8px;align-items:center;padding:1px 8px}
+.legicon{position:relative;z-index:1;width:22px;height:22px;border-radius:50%;background:var(--surface);display:grid;place-items:center;
+  color:var(--faint)}
+.legicon svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.legtxt{font-size:11.5px;font-weight:600;color:var(--faint);letter-spacing:.01em;padding:5px 0}
+.leg[data-far="1"] .legtxt,.leg[data-far="1"] .legicon{color:var(--d2)}
 
-.slot{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;
-  transition:border-color .16s, box-shadow .16s;scroll-margin-top:calc(var(--maph) + 92px)}
-.slot:hover{border-color:var(--faint)}
-.slot[data-active="1"]{border-color:var(--c);box-shadow:0 0 0 1px var(--c)}
+.slot{position:relative;border-radius:14px;transition:background .16s;scroll-margin-top:calc(var(--maph) + 92px)}
+.slot[data-active="1"]{background:color-mix(in srgb,var(--c) 8%,transparent)}
+.slot[data-now="now"]{background:color-mix(in srgb,var(--c) 6%,transparent)}
 .srow>div{min-width:0}
 .opt>div{min-width:0}
 .pcard>div{min-width:0}
-.srow{display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;width:100%;
-  background:none;border:0;text-align:left;cursor:pointer;font:inherit}
+.srow{display:grid;grid-template-columns:var(--tw) var(--rail) minmax(0,1fr) auto;gap:0 8px;align-items:start;
+  padding:10px 8px 12px;width:100%;background:none;border:0;border-radius:14px;text-align:left;cursor:pointer;font:inherit;color:inherit}
+@media (hover:hover){.srow:not(:disabled):hover{background:color-mix(in srgb,var(--sunk) 70%,transparent)}}
 .srow:disabled{cursor:default}
-.swhen{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
-.stime{font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px;font-weight:600;letter-spacing:-.01em}
-.sdur{font-size:10.5px;font-weight:700;color:var(--accent-ink);background:var(--sunk);border:1px solid var(--line-soft);
+.swhen{display:flex;flex-direction:column;align-items:flex-end;gap:5px;padding-top:1px}
+.stime{font-variant-numeric:tabular-nums;color:var(--ink);font-size:13px;font-weight:700;letter-spacing:-.01em}
+.sdur{font-size:10.5px;font-weight:700;color:var(--accent-ink);background:var(--sunk);
   border-radius:999px;padding:2px 7px;white-space:nowrap;letter-spacing:.01em}
-.slabel{font-weight:700;font-size:14px;letter-spacing:-.005em;overflow-wrap:anywhere}
+.srail{display:flex;justify-content:center;padding-top:3px}
+.sdot{position:relative;z-index:1;width:14px;height:14px;border-radius:50%;border:2px solid var(--c);background:var(--surface);
+  display:grid;place-items:center;color:var(--on-pin)}
+.sdot svg{width:9px;height:9px;stroke:currentColor;fill:none;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.slot[data-done="1"] .sdot{background:var(--c)}
+.slot[data-now="now"] .sdot{background:var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 25%,transparent)}
+.slabel{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);line-height:1.5;
+  overflow-wrap:anywhere;padding-top:1px}
+.slabel.solo{font-size:14.5px;font-weight:650;letter-spacing:-.005em;text-transform:none;color:var(--ink);padding-top:0;line-height:1.35}
+.slot[data-now="now"] .slabel{color:var(--c)}
+.spick{display:flex;align-items:flex-start;gap:12px;margin-top:5px}
+.sinfo{flex:1;min-width:0}
+.sname{font-size:15px;font-weight:650;line-height:1.3;color:var(--ink);overflow-wrap:anywhere}
+.ssub{font-size:12.5px;color:var(--muted);margin-top:2px}
+.smeta{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;margin-top:5px;font-size:12px;color:var(--faint);font-weight:500}
+.shours{display:inline-flex;align-items:center;gap:4px;font-variant-numeric:tabular-nums}
+.shours svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sclosed{color:var(--d2);font-weight:700}
+.smore{font-weight:700;color:var(--accent-ink);background:color-mix(in srgb,var(--accent) 10%,transparent);
+  padding:2px 8px;border-radius:999px}
+.sthumb{flex:none;width:60px;height:60px;border-radius:12px;overflow:hidden;background:var(--sunk);display:grid;place-items:center}
+.sthumb img{width:100%;height:100%;object-fit:cover}
+.sthumb svg.ic{width:24px;height:24px;stroke:var(--c);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .snotes{display:grid;grid-template-columns:46px minmax(0,1fr);gap:3px 8px;margin:7px 0 1px;font-size:12.5px;line-height:1.45;
   font-weight:400;text-align:left}
-.srow>.snotes{grid-column:2/-1;margin-top:-4px}
+.srow>.snotes{grid-column:3/-1;margin-top:9px}
 .snotes .sk{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);padding-top:2px;white-space:nowrap}
 .snotes .sv{color:var(--muted);overflow-wrap:anywhere}
 .snotes .sli{display:block;position:relative;padding-left:11px}
 .snotes .sli::before{content:"";position:absolute;left:1px;top:.62em;width:4px;height:4px;border-radius:50%;background:var(--faint)}
 .snotes .sk.f-warn,.snotes .sv.f-warn{color:var(--d3)}
-.spick{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:3px;font-size:14.5px;font-weight:600;color:var(--ink)}
-.spick .tick{width:17px;height:17px;flex:none;color:var(--accent)}
-.spick .tick svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-.spick .area{font-weight:400;color:var(--faint);font-size:12.5px}
-.scount{display:inline-flex;align-items:center;gap:6px;color:var(--faint);font-size:12px;font-weight:600}
+.scount{display:inline-flex;align-items:center;color:var(--faint);margin:-3px -4px 0 0}
 .chev{width:26px;height:26px;display:grid;place-items:center;color:var(--faint);transition:transform .22s cubic-bezier(.33,1,.68,1)}
 .chev svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
 .slot[data-open="1"] .chev{transform:rotate(90deg)}
-.sbody{display:none;padding:2px 10px 10px;border-top:1px solid var(--line-soft);margin-top:0}
+.sbody{display:none;padding:0 6px 10px calc(var(--rx) + 12px)}
 .slot[data-open="1"] .sbody{display:block;animation:unfold .22s cubic-bezier(.33,1,.68,1)}
 @keyframes unfold{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 
@@ -405,6 +432,8 @@ footer .credhead:first-child{margin-top:0}
   <symbol id="i-transport" viewBox="0 0 24 24"><path d="M21 15.2 13.4 11V5.1a1.4 1.4 0 0 0-2.8 0V11L3 15.2v2.1l7.6-2.1v3.9l-2 1.5v1.3l3.4-1 3.4 1v-1.3l-2-1.5v-3.9l7.6 2.1z"/></symbol>
   <symbol id="i-stay" viewBox="0 0 24 24"><path d="M3 11.2 12 4l9 7.2M5.8 9.9V20h12.4V9.9M9.9 20v-5.1h4.2V20"/></symbol>
   <symbol id="i-tower" viewBox="0 0 24 24"><path d="M12 2v5.4M9 7.4h6l-1 4.2h-4zM10 11.6 7.7 22M14 11.6 16.3 22M7 22h10"/></symbol>
+  <symbol id="i-walk" viewBox="0 0 24 24"><path d="M13.2 5.2a1.7 1.7 0 1 0 0-3.4 1.7 1.7 0 0 0 0 3.4zM9.4 21.5l2.2-6.6 2.6 2.6v4M7.2 12.2l2.3-3.6c.4-.6 1-.8 1.7-.7l2.2.4 2 3.2 2.4 1M11.6 14.9l1.2-5.6"/></symbol>
+  <symbol id="i-train" viewBox="0 0 24 24"><path d="M7.5 3h9a2.5 2.5 0 0 1 2.5 2.5V15a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 15V5.5A2.5 2.5 0 0 1 7.5 3zM5 10.5h14M8.6 14h.01M15.4 14h.01M8.5 17.5 6.5 21M15.5 17.5l2 3.5"/></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><path d="M4.5 5.5h15v15h-15zM4.5 10h15M8.5 3v4M15.5 3v4"/></symbol>
   <symbol id="i-pace" viewBox="0 0 24 24"><path d="M12 7v5l3.2 2M12 21.2a9.2 9.2 0 1 0 0-18.4 9.2 9.2 0 0 0 0 18.4z"/></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.6s7-5.9 7-11a7 7 0 1 0-14 0c0 5.1 7 11 7 11zM12 12.7a2.7 2.7 0 1 0 0-5.4 2.7 2.7 0 0 0 0 5.4z"/></symbol>
@@ -994,9 +1023,17 @@ function optionRow(id,di,si,isPick){
 function legRow(text,far){
   var li=el('li',{'class':'leg'});
   if(far)li.setAttribute('data-far','1');
-  li.appendChild(el('span',{'class':'legbar'}));
+  var ride=/subway|bus|line|AREX|taxi/i.test(text);
+  li.appendChild(el('span'));
+  li.appendChild(el('span',{'class':'legicon'},[icon(ride?'train':'walk')]));
   li.appendChild(el('span',{'class':'legtxt',text:text}));
   return li;
+}
+/* the shop's closing day, only when it is the day it sits on */
+var WEEKDAY={Mon:'Monday',Tue:'Tuesday',Wed:'Wednesday',Thu:'Thursday',Fri:'Friday',Sat:'Saturday',Sun:'Sunday'};
+function closedOn(p,d){
+  var w=WEEKDAY[(d.key||'').slice(0,3)];
+  return (w&&p.closed&&p.closed.indexOf(w)>=0)?'on '+w+'s':'';
 }
 function renderItinerary(){
   panel.innerHTML='';
@@ -1004,7 +1041,7 @@ function renderItinerary(){
     if(state.day!=='all'&&state.day!==di)return;
     if(state.day==='all'&&d.spare)return;
     var sec=el('section',{'class':'day',style:'--c:'+dayVar(di)});
-    var head=el('div',{'class':'dayhead'},[el('h2',{text:d.date}),el('span',{text:d.title})]);
+    var head=el('div',{'class':'dayhead'},[el('h2',{text:d.date}),el('span',{'class':'daytitle',text:d.title})]);
     sec.appendChild(head);
     var ul=el('ul',{'class':'slots'});
     var prevPlace=null, travel=0, stops=0, nn=nowNext(di);
@@ -1024,30 +1061,47 @@ function renderItinerary(){
       var slot=el('div',{'class':'slot','data-key':key,style:'--c:'+dayVar(di)});
       if(isOpen)slot.setAttribute('data-open','1');
       if(nn&&nn.now===si)slot.setAttribute('data-now','now');
+      if(nn&&nn.now>si)slot.setAttribute('data-done','1');
       if(s.opts.length)slot.setAttribute('data-places',s.opts.join(' '));
 
       var head=el('button',{type:'button','class':'srow'});
+      /* time | rail dot | stop | chevron */
       var when=el('div',{'class':'swhen'},[el('span',{'class':'stime',text:s.t||'—'})]);
       if(s.dur)when.appendChild(el('span',{'class':'sdur',text:s.dur}));
       head.appendChild(when);
-      var mid=el('div');
-      var lab=el('div',{'class':'slabel'},[el('span',{text:s.label})]);
+      var dot=el('span',{'class':'sdot'});
+      if(nn&&nn.now>si)dot.appendChild(icon('check'));
+      head.appendChild(el('div',{'class':'srail'},[dot]));
+      var mid=el('div',{'class':'smid'});
+      var lab=el('div',{'class':'slabel'+(p?'':' solo')},[el('span',{text:s.label})]);
       if(nn&&nn.now===si)lab.appendChild(el('span',{'class':'nowtag',text:'Now'}));
       if(nn&&nn.next===si)lab.appendChild(el('span',{'class':'nowtag next',text:'Next'}));
       mid.appendChild(lab);
       if(p){
         var pick=el('div',{'class':'spick'});
-        pick.appendChild(el('span',{'class':'tick'},[icon(iconOf(p))]));
-        pick.appendChild(el('span',{text:p.name}));
-        if(p.area&&p.area!=='Unconfirmed')pick.appendChild(el('span',{'class':'area',text:p.area}));
+        var info=el('div',{'class':'sinfo'},[el('div',{'class':'sname',text:p.name})]);
+        var sub=[typeLabel(p.type)];
+        if(p.area&&p.area!=='Unconfirmed')sub.unshift(p.area);
+        info.appendChild(el('div',{'class':'ssub',text:sub.join(' · ')}));
+        var meta=el('div',{'class':'smeta'});
+        if(p.hours){
+          var hr=p.hours.split(' · ')[0].split(' — ')[0];
+          meta.appendChild(el('span',{'class':'shours'},[icon('pace'),el('span',{text:hr})]));
+        }
+        var wd=closedOn(p,d);
+        if(wd)meta.appendChild(el('span',{'class':'sclosed',text:'Closed '+wd}));
+        if(many)meta.appendChild(el('span',{'class':'smore',text:'+'+(s.opts.length-1)+' option'+(s.opts.length>2?'s':'')}));
+        if(meta.childNodes.length)info.appendChild(meta);
+        pick.appendChild(thumb(p,'sthumb'));
+        pick.appendChild(info);
         mid.appendChild(pick);
       }
       head.appendChild(mid);
       var right=el('div',{'class':'scount'});
       if(many){
-        right.appendChild(el('span',{text:(s.opts.length-1)+' more'}));
         right.appendChild(el('span',{'class':'chev'},[icon('chev')]));
         head.setAttribute('aria-expanded',String(!!isOpen));
+        head.setAttribute('aria-label',s.label+': '+p.name+', '+(s.opts.length-1)+' more options');
         head.addEventListener('click',function(){
           openSlots[key]=!openSlots[key]; persist();
           if(openSlots[key])slot.setAttribute('data-open','1'); else slot.removeAttribute('data-open');
@@ -1068,7 +1122,7 @@ function renderItinerary(){
         s.opts.forEach(function(oid){body.appendChild(optionRow(oid,di,si,oid===id));});
         slot.appendChild(body);
       }
-      ul.appendChild(el('li',null,[slot]));
+      ul.appendChild(el('li',{'class':'stop'},[slot]));
     });
     if(!d.spare&&stops){
       var h=Math.floor(travel/60), m=travel%60;
