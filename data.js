@@ -280,9 +280,9 @@ window.PLACES = {
 
   /* ---- parks & views ---- */
   naksan:{name:'Naksan Park & the city wall', short:'Naksan Park', ko:'낙산공원', type:'park',
-    area:'Naksan', gu:'Jongno-gu', img:'naksan', lat:37.5808, lng:127.0073, side:'r',
+    area:'Naksan', gu:'Jongno-gu', img:'naksan', lat:37.5808, lng:127.0073, side:'r', legExtra:15,
     why:'The Hanyangdoseong wall runs along the ridge. Walk up for sunset and stay as the city lights come on — the wall is lit after dark.',
-    meta:'Sunset is around 17:20 in mid-November · free, always open'},
+    meta:'Sunset is around 17:20 in mid-November · free, always open · about 15 min uphill from Hyehwa Stn exit 2, through Ihwa Mural Village'},
   seoulforest:{name:'Seoul Forest', short:'Seoul Forest', ko:'서울숲', type:'park',
     area:'Seongsu', gu:'Seongdong-gu', img:'seoulforest', lat:37.5444, lng:127.0374, side:'b',
     why:'Walk off Seongsu. Peak autumn colour should still be going in mid-November.'},
@@ -529,7 +529,7 @@ window.DAYS = [
  {key:'Wed 11', date:'Wednesday 11 November', title:'Arrive and settle in', slots:[
   {t:'06:35', label:'Land at Incheon T1', hint:'TW-162 from Singapore, immigration around 07:00', opts:['icn']},
   {t:'07:30', label:'Breakfast', hint:'at the airport — still a question mark in your sheet', opts:['icn']},
-  {t:'~10:30', label:'Drop bags', hint:'AREX all-stop runs straight to Hongik Univ. in about 50 min with no transfer — the express does not stop there. Then 10 min north up Seongmisan-ro', opts:['airbnb']},
+  {t:'~10:30', leg:'about 60 min — AREX all-stop, then 10 min on foot', label:'Drop bags', hint:'AREX all-stop runs straight to Hongik Univ. in about 50 min with no transfer — the express does not stop there. Then 10 min north up Seongmisan-ro', opts:['airbnb']},
   {t:'~11:30', label:'Lunch', hint:'Yeonnam — the first four are a few minutes from the flat', opts:['thinghow','choidining','choidak','hisashi','mibbedong','gitteul','sunnyhouse','mangwonmkt']},
   {t:'~13:00', label:'Coffee', hint:'Yeonnam, straight after lunch — Overdeep is two doors down, the rest are a short walk', opts:['overdeep','coffeenap','nothink','oats','koriko','meltingof','longvacation','layeredy','donggyo','yeonnam','heytea','unyoke']},
   {t:'14:00', label:'Airbnb check-in', hint:'pulled forward an hour — worth confirming with the host, since the posted time was 15:00', opts:['airbnb']},
@@ -538,25 +538,24 @@ window.DAYS = [
   {t:'~18:45', label:'Dinner', hint:'Hongdae — dak galbi on the hotplate, then the fried rice in the leftover sauce', opts:['yoogane','shinmikyung','gitteul','mibbedong','geudongne','hongdae']},
   {t:'~20:15', dur:'2 hr', label:'Late shopping', hint:'what was the noraebang slot. Only the late ones are still open — LOOF and Olive Young Town run to 23:00 and both nyunyu stores keep going', opts:['loof','oyhongdae','nyunyuhd','nyunyuhdhouse']}
  ]},
- {key:'Thu 12', date:'Thursday 12 November', title:'Hannam, then the wall at sunset', slots:[
+ {key:'Thu 12', date:'Thursday 12 November', title:'Hannam, a rooftop, and Myeongdong', slots:[
   {t:'~10:30', label:'Brunch', hint:'Hannam', opts:['keem','summerlane','motheroffline','milestone','narrowpath']},
   {t:'~11:45', dur:'2 hr', label:'Shopping', hint:'Hannam — KIV and the three k-fashion flagships, plus Youssoful for homeware', opts:['kiv','raive','glowny','asura','youssoful','hannam']},
   {t:'~14:00', label:'Lunch', hint:'Hannam and Haebangchon', opts:['gamjatang','haebang','gml']},
-  {t:'~15:15', label:'Coffee with a view', hint:'Huam-dong and Yongsan', opts:['villacoffee','aanzee','rainreport']},
-  {t:'~16:45', label:'Sunset into night', hint:'sunset is about 17:20. Villa Coffee looks straight at Namsan, so the tower is 1 km uphill — Naksan is the quieter wall but 40 min across town from Huam-dong', opts:['namsan','naksan']},
-  {t:'~18:00', dur:'2 hr', label:'Shopping', hint:'Myeongdong — Olive Young Town, nyunyu and Daiso, all open to 22:00 or later', opts:['oymyeongdong','nyunyumd','myeongdong']},
-  {t:'~20:15', label:'Dinner', hint:'Myeongdong — Myeongdong Kyoja stops serving around 21:00, Veteran runs later', opts:['veteran','myeongdongkyoja']}
+  {t:'~15:30', dur:'2 hr', label:'Coffee with a view', hint:'Huam-dong — Villa Coffee is a rooftop over the city, so you get the light going from a chair. Naksan has moved to Friday, where it is 20 min away instead of 40', opts:['villacoffee','aanzee','rainreport']},
+  {t:'~17:30', dur:'2 hr', label:'Shopping', hint:'Myeongdong — Olive Young Town, nyunyu and Daiso, all open to 22:00 or later', opts:['oymyeongdong','nyunyumd','myeongdong']},
+  {t:'~19:45', label:'Dinner', hint:'Myeongdong — Myeongdong Kyoja stops serving around 21:00, Veteran runs later', opts:['veteran','myeongdongkyoja']}
  ]},
- {key:'Fri 13', date:'Friday 13 November', title:'Market, hanok alleys and Insadong', slots:[
+ {key:'Fri 13', date:'Friday 13 November', title:'Market, Insadong, and the wall at sunset', slots:[
   {t:'~08:30', label:'Market breakfast', hint:'Jongno — go early while it is calm', opts:['gwangjang','abebe']},
-  {t:'~10:15', label:'Coffee', hint:'Seochon', opts:['leedorim','rafre','seochon']},
-  {t:'~11:30', label:'Lunch', hint:'Seochon — pulled earlier now the palace is out, and Tosokchon queues less before noon', opts:['tosokchon','sujebi']},
-  {t:'~13:00', label:'Hanok village', hint:'back alleys', opts:['bukchon']},
-  {t:'~14:00', label:'Dessert and tea', hint:'Bukchon and Anguk, on the way down to Insadong', opts:['osulloc','layereda','cafesudal','jaiso','dotori','miltoast']},
-  {t:'~15:00', dur:'2 hr', label:'Shopping', hint:'what was the palace slot. Insadong-gil and Ssamziegil, then west to Hottracks in the Kyobo basement — one straight walk, and it ends at the wall', opts:['ssamziegil','insadong','kyobo']},
-  {t:'~17:15', label:'Wall walk', hint:'Deoksugung stone wall, 15 min south of Gwanghwamun', opts:['deoksu']},
-  {t:'~18:30', label:'Evening walk', hint:'', opts:['cheonggye']},
-  {t:'~19:30', label:'Dinner', hint:'', opts:['veteran','myeongdongkyoja','gitteul']}
+  {t:'~10:00', label:'Coffee', hint:'Seochon', opts:['leedorim','rafre','seochon']},
+  {t:'~11:15', label:'Lunch', hint:'Seochon — Tosokchon queues less before noon', opts:['tosokchon','sujebi']},
+  {t:'~12:30', label:'Hanok village', hint:'back alleys', opts:['bukchon']},
+  {t:'~13:30', dur:'2 hr', label:'Shopping', hint:'what was the palace slot. Insadong-gil and Ssamziegil, then Hottracks in the Kyobo basement', opts:['ssamziegil','insadong','kyobo']},
+  {t:'~15:45', label:'Dessert and tea', hint:'Anguk and Ikseon, already heading east towards the wall', opts:['dotori','cheongsudang','miltoast','jaiso','cafesudal','layereda','osulloc']},
+  {t:'~16:30', label:'Up the wall for sunset', hint:'Naksan — the climb from Hyehwa is about 15 min, sunset is 17:20. Stay up as the lights come on, the wall is lit after dark', opts:['naksan']},
+  {t:'~18:30', label:'Evening walk', hint:'straight down off the ridge — the east end of Cheonggyecheon sits below Naksan', opts:['cheonggye']},
+  {t:'~19:45', label:'Dinner', hint:'', opts:['veteran','myeongdongkyoja','gitteul']}
  ]},
  {key:'Sat 14', date:'Saturday 14 November', title:'Seongsu and the Han River', slots:[
   {t:'~11:00', dur:'2 hr', label:'Shopping', hint:'Seongsu — nyunyu, Romand Pink Office, PLAY X STUDIO and the giant Olive Young, all on Yeonmujang-gil', opts:['seongsu','nyunyuss','nyunyusshouse','oyseongsu','playx']},
@@ -579,13 +578,13 @@ window.DAYS = [
   {t:'11:00', label:'Check out', hint:'', opts:['airbnb']},
   {t:'11:30', label:'Last lunch', hint:'all two minutes from the door, so you can eat with the bags. Tuk Tuk opens 11:30 and is shut Wednesdays, so this is the day for it — ask the host to hold the cases, or use the lockers at Hongik Univ. Stn on the way', opts:['tuktuk','choidining','thinghow','choidak','overdeep','nothink','coffeenap','oats','mangwonmkt','teanomad','floormangwon']},
   {t:'12:30', label:'Leave for the airport', hint:'', opts:['airbnb']},
-  {t:'13:30', label:'Reach Incheon T1', hint:'', opts:['icn']},
+  {t:'13:30', leg:'about 60 min — 10 min to Hongik Univ., then AREX all-stop', label:'Reach Incheon T1', hint:'', opts:['icn']},
   {t:'15:30', label:'Flight TW-161', hint:'lands at Changi T2 at 21:25', opts:['icn']}
  ]},
  {key:'Spare', date:'Did not fit anywhere', title:'saved, but nowhere to put them', spare:true, slots:[
   {t:'', label:'Gangnam side', hint:'', opts:['paldang','londonbagel','cafeeero','oygangnam','nyunyugn','nyunyugnhouse']},
   {t:'', label:'Further out', hint:'', opts:['deepin','simdu','oneinonejan']},
-  {t:'', label:'Cut to make room for shopping', hint:'Gyeongbokgung came out of Friday — say the word and it goes back', opts:['gyeongbok']},
+  {t:'', label:'Cut from the plan', hint:'Gyeongbokgung came out for shopping; Deoksugung and Namsan came out when Naksan took the sunset. Say the word on any of them', opts:['gyeongbok','deoksu','namsan']},
   {t:'', label:'Shops I could not place', hint:'on your list, but no findable address — open your Naver collection and tell me where they are', opts:['miramira','creammarket','clo','hauseaver','minibrand','chunmong']},
   {t:'', label:'Night in', hint:'rose tteokbokki from Yeopgi, original fried chicken from BBQ Chicken', opts:[]}
  ]}

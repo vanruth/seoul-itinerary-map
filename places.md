@@ -214,7 +214,29 @@ Checked 7 Nov: every consecutive pair of default picks, straight-line distance
 converted to a door-to-door estimate (walk under 1.2 km, otherwise transit with
 a fixed overhead for stations, waits and transfers).
 
-Three legs were fixed:
+Travel times are now shown **in the app**, between every pair of stops, and
+they update when you change a pick. The footer says what they are: distance
+between pins, walked under about a kilometre, otherwise subway or bus with time
+added for stations and changes. Not routed times.
+
+**Naksan, not Namsan** (asked for 7 Nov). Naksan is 4.7 km from the Huam-dong
+rooftop, which is why it was swapped out before. The fix was to move it rather
+than drop it: it now sits on **Friday at 16:30**, 1.8 km from the Insadong
+dessert stop, where it costs 15 minutes on the subway plus the 15-minute climb
+from Hyehwa through Ihwa Mural Village. Sunset is 17:20, so the climb lands you
+on the wall as it goes, and the wall is lit after dark. From the top you come
+straight down to the east end of Cheonggyecheon.
+
+That rearranged two days. Thursday loses its sunset slot — the Huam-dong
+rooftop widens to 2 hr and takes the light instead, then Myeongdong shopping
+moves to 17:30 and dinner to 19:45. Friday pulls everything forward by 45–60
+min to clear the 16:30 climb, and Deoksugung and Namsan join Gyeongbokgung in
+the Spare bucket.
+
+Places with a final climb carry a `legExtra` so the estimate includes it —
+Naksan reads 30 min, not 15.
+
+Three legs were fixed earlier:
 
 - **Sat, Seoul Forest → Banpo** was the worst in the week at about 45 minutes
   across the river. Replaced with **Ttukseom Hangang Park**, the stretch of

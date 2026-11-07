@@ -143,6 +143,11 @@ header h1{font:700 clamp(28px,5vw,38px)/1.08 var(--display);margin:0 0 8px;lette
 .dayhead h2{margin:0;font:700 19px/1.2 var(--display)}
 .dayhead span{color:var(--muted);font-size:13.5px}
 .slots{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.leg{display:flex;align-items:center;gap:10px;padding:0 0 0 20px}
+.legbar{flex:none;width:0;height:15px;border-left:2px dotted var(--line)}
+.legtxt{font-size:11.5px;font-weight:600;color:var(--faint);letter-spacing:.01em}
+.leg[data-far="1"] .legtxt{color:var(--d2)}
+.leg[data-far="1"] .legbar{border-color:var(--d2);opacity:.55}
 
 .slot{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;
   transition:border-color .16s, box-shadow .16s;scroll-margin-top:calc(var(--maph) + 92px)}
@@ -359,6 +364,7 @@ footer .credhead:first-child{margin-top:0}
 
   <footer>
     <p>Times marked ~ are suggestions; fixed times come from your sheet. Every option in a bucket is on the map at once — the dashed pins are the ones you have not picked. The map is schematic, so use the Google Maps and Naver links for real directions.</p>
+    <p>The minutes between stops are estimates from the distance between pins, not routed times — walking under about a kilometre, otherwise subway or bus with time added for stations and changes. Hills and transfers are where they are weakest, so check anything tight on Naver.</p>
     <p>Your picks are saved in this browser. <b>Share my picks</b> copies a link that carries them, so whoever opens it sees the same choices — they can then change their own copy without touching yours.</p>
     <details>
       <summary>Photo credits</summary>
@@ -374,6 +380,27 @@ footer .credhead:first-child{margin-top:0}
 var NS='http://www.w3.org/2000/svg';
 var W=1000,H=629,LAT0=37.59,LNG0=126.89,DLAT=0.09,DLNG=0.18;
 function proj(lat,lng){return [(lng-LNG0)/DLNG*W,(LAT0-lat)/DLAT*H];}
+
+/* Rough door-to-door estimate between two places. Straight-line distance,
+   walked under 1.2 km, otherwise transit with a flat overhead for getting to
+   a station, waiting and changing. Good enough to spot a bad hop; it is not
+   a routed time, which is why the footer says so. */
+function kmBetween(a,b){
+  var R=6371,t=Math.PI/180;
+  var dLat=(b.lat-a.lat)*t, dLng=(b.lng-a.lng)*t;
+  var h=Math.sin(dLat/2)*Math.sin(dLat/2)+
+        Math.cos(a.lat*t)*Math.cos(b.lat*t)*Math.sin(dLng/2)*Math.sin(dLng/2);
+  return 2*R*Math.asin(Math.sqrt(h));
+}
+function legBetween(a,b){
+  if(!a||!b||a.lat===undefined||b.lat===undefined)return null;
+  var d=kmBetween(a,b);
+  if(d<0.04)return null;
+  var extra=b.legExtra||0;                 /* final climb on foot, where there is one */
+  if(d<=1.2){var w=Math.max(1,Math.round(d*13))+extra;return {m:w,text:w+' min walk'};}
+  var m=Math.round(10+d*2.6)+extra;
+  return {m:m,text:m+' min by subway or bus'};
+}
 
 var P=window.PLACES, DAYS=window.DAYS, TAX=window.TAXONOMY;
 var ICON_OVERRIDE={icn:'transport',airbnb:'stay',namsan:'tower'};
@@ -753,6 +780,13 @@ function optionRow(id,di,si,isPick){
   });
   return row;
 }
+function legRow(text,far){
+  var li=el('li',{'class':'leg'});
+  if(far)li.setAttribute('data-far','1');
+  li.appendChild(el('span',{'class':'legbar'}));
+  li.appendChild(el('span',{'class':'legtxt',text:text}));
+  return li;
+}
 function renderItinerary(){
   panel.innerHTML='';
   DAYS.forEach(function(d,di){
@@ -761,8 +795,17 @@ function renderItinerary(){
     var sec=el('section',{'class':'day',style:'--c:'+dayVar(di)});
     sec.appendChild(el('div',{'class':'dayhead'},[el('h2',{text:d.date}),el('span',{text:d.title})]));
     var ul=el('ul',{'class':'slots'});
+    var prevPlace=null;
     d.slots.forEach(function(s,si){
       var key=slotKey(di,si), id=pickOf(di,si), p=id?P[id]:null;
+      if(!d.spare){
+        if(s.leg)ul.appendChild(legRow(s.leg,false));
+        else{
+          var lg=legBetween(prevPlace,p);
+          if(lg)ul.appendChild(legRow(lg.text,lg.m>30));
+        }
+      }
+      prevPlace=(p&&p.lat!==undefined)?p:null;
       var many=s.opts.length>1;
       var isOpen=many&&openSlots[key];
       var slot=el('div',{'class':'slot','data-key':key,style:'--c:'+dayVar(di)});
