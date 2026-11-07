@@ -611,12 +611,12 @@ window.PLACES = {
     why:'Croffle café in the back lanes of Seongsu-dong 2-ga. The black sesame croffle and the black sesame cream latte are what everyone orders.',
     addr:'18 Seongdeokjeong 11-gil, 1F', hours:'Daily 10:00–21:00 · last order 20:00',
     go:'About 10 min walk from Seongsu Stn exit 3, in the residential lanes', tip:'Seats are not very comfortable — a good one to take away'},
-  richardhouse:{name:'Richard House Yeonnam', short:'Richard House', ko:'리차드하우스 연남', type:'shopping',
+  richardhouse:{name:'Richard House Yeonnam', short:'Richard House', ko:'리차드하우스 연남', type:'restaurant',
     area:'Yeonnam', gu:'Mapo-gu', lat:37.5650, lng:126.9236, side:'r',
     q:'리차드하우스 연남 동교로46길 36',
-    why:'From your Google Maps links. I could not find anything written about it, so it sits with the Yeonnam shops for now.',
+    why:'A lunch spot at the top end of Yeonnam, from your Google Maps links. Little is written about it online, so the menu is a surprise.',
     addr:'36 Donggyo-ro 46-gil, 1F', go:'About 6 min walk north of the flat',
-    warn:'Not sure what it is — if it is a café or somewhere to eat, say so and I will move it'},
+    warn:'Hours not confirmed — check Naver that it is open for lunch on a Wednesday'},
 };
 
 /* Days. Each slot is a bucket: a time, a label, and the options that fit it.
@@ -633,8 +633,8 @@ window.DAYS = [
   {t:'07:30', label:'Breakfast', plan:'At the airport', warn:'Still a question mark in your sheet', opts:['icn']},
   {t:'~10:30', leg:'about 60 min — AREX all-stop, then 10 min on foot', label:'Drop bags', plan:'Leave the cases and keep going — you check in when you get back tonight', go:'AREX all-stop to Hongik Univ., about 50 min with no transfer — the express does not stop there. Then 10 min north up Seongmisan-ro', opts:['airbnb']},
   {t:'~11:00', label:'Coffee', plan:'Straight from dropping the bags', when:'Most Yeonnam cafes open at 11:00 · Coffee Nap from 10:00', tip:'Overdeep is two doors down', opts:['overdeep','coffeenap','nothink','oats','koriko','meltingof','longvacation','layeredy','donggyo','yeonnam','heytea','unyoke']},
-  {t:'~12:15', label:'Lunch', plan:'The first four are a few minutes from the flat', tip:'No need to go back after — you check in tonight', opts:['thinghow','choidining','choidak','hisashi','mibbedong','gitteul','sunnyhouse','mangwonmkt']},
-  {t:'~13:20', dur:'2 hr', label:'Yeonnam shopping', route:['Comme Toi — in the Thing How building', 'LOE and Vint New York — on the same street', 'Gleaming Day and Daol — next door to each other'], when:'Most open at 12:00–13:00, so straight after lunch is right', go:'All within a few minutes’ walk of each other', opts:['commetoi','loe','vintny','thatspring','uniland','artiwave','gleamingday','daol','richardhouse']},
+  {t:'~12:15', label:'Lunch', plan:'The first four are a few minutes from the flat', tip:'No need to go back after — you check in tonight', opts:['thinghow','choidining','choidak','hisashi','richardhouse','mibbedong','gitteul','sunnyhouse','mangwonmkt']},
+  {t:'~13:20', dur:'2 hr', label:'Yeonnam shopping', route:['Comme Toi — in the Thing How building', 'LOE and Vint New York — on the same street', 'Gleaming Day and Daol — next door to each other'], when:'Most open at 12:00–13:00, so straight after lunch is right', go:'All within a few minutes’ walk of each other', opts:['commetoi','loe','vintny','thatspring','uniland','artiwave','gleamingday','daol']},
   {t:'~15:35', dur:'30 min', label:'Definite go', route:'Up past the top of Yeonnam into Yeonhui — the top of Yeontral Park is right there for the walk down', warn:'Opening hours not confirmed — check Naver before heading up', opts:['molia']},
   {t:'~16:10', leg:'a few minutes — the park runs right past Yeonhui', label:'Walk off the flight', route:'Drop into Yeontral Park from molia and walk it all the way down through Yeonnam to Hongik Univ. Stn exit 3, where the Hongdae shops start', when:'Sunset is 17:20, so you get it in daylight', opts:['yeontral','yeonnam']},
   {t:'~16:55', dur:'2 hr', label:'Hongdae shopping', when:['Early closers first — Musinsa Standard shuts at 21:00', 'SAPPUN and Chaakan Gudu at 22:00'], go:'Straight off the end of the park', opts:['musinsa','sappun','chaakan','oyhongdae','loof','nyunyuhd','nyunyuhdhouse']},

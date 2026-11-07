@@ -351,6 +351,19 @@ body.notes-off .srow{padding-top:8px;padding-bottom:8px}
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .pk[data-more] .pkwhy{display:none}
 .pkfull{margin:0 0 10px;font-size:13px;line-height:1.5;color:var(--ink);opacity:.86}
+.pickpanel.multi .opick{border-radius:7px}
+.pickfoot{position:sticky;bottom:-28px;margin:14px -18px -28px;padding:12px 18px 20px;
+  background:linear-gradient(to top,var(--bg) 75%,transparent);z-index:3}
+@media (min-width:760px){.pickfoot{bottom:-28px}}
+.pickdone{width:100%;min-height:48px;border:0;border-radius:999px;background:var(--c,var(--accent));color:var(--on-pin);
+  font:700 15.5px/1 var(--body);cursor:pointer;box-shadow:var(--shadow-m)}
+.smulti{font-weight:500;color:var(--muted);font-size:13.5px}
+.sname{flex-wrap:wrap}
+.sname.many{display:block}
+.sname.many .star{margin-right:4px}
+.sthumb{position:relative}
+.scountbadge{position:absolute;right:4px;bottom:4px;min-width:20px;height:20px;padding:0 6px;border-radius:999px;
+  background:var(--ink);color:var(--bg);font:800 11px/20px var(--body);text-align:center}
 .pkdet{display:flex;align-items:center;gap:6px;width:100%;padding:9px 12px 11px 88px;background:none;border:0;
   border-top:1px solid var(--line-soft);font:600 12.5px/1.2 var(--body);color:var(--accent-ink);cursor:pointer;text-align:left}
 .pkdet svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
@@ -569,6 +582,7 @@ footer .credhead:first-child{margin-top:0}
       <button type="button" class="sheetx" id="pickClose" aria-label="Close"><svg><use href="#i-x"/></svg></button>
     </div>
     <div class="picklist" id="pickBody"></div>
+    <div class="pickfoot" id="pickFoot" hidden><button type="button" class="pickdone" id="pickDone">Done</button></div>
   </div>
 </div>
 
@@ -652,15 +666,27 @@ try{saved=JSON.parse(localStorage.getItem(LS)||'{}')||{};}catch(e){saved={};}
 var choices=saved.choices||{}, openSlots=saved.open||{};
 function persist(){try{localStorage.setItem(LS,JSON.stringify({choices:choices,open:openSlots}));}catch(e){}}
 function slotKey(di,si){return di+'-'+si;}
+/* Shopping stops take several picks: a stop where every option is a shop or
+   a shopping street. choices[key] is then a list; anywhere else it is one id. */
+function isMulti(s){
+  return s.opts.length>1&&s.opts.every(function(id){var t=P[id]&&P[id].type;return t==='shopping'||t==='area';});
+}
+function addChoice(key,s,id){
+  var c=choices[key];
+  if(isMulti(s)&&c){var a=Array.isArray(c)?c.slice():[c]; if(a.indexOf(id)<0)a.push(id); choices[key]=a;}
+  else choices[key]=id;
+}
 /* When slots are added to a day, picks saved on this device can point at
    the wrong slot number. Move each one to the nearest slot on the same day
    that offers that place, as share links do. */
 (function healChoices(){
-  var stale=[], taken={}, moved=0;
+  var stale=[], taken={};
   Object.keys(choices).forEach(function(k){
     var a=k.split('-'), d=DAYS[+a[0]], s=d&&d.slots[+a[1]];
-    if(s&&s.opts.indexOf(choices[k])>=0)taken[k]=1;
-    else{stale.push([+a[0],+a[1],choices[k]]); delete choices[k];}
+    var ids=Array.isArray(choices[k])?choices[k]:[choices[k]];
+    var ok=s?ids.filter(function(id){return s.opts.indexOf(id)>=0;}):[];
+    ids.forEach(function(id){if(ok.indexOf(id)<0)stale.push([+a[0],+a[1],id]);});
+    if(ok.length){choices[k]=ok.length>1?ok:ok[0]; taken[k]=1;} else delete choices[k];
   });
   stale.forEach(function(x){
     var d=DAYS[x[0]], best=-1; if(!d)return;
@@ -668,15 +694,19 @@ function slotKey(di,si){return di+'-'+si;}
       if(taken[x[0]+'-'+j]||s.opts.indexOf(x[2])<0)return;
       if(best<0||Math.abs(j-x[1])<Math.abs(best-x[1]))best=j;
     });
-    if(best>=0){choices[x[0]+'-'+best]=x[2]; taken[x[0]+'-'+best]=1; moved++;}
+    if(best>=0){choices[x[0]+'-'+best]=x[2]; taken[x[0]+'-'+best]=1;}
   });
   if(stale.length)try{localStorage.setItem(LS,JSON.stringify({choices:choices,open:openSlots}));}catch(e){}
 })();
-function pickOf(di,si){
-  var s=DAYS[di].slots[si]; if(!s.opts.length)return null;
-  var c=choices[slotKey(di,si)];
-  return (c&&s.opts.indexOf(c)>=0)?c:s.opts[0];
+/* every pick for a stop, in the stop's own order; the first is the main one */
+function picksOf(di,si){
+  var s=DAYS[di].slots[si]; if(!s.opts.length)return [];
+  var c=choices[slotKey(di,si)], want=Array.isArray(c)?c:(c?[c]:[]);
+  var out=s.opts.filter(function(id){return want.indexOf(id)>=0;});
+  if(!out.length)out=[s.opts[0]];
+  return isMulti(s)?out:out.slice(0,1);
 }
+function pickOf(di,si){var a=picksOf(di,si);return a.length?a[0]:null;}
 /* ---------- shareable picks ----------
    Only picks that differ from a slot's default travel in the link, as
    day.slot.placeid joined by _ . Unknown or stale entries are dropped on
@@ -686,8 +716,9 @@ function picksParam(){
   DAYS.forEach(function(d,di){
     d.slots.forEach(function(s,si){
       if(s.opts.length<2)return;
-      var id=pickOf(di,si);
-      if(id&&id!==s.opts[0])out.push(di+'.'+si+'.'+id);
+      var ids=picksOf(di,si);
+      if(ids.length===1&&ids[0]===s.opts[0])return;
+      ids.forEach(function(id){out.push(di+'.'+si+'.'+id);});
     });
   });
   return out.join('_');
@@ -718,19 +749,26 @@ function readPicks(){
   pickTriples().forEach(function(a){
     var di=+a[0], si=+a[1], id=a[2], d=DAYS[di]; if(!d)return;
     var s=d.slots[si];
-    if(s&&s.opts.indexOf(id)>=0){choices[slotKey(di,si)]=id; taken[di+'-'+si]=1; n++;}
+    if(s&&s.opts.indexOf(id)>=0){
+      if(taken[di+'-'+si])addChoice(slotKey(di,si),s,id); else choices[slotKey(di,si)]=id;
+      taken[di+'-'+si]=1; n++;
+    }
     else late.push([di,si,id]);
   });
   late.forEach(function(a){
     var di=a[0], si=a[1], id=a[2], best=-1;
     DAYS[di].slots.forEach(function(s,j){
-      if(taken[di+'-'+j]||s.opts.indexOf(id)<0)return;
+      if((taken[di+'-'+j]&&!isMulti(s))||s.opts.indexOf(id)<0)return;
       if(best<0||Math.abs(j-si)<Math.abs(best-si))best=j;
     });
-    if(best>=0){choices[slotKey(di,best)]=id; taken[di+'-'+best]=1; n++;}
+    if(best>=0){
+      var bs=DAYS[di].slots[best];
+      if(taken[di+'-'+best])addChoice(slotKey(di,best),bs,id); else choices[slotKey(di,best)]=id;
+      taken[di+'-'+best]=1; n++;
+    }
   });
   if(n)persist();
-  return n;
+  return Object.keys(taken).length;           /* stops changed, not shops */
 }
 /* Inside the artifact, hand out the artifact link, with picks in the
    hyphen-only form that an artifact URL will pass through. Elsewhere, the
@@ -855,9 +893,9 @@ function markers(){
   var n=0;
   visibleDays().forEach(function(di){
     DAYS[di].slots.forEach(function(s,si){
-      var pick=pickOf(di,si);
+      var picks=picksOf(di,si);
       s.opts.forEach(function(id){
-        var isPick=id===pick;
+        var isPick=picks.indexOf(id)>=0;
         if(seen[id]){ if(isPick)seen[id].primary=true; return; }
         var m={id:id,day:di,num:null,primary:isPick};
         if(isPick&&state.day!=='all'){n++;m.num=n;}
@@ -870,8 +908,8 @@ function markers(){
 function numberFor(di,id){
   var n=0,seen={};
   for(var i=0;i<DAYS[di].slots.length;i++){
-    var p=pickOf(di,i);
-    if(p&&!seen[p]){seen[p]=1;n++;if(p===id)return n;}
+    var ps=picksOf(di,i);
+    for(var j=0;j<ps.length;j++){var p=ps[j]; if(!seen[p]){seen[p]=1;n++;if(p===id)return n;}}
   }
   return null;
 }
@@ -918,8 +956,7 @@ function drawPins(){
   if(dayView&&!DAYS[state.day].spare){
     var pts=[];
     DAYS[state.day].slots.forEach(function(s,si){
-      var id=pickOf(state.day,si); if(!id)return;
-      if(pts[pts.length-1]!==id)pts.push(id);
+      picksOf(state.day,si).forEach(function(id){if(pts[pts.length-1]!==id)pts.push(id);});
     });
     if(pts.length>1){
       layerRoute.appendChild(S('polyline',{points:pts.map(function(id){return P[id].xy.join(',');}).join(' '),
@@ -1086,7 +1123,7 @@ function renderChips(){
 /* ---------- itinerary panel ---------- */
 /* ---------- option picker: a sheet, like Save to Naver ---------- */
 function pickRow(id,di,si,isPick){
-  var p=P[id], key=slotKey(di,si);
+  var p=P[id], key=slotKey(di,si), sl=DAYS[di].slots[si], multi=isMulti(sl);
   var box=el('div',{'class':'pk','aria-current':isPick?'true':null});
   if(!isPick)box.removeAttribute('aria-current');
   var main=el('button',{type:'button','class':'pkmain','aria-pressed':String(isPick)});
@@ -1094,7 +1131,7 @@ function pickRow(id,di,si,isPick){
   var mid=el('div',{'class':'pkmid'});
   var nm=el('div',{'class':'pkname'},[el('span',{text:p.name})]);
   if(p.must)nm.insertBefore(starMark(),nm.firstChild);
-  if(isPick)nm.appendChild(el('span',{'class':'pill',text:'Your pick'}));
+  if(isPick)nm.appendChild(el('span',{'class':'pill pickedpill',text:multi?'Picked':'Your pick'}));
   else if(p.must)nm.appendChild(el('span',{'class':'pill mustpill',text:'Definite go'}));
   else if(p.solo)nm.appendChild(el('span',{'class':'pill',text:'solo ok'}));
   mid.appendChild(nm);
@@ -1109,11 +1146,25 @@ function pickRow(id,di,si,isPick){
   main.appendChild(mid);
   main.appendChild(el('span',{'class':'opick'},[icon('check')]));
   main.addEventListener('click',function(){
+    if(multi){
+      var cur=picksOf(di,si), on=cur.indexOf(id)>=0;
+      if(on&&cur.length===1){toast('Keep at least one — tick another shop first');return;}
+      var next=on?cur.filter(function(x){return x!==id;}):cur.concat([id]);
+      next=sl.opts.filter(function(x){return next.indexOf(x)>=0;});
+      choices[key]=next.length>1?next:next[0]; persist(); syncUrl();
+      pickerDirty=true;
+      main.setAttribute('aria-pressed',String(!on));
+      if(on)box.removeAttribute('aria-current'); else box.setAttribute('aria-current','true');
+      var pl=nm.querySelector('.pickedpill');
+      if(on&&pl)pl.remove(); else if(!on&&!pl)nm.appendChild(el('span',{'class':'pill pickedpill',text:'Picked'}));
+      pickerCount(di,si);
+      return;
+    }
     choices[key]=id; persist(); syncUrl();
     state.place=id; state.slot=key;
     closePicker(true);
     render(); focusOn(id);
-    if(!isPick)toast(p.name+' is your '+DAYS[di].slots[si].label.toLowerCase()+' pick');
+    if(!isPick)toast(p.name+' is your '+sl.label.toLowerCase()+' pick');
   });
   box.appendChild(main);
   var fx=facts(p);
@@ -1138,16 +1189,24 @@ function pickRow(id,di,si,isPick){
   }
   return box;
 }
-var pickerReturn=null;
+var pickerReturn=null, pickerDirty=false, pickerAt=null;
+function pickerCount(di,si){
+  var s=DAYS[di].slots[si], n=picksOf(di,si).length;
+  $('pickCount').textContent=isMulti(s)?'Tick as many as you like · '+n+' picked':s.opts.length+' options · tap one to pick it';
+  $('pickDone').textContent=n>1?'Done · '+n+' shops':'Done';
+}
 function openPicker(di,si){
-  var d=DAYS[di], s=d.slots[si], cur=pickOf(di,si);
+  var d=DAYS[di], s=d.slots[si], picks=picksOf(di,si), multi=isMulti(s);
+  pickerDirty=false; pickerAt=[di,si];
   pickerReturn=document.activeElement;
   var pnl=$('pickPanel'); pnl.style.setProperty('--c',dayVar(di));
   $('pickWhen').textContent=(d.spare?'Spare':d.key)+(s.t?' · '+s.t:'')+(s.dur?' · '+s.dur:'');
   $('pickTitle').textContent=s.label;
-  $('pickCount').textContent=s.opts.length+' options · tap one to pick it';
+  pickerCount(di,si);
+  $('pickFoot').hidden=!multi;
+  pnl.classList.toggle('multi',multi);
   var body=$('pickBody'); body.innerHTML='';
-  s.opts.forEach(function(oid){body.appendChild(pickRow(oid,di,si,oid===cur));});
+  s.opts.forEach(function(oid){body.appendChild(pickRow(oid,di,si,picks.indexOf(oid)>=0));});
   $('picker').hidden=false; document.body.style.overflow='hidden';
   pnl.scrollTop=0;
   var on=body.querySelector('.pk[aria-current] .pkmain')||body.querySelector('.pkmain');
@@ -1155,6 +1214,15 @@ function openPicker(di,si){
 }
 function closePicker(picked){
   $('picker').hidden=true; document.body.style.overflow='';
+  if(pickerDirty&&pickerAt){
+    pickerDirty=false;
+    var first=pickOf(pickerAt[0],pickerAt[1]);
+    state.place=first; state.slot=slotKey(pickerAt[0],pickerAt[1]);
+    render(); focusOn(first);
+    var n=picksOf(pickerAt[0],pickerAt[1]).length;
+    toast(n>1?n+' shops picked for '+DAYS[pickerAt[0]].slots[pickerAt[1]].label.toLowerCase():'One shop picked');
+    return;
+  }
   if(!picked&&pickerReturn&&pickerReturn.focus)pickerReturn.focus({preventScroll:true});
 }
 function legRow(text,far){
@@ -1177,7 +1245,7 @@ function mustWhere(id){
     if(d.spare)return;
     d.slots.forEach(function(s,si){
       if(s.opts.indexOf(id)<0)return;
-      if(!pick&&pickOf(di,si)===id)pick={di:di,si:si};
+      if(!pick&&picksOf(di,si).indexOf(id)>=0)pick={di:di,si:si};
       if(!offer)offer={di:di,si:si};
     });
   });
@@ -1248,7 +1316,8 @@ function renderItinerary(){
     var ul=el('ul',{'class':'slots'});
     var prevPlace=null, travel=0, stops=0, nn=nowNext(di);
     d.slots.forEach(function(s,si){
-      var key=slotKey(di,si), id=pickOf(di,si), p=id?P[id]:null;
+      var key=slotKey(di,si), all=picksOf(di,si), id=all[0]||null, p=id?P[id]:null;
+      var lastP=all.length?P[all[all.length-1]]:null, multi=isMulti(s);
       if(!d.spare){
         if(s.leg){ul.appendChild(legRow(s.leg,!!s.legFar)); var lm=/(\d+)\s*min/.exec(s.leg); if(lm)travel+=+lm[1];}
         else{
@@ -1257,7 +1326,7 @@ function renderItinerary(){
         }
         if(p)stops++;
       }
-      prevPlace=(p&&p.lat!==undefined)?p:null;
+      prevPlace=(lastP&&lastP.lat!==undefined)?lastP:null;
       var many=s.opts.length>1;
       var slot=el('div',{'class':'slot','data-key':key,style:'--c:'+dayVar(di)});
       if(nn&&nn.now===si)slot.setAttribute('data-now','now');
@@ -1279,22 +1348,34 @@ function renderItinerary(){
       mid.appendChild(lab);
       if(p){
         var pick=el('div',{'class':'spick'});
-        var nmEl=el('div',{'class':'sname'},[el('span',{text:p.name})]);
-        if(p.must){nmEl.insertBefore(starMark(),nmEl.firstChild); slot.setAttribute('data-must','1');}
+        var several=all.length>1;
+        var nmEl=el('div',{'class':'sname'+(several?' many':'')},[el('span',{text:several?'Multiple ':p.name})]);
+        if(several)nmEl.appendChild(el('span',{'class':'smulti',text:'('+all.map(function(x){return P[x].short||P[x].name;}).join(', ')+')'}));
+        if(all.some(function(x){return P[x].must;})){nmEl.insertBefore(starMark(),nmEl.firstChild); slot.setAttribute('data-must','1');}
         var info=el('div',{'class':'sinfo'},[nmEl]);
-        var sub=[typeLabel(p.type)];
-        if(p.area&&p.area!=='Unconfirmed')sub.unshift(p.area);
+        var sub;
+        if(several){
+          var areas=[]; all.forEach(function(x){var a=P[x].area; if(a&&a!=='Unconfirmed'&&areas.indexOf(a)<0)areas.push(a);});
+          sub=areas.concat([all.length+' shops']);
+        }else{
+          sub=[typeLabel(p.type)];
+          if(p.area&&p.area!=='Unconfirmed')sub.unshift(p.area);
+        }
         info.appendChild(el('div',{'class':'ssub',text:sub.join(' · ')}));
         var meta=el('div',{'class':'smeta'});
-        if(p.hours){
+        if(p.hours&&!several){
           var hr=p.hours.split(' · ')[0].split(' — ')[0];
           meta.appendChild(el('span',{'class':'shours'},[icon('pace'),el('span',{text:hr})]));
         }
         var wd=closedOn(p,d);
         if(wd)meta.appendChild(el('span',{'class':'sclosed',text:'Closed '+wd}));
-        if(many)meta.appendChild(el('span',{'class':'smore',text:'+'+(s.opts.length-1)+' option'+(s.opts.length>2?'s':'')}));
+        var rest=s.opts.length-all.length;
+        if(multi)meta.appendChild(el('span',{'class':'smore',text:rest?'+'+rest+' more shop'+(rest>1?'s':''):'All picked'}));
+        else if(many)meta.appendChild(el('span',{'class':'smore',text:'+'+(s.opts.length-1)+' option'+(s.opts.length>2?'s':'')}));
         if(meta.childNodes.length)info.appendChild(meta);
-        pick.appendChild(thumb(p,'sthumb'));
+        var th=thumb(p,'sthumb');
+        if(several)th.appendChild(el('span',{'class':'scountbadge',text:String(all.length)}));
+        pick.appendChild(th);
         pick.appendChild(info);
         mid.appendChild(pick);
       }
@@ -1303,7 +1384,7 @@ function renderItinerary(){
       if(many){
         right.appendChild(el('span',{'class':'chev'},[icon('chev')]));
         head.setAttribute('aria-haspopup','dialog');
-        head.setAttribute('aria-label',s.label+': '+p.name+'. Choose from '+s.opts.length+' options');
+        head.setAttribute('aria-label',s.label+': '+all.map(function(x){return P[x].name;}).join(', ')+'. '+(multi?'Pick any of ':'Choose from ')+s.opts.length+' options');
         head.addEventListener('click',function(){openPicker(di,si);});
       }else if(p){
         right.appendChild(el('span',{'class':'chev'},[icon('chev')]));
@@ -1607,9 +1688,10 @@ function nvGroups(){
     d.slots.forEach(function(s,si){
       if(!s.opts.length)return;
       if(d.spare&&!choices[slotKey(di,si)])return;
-      var id=pickOf(di,si);
-      if(!id||seen[id])return;
-      seen[id]=1; rows.push({id:id,s:s});
+      picksOf(di,si).forEach(function(id){
+        if(seen[id])return;
+        seen[id]=1; rows.push({id:id,s:s});
+      });
     });
     if(rows.length)out.push({d:d,di:di,rows:rows});
   });
@@ -1656,6 +1738,7 @@ function openSheet(){sheetReturn=document.activeElement;renderSheet();$('sheet')
 function closeSheet(){$('sheet').hidden=true;document.body.style.overflow='';if(sheetReturn&&sheetReturn.focus)sheetReturn.focus();}
 $('naverOpen').addEventListener('click',openSheet);
 $('pickClose').addEventListener('click',function(){closePicker();});
+$('pickDone').addEventListener('click',function(){closePicker();});
 $('picker').addEventListener('click',function(e){if(e.target===$('picker'))closePicker();});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('picker').hidden)closePicker();});
 $('sheetClose').addEventListener('click',closeSheet);
