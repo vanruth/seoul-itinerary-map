@@ -799,7 +799,7 @@ function renderItinerary(){
     d.slots.forEach(function(s,si){
       var key=slotKey(di,si), id=pickOf(di,si), p=id?P[id]:null;
       if(!d.spare){
-        if(s.leg)ul.appendChild(legRow(s.leg,false));
+        if(s.leg)ul.appendChild(legRow(s.leg,!!s.legFar));
         else{
           var lg=legBetween(prevPlace,p);
           if(lg)ul.appendChild(legRow(lg.text,lg.m>30));

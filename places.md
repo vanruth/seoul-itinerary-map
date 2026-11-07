@@ -196,6 +196,27 @@ Ikseon, Hannam, Jongno) has standard-size branches only.
 | Olive Young Hongdae Town | 57 Hongik-ro 6-gil, Mapo-gu | ~300 pyeong, 1–3F. Second-largest Town store. Half of 1F is brand pop-ups |
 | Olive Young Gangnam Town | 429 Gangnam-daero, Seocho-gu (Dongil Building 1–3F) | Town store. Premium brands and beauty devices |
 
+## Every day starts at the flat
+
+Added 7 Nov. Each day after arrival now opens with a "Leave the flat" stop at
+the Airbnb, and the hop to the first real stop is written out rather than
+estimated, because two of them cross the city:
+
+| Day | Leave | First stop | How |
+|---|---|---|---|
+| Thu | ~09:45 | Hannam brunch, 10:30 | **~40 min.** Gyeongui-Jungang line, Hongik Univ. → Hannam, no change; trains every 10–15 min |
+| Fri | ~08:30 | Leedorim, 09:00 | ~30 min by subway or bus, ~20 by taxi |
+| Sat | ~10:10 | Seongsu, 11:00 | **~45 min.** Line 2 straight through from Hongik Univ., no change |
+| Sun | ~09:15 | Hongik Univ. meet, 09:30 | 10 min walk |
+
+Wednesday starts at the airport by necessity (the flat comes in at bag drop),
+and Monday already starts at the flat with check-out.
+
+Thursday and Saturday are the only legs in the week over 30 minutes, and they
+cannot be fixed by reordering: Hannam and Seongsu are simply the other side
+of Seoul from Yeonnam. Both are a single train with no change, which is about
+as good as a 40-minute trip gets.
+
 ## Friday, as it stands
 
 Rebuilt 7 Nov so it never returns to somewhere already visited. The old order

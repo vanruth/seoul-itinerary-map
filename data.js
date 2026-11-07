@@ -544,7 +544,8 @@ window.DAYS = [
   {t:'~20:15', dur:'2 hr', label:'Late shopping', hint:'what was the noraebang slot. Only the late ones are still open — LOOF and Olive Young Town run to 23:00 and both nyunyu stores keep going', opts:['loof','oyhongdae','nyunyuhd','nyunyuhdhouse']}
  ]},
  {key:'Thu 12', date:'Thursday 12 November', title:'Hannam, a rooftop, and Myeongdong', slots:[
-  {t:'~10:30', label:'Brunch', hint:'Hannam', opts:['keem','summerlane','motheroffline','milestone','narrowpath']},
+  {t:'~09:45', label:'Leave the flat', hint:'Hannam is across town. Walk 10 min to Hongik Univ., then the Gyeongui-Jungang line runs straight to Hannam — no change, but trains are every 10–15 min', opts:['airbnb']},
+  {t:'~10:30', leg:'about 40 min — Gyeongui-Jungang line, Hongik Univ. to Hannam, then 10 min up the hill', legFar:true, label:'Brunch', hint:'Hannam', opts:['keem','summerlane','motheroffline','milestone','narrowpath']},
   {t:'~11:45', dur:'2 hr', label:'Shopping', hint:'Hannam — KIV and the three k-fashion flagships, plus Youssoful for homeware', opts:['kiv','raive','glowny','asura','youssoful','hannam']},
   {t:'~14:00', label:'Lunch', hint:'Hannam and Haebangchon', opts:['gamjatang','haebang','gml']},
   {t:'~15:30', dur:'2 hr', label:'Coffee with a view', hint:'Huam-dong — Villa Coffee is a rooftop over the city, so you get the light going from a chair. Naksan has moved to Friday, where it is 20 min away instead of 40', opts:['villacoffee','aanzee','rainreport']},
@@ -553,7 +554,8 @@ window.DAYS = [
   {t:'~21:00', label:'Evening walk', hint:'Cheonggyecheon is just north of Myeongdong — down at water level, lit at night, and you come up at a station for home. Moved from Friday, where it meant doubling back', opts:['cheonggye']}
  ]},
  {key:'Fri 13', date:'Friday 13 November', title:'Seochon, Insadong, and the wall at sunset', slots:[
-  {t:'~09:00', label:'Breakfast', hint:'straight to Leedorim. From here the day runs one way, west to east, and finishes at the bottom of the Naksan wall', opts:['leedorim','rafre','seochon']},
+  {t:'~08:30', label:'Leave the flat', hint:'Seochon is about 30 min by subway or bus, or roughly 20 by taxi if you want the extra sleep', opts:['airbnb']},
+  {t:'~09:00', leg:'about 30 min by subway or bus — 20 by taxi', label:'Breakfast', hint:'straight to Leedorim. From here the day runs one way, west to east, and finishes at the bottom of the Naksan wall', opts:['leedorim','rafre','seochon']},
   {t:'~10:00', label:'Wall walk', hint:'Deoksugung stone wall in the morning light — the guard change at Daehanmun is at 11:00', opts:['deoksu']},
   {t:'~11:20', label:'Stationery stop', hint:'Kyobo — Hottracks in the basement. 8 min walk up from Deoksugung, already on the way north', opts:['kyobo']},
   {t:'~12:05', label:'Lunch', hint:'Samcheong-dong, at the foot of Bukchon. Tosokchon still works but is a small detour west, back towards where you had breakfast', opts:['sujebi','tosokchon']},
@@ -564,13 +566,15 @@ window.DAYS = [
   {t:'~18:30', label:'Dinner', hint:'at the bottom of the wall — dakhanmari alley. No bookings, and the queue builds from 19:00, so 18:30 beats it', opts:['jinokhwa']}
  ]},
  {key:'Sat 14', date:'Saturday 14 November', title:'Seongsu and the Han River', slots:[
-  {t:'~11:00', dur:'2 hr', label:'Shopping', hint:'Seongsu — nyunyu, Romand Pink Office, PLAY X STUDIO and the giant Olive Young, all on Yeonmujang-gil', opts:['seongsu','nyunyuss','nyunyusshouse','oyseongsu','playx']},
+  {t:'~10:10', label:'Leave the flat', hint:'Seongsu is the far side of the city, but line 2 runs straight there from Hongik Univ. with no change', opts:['airbnb']},
+  {t:'~11:00', leg:'about 45 min — 10 min walk, then line 2 straight through to Seongsu, no change', legFar:true, dur:'2 hr', label:'Shopping', hint:'Seongsu — nyunyu, Romand Pink Office, PLAY X STUDIO and the giant Olive Young, all on Yeonmujang-gil', opts:['seongsu','nyunyuss','nyunyusshouse','oyseongsu','playx']},
   {t:'~13:15', label:'Lunch', hint:'Seongsu', opts:['anmok','tofindpeter','gogitbar','mibbedong']},
   {t:'~14:30', label:'Coffee and bakery', hint:'Seongsu — Hanjungsun and Obok are both on the way to the park', opts:['fiveto7','hanjungsun','obok','atob','supermatcha','haz','rafre']},
   {t:'~15:45', label:'Park', hint:'autumn colour should still be going', opts:['seoulforest']},
   {t:'~18:30', label:'Dinner outside', hint:'ramyeon and chimaek on the grass — Ttukseom is a 10 min walk from Seoul Forest, Banpo is 45 min away and its fountain is off until March', opts:['ttukseom','banpo']}
  ]},
  {key:'Sun 15', date:'Sunday 15 November', title:'Changdeokgung and Ikseon-dong', slots:[
+  {t:'~09:15', label:'Leave the flat', hint:'10 min down the park to Hongik Univ.', opts:['airbnb']},
   {t:'09:30', label:'Meet', hint:'Hongik Univ. Station, 10 min from the flat. Jongno is 35–40 min from here on line 2 then line 3 to Anguk — the only leg all week over 30 min, and the 40 min before the palace covers it', opts:['hongdae']},
   {t:'10:10', label:'Palace', hint:'Secret Garden tour 11:30, 5,000 won, ends around 12:30', opts:['changdeok']},
   {t:'~13:00', label:'Lunch', hint:'Ikseon-dong and around', opts:['ikseon','miltoast']},
