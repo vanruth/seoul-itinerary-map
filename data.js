@@ -579,10 +579,10 @@ window.PLACES = {
     go:'Runs from Anguk down to Jonggak', tip:'Small antique and stationery shops often prefer cash'},
 
   /* ---- definite gos: must:true puts the star on them everywhere ---- */
-  molia:{name:'molia', short:'molia', ko:'몰리아', type:'shopping', must:true,
+  molia:{name:'molia', short:'molia', ko:'몰리아', type:'shopping',
     area:'Yeonhui', gu:'Seodaemun-gu', lat:37.5672, lng:126.9305, side:'r',
     q:'몰리아 증가로 13-9',
-    why:'One of your definite gos — a small upstairs shop in Yeonhui, just over the top of Yeonnam. There is next to nothing written about it online, so this one is on your say-so.',
+    why:'A small upstairs shop in Yeonhui, just over the top of Yeonnam. There is next to nothing written about it online, so this one is on your say-so.',
     addr:'13-9 Jeungga-ro, 2F, room 202', go:'About 15 min walk north-east of the flat',
     warn:'Opening hours not confirmed — small studio shops often open around noon and close one day a week, so check Naver first'},
   poset:{name:'Poset Seongsu', short:'Poset', ko:'포셋 성수', type:'shopping', must:true,
@@ -635,7 +635,7 @@ window.DAYS = [
   {t:'~11:00', label:'Coffee', plan:'Straight from dropping the bags', when:'Most Yeonnam cafes open at 11:00 · Coffee Nap from 10:00', tip:'Overdeep is two doors down', opts:['overdeep','coffeenap','nothink','oats','koriko','meltingof','longvacation','layeredy','donggyo','yeonnam','heytea','unyoke']},
   {t:'~12:15', label:'Lunch', plan:'The first four are a few minutes from the flat', tip:'No need to go back after — you check in tonight', opts:['thinghow','choidining','choidak','hisashi','richardhouse','mibbedong','gitteul','sunnyhouse','mangwonmkt']},
   {t:'~13:20', dur:'2 hr', label:'Yeonnam shopping', route:['Comme Toi — in the Thing How building', 'LOE and Vint New York — on the same street', 'Gleaming Day and Daol — next door to each other'], when:'Most open at 12:00–13:00, so straight after lunch is right', go:'All within a few minutes’ walk of each other', opts:['commetoi','loe','vintny','thatspring','uniland','artiwave','gleamingday','daol']},
-  {t:'~15:35', dur:'30 min', label:'Definite go', route:'Up past the top of Yeonnam into Yeonhui — the top of Yeontral Park is right there for the walk down', warn:'Opening hours not confirmed — check Naver before heading up', opts:['molia']},
+  {t:'~15:35', dur:'30 min', label:'Quick stop', route:'Up past the top of Yeonnam into Yeonhui — the top of Yeontral Park is right there for the walk down', warn:'Opening hours not confirmed — check Naver before heading up', opts:['molia']},
   {t:'~16:10', leg:'a few minutes — the park runs right past Yeonhui', label:'Walk off the flight', route:'Drop into Yeontral Park from molia and walk it all the way down through Yeonnam to Hongik Univ. Stn exit 3, where the Hongdae shops start', when:'Sunset is 17:20, so you get it in daylight', opts:['yeontral','yeonnam']},
   {t:'~16:55', dur:'2 hr', label:'Hongdae shopping', when:['Early closers first — Musinsa Standard shuts at 21:00', 'SAPPUN and Chaakan Gudu at 22:00'], go:'Straight off the end of the park', opts:['musinsa','sappun','chaakan','oyhongdae','loof','nyunyuhd','nyunyuhdhouse']},
   {t:'~19:05', label:'Dinner', plan:'Dak galbi on the hotplate, then fried rice in the leftover sauce', opts:['yoogane','shinmikyung','gitteul','mibbedong','geudongne','hongdae']},
