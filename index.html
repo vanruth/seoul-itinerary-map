@@ -395,7 +395,7 @@ footer .credhead:first-child{margin-top:0}
 
   <footer>
     <p>Times marked ~ are suggestions; fixed times come from your sheet. Every option in a bucket is on the map at once — the dashed pins are the ones you have not picked. The map is schematic, so use the Google Maps and Naver links for real directions.</p>
-    <p>The minutes between stops are estimates from the distance between pins, not routed times — walking under about a kilometre, otherwise subway or bus with time added for stations and changes. Hills and transfers are where they are weakest, so check anything tight on Naver.</p>
+    <p>The minutes between stops are estimates from the distance between pins, not routed times — walking under about a kilometre, otherwise subway or bus with time added for stations and changes. Google Maps cannot route walks in Korea and will offer a bus even for two minutes on foot, so use Naver or Kakao for directions. Hills and transfers are where they are weakest, so check anything tight on Naver.</p>
     <p>Your picks are saved in this browser. <b>Share my picks</b> copies a link that carries them, so whoever opens it sees the same choices — they can then change their own copy without touching yours.</p>
     <details>
       <summary>Photo credits</summary>
@@ -450,10 +450,12 @@ var NS='http://www.w3.org/2000/svg';
 var W=1000,H=629,LAT0=37.59,LNG0=126.89,DLAT=0.09,DLNG=0.18;
 function proj(lat,lng){return [(lng-LNG0)/DLNG*W,(LAT0-lat)/DLAT*H];}
 
-/* Rough door-to-door estimate between two places. Straight-line distance,
-   walked under 1.2 km, otherwise transit with a flat overhead for getting to
-   a station, waiting and changing. Good enough to spot a bad hop; it is not
-   a routed time, which is why the footer says so. */
+/* Rough door-to-door estimate between two places, from straight-line
+   distance. Streets are not straight, so walking is 16 min per straight-line
+   km (about 1.3x detour at 4.9 km/h). Past 1.2 km it is transit: 15 min for
+   walking to the stop, waiting and changing, then 2.4 min per km. Checked
+   against known rides: Hongik Univ. to Seongsu comes out at 43 (real ~45).
+   It is not a routed time, which is why the footer says so. */
 function kmBetween(a,b){
   var R=6371,t=Math.PI/180;
   var dLat=(b.lat-a.lat)*t, dLng=(b.lng-a.lng)*t;
@@ -466,8 +468,8 @@ function legBetween(a,b){
   var d=kmBetween(a,b);
   if(d<0.04)return null;
   var extra=b.legExtra||0;                 /* final climb on foot, where there is one */
-  if(d<=1.2){var w=Math.max(1,Math.round(d*13))+extra;return {m:w,text:w+' min walk'};}
-  var m=Math.round(10+d*2.6)+extra;
+  if(d<=1.2){var w=Math.max(2,Math.round(d*16))+extra;return {m:w,text:w+' min walk'};}
+  var m=Math.round(15+d*2.4)+extra;
   return {m:m,text:m+' min by subway or bus'};
 }
 
@@ -539,13 +541,25 @@ function pickTriples(){
   }
   return out;
 }
+/* A link names day.slot.place. When a day is reshuffled the slot number
+   goes stale, so if that slot no longer offers the place, use the nearest
+   slot on the same day that does and that the link has not already filled.
+   Ties go to the earlier slot. */
 function readPicks(){
-  var n=0;
+  var n=0, taken={}, late=[];
   pickTriples().forEach(function(a){
-    var di=+a[0], si=+a[1], id=a[2];
-    var d=DAYS[di]; if(!d)return;
-    var s=d.slots[si]; if(!s||s.opts.indexOf(id)<0)return;
-    choices[slotKey(di,si)]=id; n++;
+    var di=+a[0], si=+a[1], id=a[2], d=DAYS[di]; if(!d)return;
+    var s=d.slots[si];
+    if(s&&s.opts.indexOf(id)>=0){choices[slotKey(di,si)]=id; taken[di+'-'+si]=1; n++;}
+    else late.push([di,si,id]);
+  });
+  late.forEach(function(a){
+    var di=a[0], si=a[1], id=a[2], best=-1;
+    DAYS[di].slots.forEach(function(s,j){
+      if(taken[di+'-'+j]||s.opts.indexOf(id)<0)return;
+      if(best<0||Math.abs(j-si)<Math.abs(best-si))best=j;
+    });
+    if(best>=0){choices[slotKey(di,best)]=id; taken[di+'-'+best]=1; n++;}
   });
   if(n)persist();
   return n;
