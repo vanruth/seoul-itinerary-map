@@ -84,6 +84,46 @@ and every option shows on the map whether or not it is the current pick.
 | Mangwon Market | Mapo-gu | Spoilt for choice, walkable from the Airbnb |
 | abebe | Just past Gwangjang Market | Donuts. Converts people who don't like donuts |
 
+## Shopping — clothes, shoes and k-fashion
+
+From the spreadsheet screenshot shared 7 Nov. Confirmed addresses only; the
+ones I could not place are in their own section below.
+
+| Store | Area | Address | Notes |
+|---|---|---|---|
+| Musinsa Standard | Hongdae | 144 Yanghwa-ro, Mapo-gu | The first Musinsa Standard. Daily 11:00–21:00 |
+| LOOF | Hongdae | 20 Hongik-ro 3-gil, B1, Mapo-gu | Affordable clothes, 5 min from Hongdae Stn exit 9. Daily 11:00–23:00. Second store LOOF ON at 31 Wausan-ro 21-gil |
+| SAPPUN | Hongdae | 55 Wausan-ro 29-gil, Mapo-gu | Shoes. Daily 12:00–22:00. Also Garosu-gil flagship + a Myeongdong branch |
+| Chaakan Gudu | Hongdae | 56 Wausan-ro 27-gil, Mapo-gu | Shoes, two streets from SAPPUN. Daily 12:00–22:00. Also Yeonnam, Gangnam, Sillim |
+| KIV | Hannam | **Street address unconfirmed** | Already named in the sheet; anchor for the Hannam afternoon |
+| RAIVE | Hannam | 237 Itaewon-ro, 1F, Yongsan-gu | Flagship. Daily 11:00–20:00. Tax refund |
+| GLOWNY | Hannam | 7 Itaewon-ro 45-gil, 2F, Yongsan-gu | Flagship. Tax refund |
+| ASURA | Hannam | **Street address unconfirmed** | Flagship exists; the only findable address is a Jung-gu company registration, not the shop |
+| Youssoful | Hannam | 23 Itaewon-ro 49-gil, Yongsan-gu | Homeware and small objects. Daily 11:00–21:00. Apgujeong branch at 32 Eonju-ro 168-gil |
+| Vint New York | Yeonnam | 38 Yeonhui-ro 1-gil, B1, Mapo-gu | Niche perfume and diffusers |
+| PLAY X STUDIO | Seongsu | 73 Yeonmujang-gil, Seongdong-gu | Multi-brand concept store, 2 min from nyunyu |
+| Mimiline | Dongdaemun | 30 Majang-ro, Team204 building 1–3F, Jung-gu | Accessory wholesale, next building to nyunyu. Listed 11:00–17:00 — shuts earliest, go first |
+
+Also added, not a shop: **Hanjungsun** (한정선), 43-1 Yeonmujang-gil 1F, Seongsu —
+fruit mochi, whole strawberries in chapssaltteok. Same street as the Seongsu shopping.
+
+## Shops I could not place
+
+On the list, searched in English and Korean, no reliable address found. They
+are pinned under **Spare → Shops I could not place** so they are visible, but
+those pins are placeholders, not claims about location.
+
+- **Mira Mira** — clothes list
+- **Cream Market** — clothes list
+- **CLO** — clothes list
+- **Hause Aver** — clothes list; the spelling may be off
+- **Minibrand** — listed beside Mimiline, so probably the same Dongdaemun wholesale cluster
+- **Chunmong** — prop-shop list
+- **"vint"** — listed separately from Vint New York; may be a second store of the same brand, not pinned twice
+
+The Naver collection link (`naver.me/GT4R9EWg`) would settle all of these, but
+this session's network policy blocks naver.me, so it could not be opened.
+
 ## Shopping — nyunyu (뉴뉴)
 
 Accessory and jewellery chain, about 16 stores, the densest cluster in Seongsu.
@@ -158,6 +198,12 @@ Added 7 Nov 2026 from a further TikTok and follow-up search:
   If the video turns out to be a different stall, that pin is the thing to change.
 - nyunyu and Olive Young branch lists assembled from brand listings, store pages
   and press coverage, cross-checked where sources disagreed.
+
+Added 7 Nov 2026 from the spreadsheet screenshot (Telegram, "elastigirl"):
+columns for clothes, Seoul Forest / Seongsu, cafes and prop shops, Myeongdong
+Kyoja, k-fashion (KIV) and the Jongno day. Everything in the Jongno column was
+already here. Shopping slots were re-timed to a 2-hour minimum and moved to sit
+before dinner on each day that has one.
 
 Still outstanding:
 

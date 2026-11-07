@@ -354,6 +354,107 @@ window.PLACES = {
     q:'올리브영 강남타운 강남대로 429',
     why:'The Town store for premium brands and beauty devices — the one locals go to for themselves rather than for souvenirs.',
     meta:'429 Gangnam-daero, Dongil Building 1–3F'},
+
+  /* ---- clothes & shoes ---- */
+  musinsa:{name:'Musinsa Standard Hongdae', short:'Musinsa Standard', ko:'무신사 스탠다드 홍대', type:'shopping',
+    area:'Hongdae', gu:'Mapo-gu', lat:37.5556, lng:126.9258, side:'r',
+    q:'무신사 스탠다드 홍대 양화로 144',
+    why:'The first Musinsa Standard and still the big one — basics, denim and outerwear over several floors, cheap for what it is.',
+    meta:'144 Yanghwa-ro · daily 11:00–21:00'},
+  loof:{name:'LOOF Hongdae', short:'LOOF', ko:'루프 홍대', type:'shopping',
+    area:'Hongdae', gu:'Mapo-gu', lat:37.5536, lng:126.9232, side:'t',
+    q:'루프 LOOF 홍대 홍익로3길 20',
+    why:'Basement floor of good, genuinely affordable clothes — the one people come back from Seoul recommending. Open to 23:00, so it absorbs a late evening.',
+    meta:'20 Hongik-ro 3-gil, B1 · 5 min from Hongdae Stn exit 9 · daily 11:00–23:00 · second store LOOF ON at 31 Wausan-ro 21-gil'},
+  sappun:{name:'SAPPUN Hongdae', short:'SAPPUN', ko:'사뿐 홍대', type:'shopping',
+    area:'Hongdae', gu:'Mapo-gu', lat:37.5521, lng:126.9250, side:'r',
+    q:'사뿐 홍대점 와우산로29길 55',
+    why:'Shoes, and the pair everyone brings home — flats and loafers in half sizes, priced like fast fashion but wearable all day.',
+    meta:'55 Wausan-ro 29-gil · daily 12:00–22:00 · also a Garosu-gil flagship and a Myeongdong branch'},
+  chaakan:{name:'Chaakan Gudu Hongdae flagship', short:'Chaakan Gudu', ko:'착한구두 홍대', type:'shopping',
+    area:'Hongdae', gu:'Mapo-gu', lat:37.5513, lng:126.9243, side:'l',
+    q:'착한구두 홍대 플래그십 와우산로27길 56',
+    why:'The other shoe stop, two streets from SAPPUN — do both in one go rather than making a separate trip.',
+    meta:'56 Wausan-ro 27-gil · daily 12:00–22:00 · branches in Yeonnam, Gangnam and Sillim too'},
+  mimiline:{name:'Mimiline Dongdaemun', short:'Mimiline', ko:'미미라인 동대문점', type:'shopping',
+    area:'Dongdaemun', gu:'Jung-gu', lat:37.5665, lng:127.0160, side:'l',
+    q:'미미라인 동대문점 마장로 30',
+    why:'Accessory wholesale, three floors of it, and the building next door to nyunyu — same kind of stock, so compare before you commit.',
+    meta:'30 Majang-ro, Team204 building 1–3F · listed 11:00–17:00, much shorter than nyunyu next door, so come here first'},
+
+  /* ---- k-fashion, Hannam ---- */
+  kiv:{name:'KIV Hannam', short:'KIV', type:'shopping',
+    area:'Hannam', gu:'Yongsan-gu', lat:37.5370, lng:127.0003, side:'r',
+    q:'KIV 한남',
+    why:'The Hannam stop already named in your sheet, and the anchor for the k-fashion afternoon.',
+    meta:'Exact street address not confirmed — pin is approximate within Hannam-dong'},
+  raive:{name:'RAIVE Hannam flagship', short:'RAIVE', ko:'레이브 한남', type:'shopping',
+    area:'Hannam', gu:'Yongsan-gu', lat:37.5367, lng:126.9982, side:'t',
+    q:'레이브 한남 플래그십 이태원로 237',
+    why:'Full-floor flagship for the label — the clean, slightly sharp Korean tailoring the brand is known for. Tax refund available.',
+    meta:'237 Itaewon-ro, 1F · daily 11:00–20:00'},
+  glowny:{name:'GLOWNY Hannam flagship', short:'GLOWNY', ko:'글로니 한남', type:'shopping',
+    area:'Hannam', gu:'Yongsan-gu', lat:37.5346, lng:127.0006, side:'b',
+    q:'글로니 한남 플래그십 이태원로45길 7',
+    why:'Second of the three k-fashion flagships, five minutes from RAIVE. Tax refund available.',
+    meta:'7 Itaewon-ro 45-gil, 2F'},
+  asura:{name:'ASURA Hannam flagship', short:'ASURA', ko:'아수라', type:'shopping',
+    area:'Hannam', gu:'Yongsan-gu', lat:37.5352, lng:127.0014, side:'r',
+    q:'아수라 ASURA 한남 플래그십',
+    why:'Third of the k-fashion flagships on your list.',
+    meta:'Street address not confirmed — the only address I could find is the company registration in Jung-gu, which is not the shop. Pin is approximate within Hannam'},
+  youssoful:{name:'Youssoful Hannam', short:'Youssoful', ko:'유쏘풀 한남점', type:'shopping',
+    area:'Hannam', gu:'Yongsan-gu', lat:37.5350, lng:127.0026, side:'r',
+    q:'유쏘풀 한남점 이태원로49길 23',
+    why:'Homeware and small objects rather than clothes — the prop-shop half of the Hannam afternoon.',
+    meta:'23 Itaewon-ro 49-gil · daily 11:00–21:00 · Apgujeong branch at 32 Eonju-ro 168-gil'},
+
+  /* ---- prop shops ---- */
+  vintny:{name:'VINT NEW YORK', short:'Vint New York', ko:'빈트 뉴욕', type:'shopping',
+    area:'Yeonnam', gu:'Mapo-gu', lat:37.5597, lng:126.9260, side:'r',
+    q:'빈트 뉴욕 연희로1길 38',
+    why:'Niche perfume and diffusers in a basement room — the kind of shop you leave with a present for someone else.',
+    meta:'38 Yeonhui-ro 1-gil, B1 · your sheet also lists a plain "vint", which may be a second store of the same brand — I could not confirm it'},
+
+  /* ---- Seongsu ---- */
+  playx:{name:'PLAY X STUDIO Seongsu', short:'PLAY X STUDIO', ko:'플레이엑스스튜디오 성수', type:'shopping',
+    area:'Seongsu', gu:'Seongdong-gu', lat:37.5433, lng:127.0563, side:'r',
+    q:'플레이엑스스튜디오 성수 연무장길 73',
+    why:'Multi-brand concept store on the main Seongsu strip, a two-minute walk from nyunyu — fold it into the same block of shopping.',
+    meta:'73 Yeonmujang-gil'},
+  hanjungsun:{name:'Hanjungsun Seongsu', short:'Hanjungsun', ko:'한정선 성수점', type:'bakery',
+    area:'Seongsu', gu:'Seongdong-gu', lat:37.5443, lng:127.0545, side:'t',
+    q:'한정선 성수점 연무장길 43-1',
+    why:'Fruit mochi — whole strawberries wrapped in a thin skin of chapssaltteok. Same street as the shopping, so it works as the mid-spree stop.',
+    meta:'43-1 Yeonmujang-gil, 1F'},
+
+  /* ---- on the list, but I could not place them ----
+     Searched in English and Korean and found nothing reliable. Pins are
+     placeholders so they are visible, not claims about where they are. */
+  miramira:{name:'Mira Mira', short:'Mira Mira', type:'shopping', area:'Unconfirmed', gu:'',
+    lat:37.5527, lng:126.9262, side:'r', q:'미라미라 서울',
+    why:'On the clothes list in your sheet.',
+    meta:'Could not find this shop — pin is a placeholder near the other Hongdae clothes stops. Check your Naver collection'},
+  creammarket:{name:'Cream Market', short:'Cream Market', type:'shopping', area:'Unconfirmed', gu:'',
+    lat:37.5518, lng:126.9266, side:'r', q:'크림마켓 서울',
+    why:'On the clothes list in your sheet.',
+    meta:'Could not find this shop — pin is a placeholder near the other Hongdae clothes stops. Check your Naver collection'},
+  clo:{name:'CLO', short:'CLO', type:'shopping', area:'Unconfirmed', gu:'',
+    lat:37.5509, lng:126.9258, side:'r', q:'클로 CLO 서울 옷가게',
+    why:'On the clothes list in your sheet.',
+    meta:'Could not find this shop — pin is a placeholder near the other Hongdae clothes stops. Check your Naver collection'},
+  hauseaver:{name:'Hause Aver', short:'Hause Aver', type:'shopping', area:'Unconfirmed', gu:'',
+    lat:37.5502, lng:126.9252, side:'r', q:'하우스아버 서울 옷가게',
+    why:'On the clothes list in your sheet.',
+    meta:'Could not find this shop, and the spelling may be off — pin is a placeholder. Check your Naver collection'},
+  minibrand:{name:'Minibrand', short:'Minibrand', type:'shopping', area:'Unconfirmed', gu:'',
+    lat:37.5661, lng:127.0170, side:'b', q:'미니브랜드 동대문',
+    why:'Listed next to Mimiline in your sheet, so probably the same Dongdaemun wholesale cluster.',
+    meta:'Could not confirm it — pin is a placeholder beside Mimiline. Check your Naver collection'},
+  chunmong:{name:'Chunmong', short:'Chunmong', type:'shopping', area:'Unconfirmed', gu:'',
+    lat:37.5606, lng:126.9247, side:'l', q:'춘몽 소품샵 서울',
+    why:'On the prop-shop list in your sheet.',
+    meta:'Could not find this shop — pin is a placeholder near Vint New York. Check your Naver collection'},
 };
 
 /* Days. Each slot is a bucket: a time, a label, and the options that fit it.
@@ -365,19 +466,19 @@ window.DAYS = [
   {t:'~11:30', label:'Drop bags', hint:'ask about early check-in or storage', opts:['airbnb']},
   {t:'~12:30', label:'Lunch', hint:'Mangwon and Hongdae', opts:['mangwonmkt','mibbedong','gitteul','sunnyhouse']},
   {t:'15:00', label:'Airbnb check-in', hint:'', opts:['airbnb']},
-  {t:'~16:30', label:'Afternoon coffee', hint:'Yeonnam', opts:['yeonnam','oats','nothink','coffeenap','koriko','meltingof','longvacation','layeredy','donggyo','heytea','unyoke']},
-  {t:'~19:00', label:'Dinner', hint:'Hongdae, then Musinsa', opts:['hongdae','gitteul','mibbedong','geudongne']},
-  {t:'~20:15', label:'Shopping', hint:'Hongdae — Olive Young Hongdae Town and the two nyunyu stores, all open late', opts:['oyhongdae','nyunyuhd','nyunyuhdhouse']},
+  {t:'~16:00', label:'Afternoon coffee', hint:'Yeonnam', opts:['yeonnam','oats','nothink','coffeenap','koriko','meltingof','longvacation','layeredy','donggyo','heytea','unyoke']},
+  {t:'~17:00', dur:'2 hr', label:'Shopping', hint:'Hongdae — Olive Young Town, LOOF, Musinsa Standard, the shoe shops and both nyunyu stores, all within a few streets', opts:['oyhongdae','loof','musinsa','sappun','chaakan','nyunyuhd','nyunyuhdhouse']},
+  {t:'~19:15', label:'Dinner', hint:'Hongdae', opts:['hongdae','gitteul','mibbedong','geudongne']},
   {t:'~21:00', label:'Noraebang', hint:'karaoke rooms in Hongdae', opts:['hongdae']}
  ]},
  {key:'Thu 12', date:'Thursday 12 November', title:'Hannam, then the wall at sunset', slots:[
   {t:'~10:30', label:'Brunch', hint:'Hannam', opts:['keem','summerlane','motheroffline','milestone','narrowpath']},
-  {t:'~12:00', label:'Shopping', hint:'Hannamdong — fashion shops and KIV', opts:['hannam']},
-  {t:'~13:30', label:'Lunch', hint:'Hannam and Haebangchon', opts:['gamjatang','haebang','gml']},
-  {t:'~15:00', label:'Coffee with a view', hint:'Huam-dong and Yongsan', opts:['villacoffee','aanzee','rainreport']},
+  {t:'~11:45', dur:'2 hr', label:'Shopping', hint:'Hannam — KIV and the three k-fashion flagships, plus Youssoful for homeware', opts:['kiv','raive','glowny','asura','youssoful','hannam']},
+  {t:'~14:00', label:'Lunch', hint:'Hannam and Haebangchon', opts:['gamjatang','haebang','gml']},
+  {t:'~15:15', label:'Coffee with a view', hint:'Huam-dong and Yongsan', opts:['villacoffee','aanzee','rainreport']},
   {t:'~16:45', label:'Sunset into night', hint:'up on the city wall — sunset is about 17:20', opts:['naksan','namsan']},
-  {t:'~19:15', label:'Dinner', hint:'Myeongdong', opts:['myeongdongkyoja','veteran']},
-  {t:'~20:30', label:'Shopping', hint:'Myeongdong — Olive Young Town, nyunyu and Daiso, all open late', opts:['myeongdong','oymyeongdong','nyunyumd']}
+  {t:'~18:00', dur:'2 hr', label:'Shopping', hint:'Myeongdong — Olive Young Town, nyunyu and Daiso, all open to 22:00 or later', opts:['oymyeongdong','nyunyumd','myeongdong']},
+  {t:'~20:15', label:'Dinner', hint:'Myeongdong — Myeongdong Kyoja stops serving around 21:00, Veteran runs later', opts:['veteran','myeongdongkyoja']}
  ]},
  {key:'Fri 13', date:'Friday 13 November', title:'Morning market, then the palaces', slots:[
   {t:'~08:30', label:'Market breakfast', hint:'Jongno — go early while it is calm', opts:['gwangjang','abebe']},
@@ -391,10 +492,10 @@ window.DAYS = [
   {t:'~19:30', label:'Dinner', hint:'', opts:['veteran','myeongdongkyoja','gitteul']}
  ]},
  {key:'Sat 14', date:'Saturday 14 November', title:'Seongsu and the Han River', slots:[
-  {t:'~11:00', label:'Shopping', hint:'Seongsu — nyunyu, Romand Pink Office and the giant Olive Young', opts:['seongsu','nyunyuss','nyunyusshouse','oyseongsu']},
-  {t:'~12:30', label:'Lunch', hint:'Seongsu', opts:['anmok','tofindpeter','gogitbar','mibbedong']},
-  {t:'~14:00', label:'Coffee and bakery', hint:'Seongsu — Obok is on the way to the park', opts:['fiveto7','obok','atob','supermatcha','haz','rafre']},
-  {t:'~15:30', label:'Park', hint:'autumn colour should still be going', opts:['seoulforest']},
+  {t:'~11:00', dur:'2 hr', label:'Shopping', hint:'Seongsu — nyunyu, Romand Pink Office, PLAY X STUDIO and the giant Olive Young, all on Yeonmujang-gil', opts:['seongsu','nyunyuss','nyunyusshouse','oyseongsu','playx']},
+  {t:'~13:15', label:'Lunch', hint:'Seongsu', opts:['anmok','tofindpeter','gogitbar','mibbedong']},
+  {t:'~14:30', label:'Coffee and bakery', hint:'Seongsu — Hanjungsun and Obok are both on the way to the park', opts:['fiveto7','hanjungsun','obok','atob','supermatcha','haz','rafre']},
+  {t:'~15:45', label:'Park', hint:'autumn colour should still be going', opts:['seoulforest']},
   {t:'~18:30', label:'Dinner outside', hint:'ramyeon and chimaek on the grass', opts:['banpo']}
  ]},
  {key:'Sun 15', date:'Sunday 15 November', title:'Changdeokgung and Ikseon-dong', slots:[
@@ -403,7 +504,9 @@ window.DAYS = [
   {t:'~13:00', label:'Lunch', hint:'Ikseon-dong and around', opts:['ikseon','miltoast']},
   {t:'~14:00', label:'Steffi goes to the Melon Music Awards', hint:'venue still to be confirmed in your sheet', opts:[]},
   {t:'~14:30', label:'Cafe', hint:'Ikseon-dong', opts:['cheongsudang','seoulcoffee','jayeondo','tteuran','dotori']},
-  {t:'~17:00', label:'Evening', hint:'DDP, and the nyunyu wholesale store is 7 min east', opts:['ddp','palezze','nyunyudd']}
+  {t:'~17:00', dur:'2 hr', label:'Shopping', hint:'Dongdaemun wholesale — nyunyu and Mimiline are next-door buildings. Mimiline shuts earliest, so start there', opts:['nyunyudd','mimiline','minibrand']},
+  {t:'~19:15', label:'Dinner', hint:'around Dongdaemun and Sindang', opts:['palezze']},
+  {t:'~20:30', label:'Evening', hint:'DDP is better once the lights come on', opts:['ddp']}
  ]},
  {key:'Mon 16', date:'Monday 16 November', title:'Fly home', slots:[
   {t:'11:00', label:'Check out', hint:'', opts:['airbnb']},
@@ -415,6 +518,7 @@ window.DAYS = [
  {key:'Spare', date:'Did not fit anywhere', title:'saved, but nowhere to put them', spare:true, slots:[
   {t:'', label:'Gangnam side', hint:'', opts:['paldang','londonbagel','cafeeero','oygangnam','nyunyugn','nyunyugnhouse']},
   {t:'', label:'Further out', hint:'', opts:['deepin','simdu','oneinonejan']},
+  {t:'', label:'Shops I could not place', hint:'on your list, but no findable address — open your Naver collection and tell me where they are', opts:['miramira','creammarket','clo','hauseaver','minibrand','chunmong']},
   {t:'', label:'Night in', hint:'rose tteokbokki from Yeopgi, original fried chicken from BBQ Chicken', opts:[]}
  ]}
 ];
