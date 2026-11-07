@@ -101,6 +101,17 @@ header h1{font:700 clamp(28px,5vw,38px)/1.08 var(--display);margin:0 0 8px;lette
 .nowtag.next{background:none;color:var(--c);box-shadow:inset 0 0 0 1.5px var(--c)}
 .slot[data-now="now"]{border-color:var(--c);box-shadow:0 0 0 1.5px var(--c)}
 @media (max-width:919px){
+  /* the pinned header must be wider than the cards scrolling under it,
+     or a highlighted card's outline shows down both sides */
+  .mapcol{margin-left:-18px;margin-right:-18px;padding-left:18px;padding-right:18px}
+  /* place card on phones: small square photo beside the words, low on the map */
+  #card{flex-direction:row;align-items:stretch;left:8px;right:54px;bottom:8px;max-height:60%;overflow:hidden}
+  #card .cimg{width:76px;height:76px;aspect-ratio:auto;max-height:none;flex:none;border-radius:10px;margin:10px 0 10px 10px;object-fit:cover}
+  #card .cbody{flex:1;min-width:0;overflow:auto;padding:9px 36px 10px 12px}
+  #card h3{font-size:15.5px}
+  #card .why{font-size:13px;margin-top:5px;line-height:1.4}
+  #card .meta{font-size:12px}
+  #card .links{margin-top:7px}
   .chip.maptog{display:inline-flex}
   body.map-off .map{display:none}
   body.map-off .mapcol{padding-bottom:4px}
@@ -821,7 +832,8 @@ function fitTarget(){
 }
 function focusOn(id){
   var s=size(),p=P[id].xy,w=Math.min(view.w,320),h=w*s[1]/s[0];
-  animateTo({cx:p[0],cy:p[1]+h*0.15,w:Math.max(w,210)});
+  var lift=window.innerWidth<920?0.3:0.15;   /* phones: the card covers the lower 60% */
+  animateTo({cx:p[0],cy:p[1]+h*lift,w:Math.max(w,210)});
 }
 function zoomBy(f){animateTo({cx:view.cx,cy:view.cy,w:Math.max(120,Math.min(2000,view.w*f))});}
 
