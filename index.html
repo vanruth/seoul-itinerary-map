@@ -13,6 +13,7 @@
   --line:#D8DFDA; --line-soft:#E6EBE6; --accent:#1F6F5B; --accent-ink:#13513F;
   --land:#E9EEE8; --river:#B5D1E4; --river-ink:#5E87A3; --hill:#D3E2CE; --on-pin:#FFFFFF;
   --d1:#2F5D9E; --d2:#BE4430; --d3:#9E6500; --d4:#1F7A62; --d5:#7A4A92; --d6:#52707C; --d7:#6E6A62;
+  --star:#D69A00; --star-ink:#8A5A00; --star-soft:#FFF4D6;
   --display:"Gowun Batang","Apple Myungjo",Georgia,serif;
   --body:"Figtree","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;
   --maph:clamp(230px,32vh,320px);
@@ -27,6 +28,7 @@
     --line:#2B3632; --line-soft:#232C29; --accent:#5CC2A5; --accent-ink:#8BD9C2;
     --land:#19201D; --river:#1E3445; --river-ink:#6C93AE; --hill:#223027; --on-pin:#0E1311;
     --d1:#7BA5E0; --d2:#EB8173; --d3:#E0A640; --d4:#55C6A5; --d5:#BC92D6; --d6:#8EAAB6; --d7:#A8A298;
+    --star:#F2B532; --star-ink:#F5C85E; --star-soft:#2A2414;
     --shadow-s:0 1px 2px rgba(0,0,0,.3), 0 2px 8px rgba(0,0,0,.25);
     --shadow-m:0 2px 4px rgba(0,0,0,.35), 0 10px 26px rgba(0,0,0,.4);
     color-scheme:dark;
@@ -37,6 +39,7 @@
   --line:#2B3632; --line-soft:#232C29; --accent:#5CC2A5; --accent-ink:#8BD9C2;
   --land:#19201D; --river:#1E3445; --river-ink:#6C93AE; --hill:#223027; --on-pin:#0E1311;
   --d1:#7BA5E0; --d2:#EB8173; --d3:#E0A640; --d4:#55C6A5; --d5:#BC92D6; --d6:#8EAAB6; --d7:#A8A298;
+  --star:#F2B532; --star-ink:#F5C85E; --star-soft:#2A2414;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -215,6 +218,45 @@ body.notes-off .srow{padding-top:8px;padding-bottom:8px}
 .card .x:hover{color:var(--ink);background:var(--sunk)}
 .card .x svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
 
+/* ---------- Definite Gos ---------- */
+.star{display:inline-grid;place-items:center;width:17px;height:17px;flex:none;color:var(--star);vertical-align:-2px}
+.star svg{width:16px;height:16px;fill:currentColor;stroke:currentColor;stroke-width:1.2;stroke-linejoin:round}
+.sname{display:flex;align-items:flex-start;gap:5px}
+.sname .star{margin-top:1px}
+.pill.mustpill{color:var(--star-ink);background:var(--star-soft)}
+.mustbox{margin-bottom:18px;background:var(--surface);border:1px solid var(--line-soft);border-radius:18px;
+  padding:14px 8px 8px;box-shadow:var(--shadow-s);position:relative;overflow:hidden}
+.mustbox::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--star)}
+.musthead{display:flex;align-items:center;gap:11px;padding:2px 8px 8px}
+.musthead h2{margin:0;font:700 19px/1.2 var(--display)}
+.musthead p{margin:2px 0 0;font-size:12.5px;color:var(--faint);font-weight:600}
+.mustbadge{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--star-soft);color:var(--star);flex:none}
+.mustbadge svg{width:19px;height:19px;fill:currentColor;stroke:currentColor;stroke-width:1.2;stroke-linejoin:round}
+.mustlist{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.mustrow{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:11px;align-items:center;width:100%;padding:7px 8px;
+  border:0;background:none;border-radius:12px;text-align:left;font:inherit;color:inherit;cursor:pointer}
+@media (hover:hover){.mustrow:hover{background:var(--sunk)}}
+.mustrow:active{background:var(--sunk)}
+.mthumb{width:44px;height:44px;border-radius:10px;overflow:hidden;background:var(--star-soft);display:grid;place-items:center}
+.mthumb img{width:100%;height:100%;object-fit:cover}
+.mthumb svg.ic{width:20px;height:20px;stroke:var(--star-ink);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.mname{font-weight:650;font-size:14.5px;line-height:1.3;overflow-wrap:anywhere}
+.mwhere{font-size:12.5px;color:var(--muted);margin-top:1px;font-variant-numeric:tabular-nums}
+.mustrow.missing .mwhere{color:var(--d2);font-weight:600}
+.slot[data-must="1"] .sdot{border-color:var(--star);background:var(--star-soft)}
+.slot[data-must="1"][data-done="1"] .sdot,.slot[data-must="1"][data-now="now"] .sdot{background:var(--star)}
+.cmust{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--star-ink);margin-bottom:3px}
+.cmust svg{width:13px;height:13px;fill:var(--star);stroke:var(--star);stroke-width:1.2;stroke-linejoin:round}
+.pin .pstar circle{fill:var(--star);stroke:var(--surface);stroke-width:1.4}
+.pin .pstar use{fill:#fff;stroke:none}
+.catcard.mustcard{grid-column:1/-1;padding:16px;background:linear-gradient(135deg,var(--star-soft),var(--surface) 70%);
+  border-color:color-mix(in srgb,var(--star) 45%,var(--line))}
+.mustcardhead{display:flex;align-items:center;gap:11px;margin-bottom:6px}
+.mustcard .catname{margin:0;flex:1}
+.mustring{background:var(--star-soft)!important;border-color:transparent!important}
+.mustring svg{fill:var(--star)!important;stroke:var(--star)!important}
+
 /* ---------- itinerary: one sheet per day, a timeline down the left ---------- */
 .day{margin-bottom:18px;background:var(--surface);border:1px solid var(--line-soft);border-radius:18px;
   padding:16px 6px 8px;box-shadow:var(--shadow-s)}
@@ -335,6 +377,7 @@ body.notes-off .pcard .facts{display:none}
   transition:transform .2s cubic-bezier(.33,1,.68,1), box-shadow .2s, border-color .16s}
 .catcard:hover{transform:translateY(-2px);box-shadow:var(--shadow-m);border-color:var(--faint)}
 .catcard.feature{grid-column:span 2}
+@media (max-width:640px){.catgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
 .catmedia{position:relative;aspect-ratio:16/9;background:var(--sunk);overflow:hidden}
 .catcard.feature .catmedia{aspect-ratio:16/7}
 .catmedia img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.33,1,.68,1)}
@@ -442,6 +485,7 @@ footer .credhead:first-child{margin-top:0}
   <symbol id="i-transport" viewBox="0 0 24 24"><path d="M21 15.2 13.4 11V5.1a1.4 1.4 0 0 0-2.8 0V11L3 15.2v2.1l7.6-2.1v3.9l-2 1.5v1.3l3.4-1 3.4 1v-1.3l-2-1.5v-3.9l7.6 2.1z"/></symbol>
   <symbol id="i-stay" viewBox="0 0 24 24"><path d="M3 11.2 12 4l9 7.2M5.8 9.9V20h12.4V9.9M9.9 20v-5.1h4.2V20"/></symbol>
   <symbol id="i-tower" viewBox="0 0 24 24"><path d="M12 2v5.4M9 7.4h6l-1 4.2h-4zM10 11.6 7.7 22M14 11.6 16.3 22M7 22h10"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.8l2.75 5.6 6.15.9-4.45 4.33 1.05 6.12L12 16.86l-5.5 2.9 1.05-6.13L3.1 9.3l6.15-.9z"/></symbol>
   <symbol id="i-walk" viewBox="0 0 24 24"><path d="M13.2 5.2a1.7 1.7 0 1 0 0-3.4 1.7 1.7 0 0 0 0 3.4zM9.4 21.5l2.2-6.6 2.6 2.6v4M7.2 12.2l2.3-3.6c.4-.6 1-.8 1.7-.7l2.2.4 2 3.2 2.4 1M11.6 14.9l1.2-5.6"/></symbol>
   <symbol id="i-train" viewBox="0 0 24 24"><path d="M7.5 3h9a2.5 2.5 0 0 1 2.5 2.5V15a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 15V5.5A2.5 2.5 0 0 1 7.5 3zM5 10.5h14M8.6 14h.01M15.4 14h.01M8.5 17.5 6.5 21M15.5 17.5l2 3.5"/></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><path d="M4.5 5.5h15v15h-15zM4.5 10h15M8.5 3v4M15.5 3v4"/></symbol>
@@ -608,6 +652,26 @@ try{saved=JSON.parse(localStorage.getItem(LS)||'{}')||{};}catch(e){saved={};}
 var choices=saved.choices||{}, openSlots=saved.open||{};
 function persist(){try{localStorage.setItem(LS,JSON.stringify({choices:choices,open:openSlots}));}catch(e){}}
 function slotKey(di,si){return di+'-'+si;}
+/* When slots are added to a day, picks saved on this device can point at
+   the wrong slot number. Move each one to the nearest slot on the same day
+   that offers that place, as share links do. */
+(function healChoices(){
+  var stale=[], taken={}, moved=0;
+  Object.keys(choices).forEach(function(k){
+    var a=k.split('-'), d=DAYS[+a[0]], s=d&&d.slots[+a[1]];
+    if(s&&s.opts.indexOf(choices[k])>=0)taken[k]=1;
+    else{stale.push([+a[0],+a[1],choices[k]]); delete choices[k];}
+  });
+  stale.forEach(function(x){
+    var d=DAYS[x[0]], best=-1; if(!d)return;
+    d.slots.forEach(function(s,j){
+      if(taken[x[0]+'-'+j]||s.opts.indexOf(x[2])<0)return;
+      if(best<0||Math.abs(j-x[1])<Math.abs(best-x[1]))best=j;
+    });
+    if(best>=0){choices[x[0]+'-'+best]=x[2]; taken[x[0]+'-'+best]=1; moved++;}
+  });
+  if(stale.length)try{localStorage.setItem(LS,JSON.stringify({choices:choices,open:openSlots}));}catch(e){}
+})();
 function pickOf(di,si){
   var s=DAYS[di].slots[si]; if(!s.opts.length)return null;
   var c=choices[slotKey(di,si)];
@@ -870,12 +934,18 @@ function drawPins(){
     var p=P[m.id], sel=m.id===state.place, prim=m.primary;
     var R=prim?(dayView?12.5:10):7.5;
     var g=scal(S('g',{'class':'pin'+(prim?'':' alt'),role:'button',tabindex:'0','data-id':m.id,
-      'aria-label':p.name+(prim?'':' — alternative option'),style:'--c:'+dayVar(m.day)}),p.xy[0],p.xy[1]);
+      'aria-label':p.name+(p.must?' (definite go)':'')+(prim?'':' — alternative option'),style:'--c:'+dayVar(m.day)}),p.xy[0],p.xy[1]);
     if(sel)g.appendChild(S('circle',{'class':'ring',r:R+7}));
     var body=S('g',{transform:sel?'scale(1.18)':''});
     body.appendChild(S('circle',{'class':'body',r:R,fill:prim?dayVar(m.day):'var(--surface)'}));
     body.appendChild(S('use',{'class':'ic',href:'#i-'+iconOf(p),x:-R*0.6,y:-R*0.6,width:R*1.2,height:R*1.2}));
     g.appendChild(body);
+    if(p.must){
+      var st=S('g',{'class':'pstar',transform:'translate('+(-R*0.85)+','+(-R*0.85)+')'});
+      st.appendChild(S('circle',{r:6.4}));
+      st.appendChild(S('use',{href:'#i-star',x:-4.6,y:-4.7,width:9.2,height:9.2}));
+      g.appendChild(st);
+    }
     if(m.num){
       var nm=S('g',{'class':'num',transform:'translate('+(R*0.8)+','+(-R*0.8)+')'});
       nm.appendChild(S('circle',{r:7}));
@@ -942,6 +1012,7 @@ function renderCard(){
   var p=P[state.place]; card.hidden=false;
   if(p.img)card.appendChild(el('img',{'class':'cimg',src:'images/'+p.img+'.jpg',alt:p.name,loading:'lazy'}));
   var b=el('div',{'class':'cbody'});
+  if(p.must)b.appendChild(el('div',{'class':'cmust'},[icon('star'),el('span',{text:'Definite go'})]));
   b.appendChild(el('h3',{text:p.name}));
   var sub=[typeLabel(p.type), p.area&&p.area!=='Unconfirmed'?p.area:null].filter(Boolean).join(' · ');
   b.appendChild(el('div',{'class':'ko',text:p.ko?p.ko+' · '+sub:sub}));
@@ -1022,7 +1093,9 @@ function pickRow(id,di,si,isPick){
   main.appendChild(thumb(p,'pkthumb'));
   var mid=el('div',{'class':'pkmid'});
   var nm=el('div',{'class':'pkname'},[el('span',{text:p.name})]);
+  if(p.must)nm.insertBefore(starMark(),nm.firstChild);
   if(isPick)nm.appendChild(el('span',{'class':'pill',text:'Your pick'}));
+  else if(p.must)nm.appendChild(el('span',{'class':'pill mustpill',text:'Definite go'}));
   else if(p.solo)nm.appendChild(el('span',{'class':'pill',text:'solo ok'}));
   mid.appendChild(nm);
   var sub=[typeLabel(p.type)];
@@ -1093,6 +1166,70 @@ function legRow(text,far){
   li.appendChild(el('span',{'class':'legtxt',text:text}));
   return li;
 }
+/* ---------- Definite Gos ---------- */
+function musts(){return Object.keys(P).map(function(k){return P[k];}).filter(function(p){return p.must;});}
+function starMark(){return el('span',{'class':'star','title':'Definite go','aria-label':'Definite go'},[icon('star')]);}
+/* where a definite go is in the plan: the first slot where it is the pick,
+   else the first slot that offers it */
+function mustWhere(id){
+  var pick=null, offer=null;
+  DAYS.forEach(function(d,di){
+    if(d.spare)return;
+    d.slots.forEach(function(s,si){
+      if(s.opts.indexOf(id)<0)return;
+      if(!pick&&pickOf(di,si)===id)pick={di:di,si:si};
+      if(!offer)offer={di:di,si:si};
+    });
+  });
+  return pick?{di:pick.di,si:pick.si,ok:true}:offer?{di:offer.di,si:offer.si,ok:false}:null;
+}
+function goToSlot(di,si,id){
+  if(state.day!=='all'&&state.day!==di){state.day=di; render();}
+  var key=slotKey(di,si);
+  var t=document.querySelector('.slot[data-key="'+key+'"]');
+  if(t)t.scrollIntoView({block:'center',behavior:reduce?'auto':'smooth'});
+  selectPlace(id,key,false);
+}
+function mustPanel(){
+  var list=musts().filter(function(p){
+    if(state.day==='all')return true;
+    var w=mustWhere(p.id); return w&&w.di===state.day;
+  });
+  if(!list.length)return null;
+  list.sort(function(a,b){
+    var x=mustWhere(a.id), y=mustWhere(b.id);
+    return (x?x.di*100+x.si:9999)-(y?y.di*100+y.si:9999);
+  });
+  var box=el('section',{'class':'mustbox','aria-label':'Definite Gos'});
+  var missing=list.filter(function(p){var w=mustWhere(p.id);return !w||!w.ok;}).length;
+  box.appendChild(el('div',{'class':'musthead'},[
+    el('span',{'class':'mustbadge'},[icon('star')]),
+    el('div',null,[el('h2',{text:'Definite Gos'}),
+      el('p',{text:missing?missing+' not in the plan yet':(state.day==='all'?'All '+list.length+' are in the plan':list.length+' on this day')})])
+  ]));
+  var ul=el('ul',{'class':'mustlist'});
+  list.forEach(function(p){
+    var w=mustWhere(p.id);
+    var b=el('button',{type:'button','class':'mustrow'+(w&&w.ok?'':' missing')});
+    b.appendChild(thumb(p,'mthumb'));
+    var t=el('div',{'class':'mtext'},[el('div',{'class':'mname',text:p.name})]);
+    var where;
+    if(w&&w.ok){var d=DAYS[w.di], sl=d.slots[w.si]; where=d.key+(sl.t?' · '+sl.t:'')+' · '+(p.area||'');}
+    else if(w)where='An option on '+DAYS[w.di].key+', not your pick yet';
+    else where='Not in the plan yet';
+    t.appendChild(el('div',{'class':'mwhere',text:where}));
+    b.appendChild(t);
+    b.appendChild(el('span',{'class':'chev'},[icon('chev')]));
+    b.addEventListener('click',function(){
+      if(w&&w.ok)goToSlot(w.di,w.si,p.id);
+      else if(w)openPicker(w.di,w.si);
+      else selectPlace(p.id,null,false);
+    });
+    ul.appendChild(el('li',null,[b]));
+  });
+  box.appendChild(ul);
+  return box;
+}
 /* the shop's closing day, only when it is the day it sits on */
 var WEEKDAY={Mon:'Monday',Tue:'Tuesday',Wed:'Wednesday',Thu:'Thursday',Fri:'Friday',Sat:'Saturday',Sun:'Sunday'};
 function closedOn(p,d){
@@ -1101,6 +1238,7 @@ function closedOn(p,d){
 }
 function renderItinerary(){
   panel.innerHTML='';
+  var mp=mustPanel(); if(mp)panel.appendChild(mp);
   DAYS.forEach(function(d,di){
     if(state.day!=='all'&&state.day!==di)return;
     if(state.day==='all'&&d.spare)return;
@@ -1141,7 +1279,9 @@ function renderItinerary(){
       mid.appendChild(lab);
       if(p){
         var pick=el('div',{'class':'spick'});
-        var info=el('div',{'class':'sinfo'},[el('div',{'class':'sname',text:p.name})]);
+        var nmEl=el('div',{'class':'sname'},[el('span',{text:p.name})]);
+        if(p.must){nmEl.insertBefore(starMark(),nmEl.firstChild); slot.setAttribute('data-must','1');}
+        var info=el('div',{'class':'sinfo'},[nmEl]);
         var sub=[typeLabel(p.type)];
         if(p.area&&p.area!=='Unconfirmed')sub.unshift(p.area);
         info.appendChild(el('div',{'class':'ssub',text:sub.join(' · ')}));
@@ -1187,9 +1327,10 @@ function renderItinerary(){
 }
 
 /* ---------- categories panel ---------- */
+var MUSTCAT={id:'must',label:'Definite Gos',icon:'star',blurb:'The places that have to happen'};
 function placesIn(cat){
   return Object.keys(P).map(function(k){return P[k];})
-    .filter(function(p){return p.type===cat;})
+    .filter(function(p){return cat==='must'?p.must:p.type===cat;})
     .sort(function(a,b){return (a.area||'').localeCompare(b.area||'')||a.name.localeCompare(b.name);});
 }
 function filtered(){
@@ -1205,7 +1346,9 @@ function placeCard(p,ci){
   b.appendChild(thumb(p,'pthumb'));
   var mid=el('div');
   var nm=el('div',{'class':'pname'},[el('span',{text:p.name})]);
+  if(p.must)nm.insertBefore(starMark(),nm.firstChild);
   if(p.ko)nm.appendChild(el('span',{'class':'ko',text:p.ko}));
+  if(p.must)nm.appendChild(el('span',{'class':'pill mustpill',text:'Definite go'}));
   if(p.solo)nm.appendChild(el('span',{'class':'pill',text:'solo ok'}));
   mid.appendChild(nm);
   if(p.why)mid.appendChild(el('div',{'class':'pwhy',text:p.why}));
@@ -1240,13 +1383,13 @@ function renderCategories(){
   sb.appendChild(inp); bar.appendChild(sb);
 
   if(state.cat){
-    var c=TAX.filter(function(x){return x.id===state.cat;})[0];
-    var ci=TAX.map(function(x){return x.id;}).indexOf(state.cat);
+    var c=state.cat==='must'?MUSTCAT:TAX.filter(function(x){return x.id===state.cat;})[0];
+    var ci=state.cat==='must'?2:TAX.map(function(x){return x.id;}).indexOf(state.cat);
     var back=el('button',{'class':'backbtn',type:'button'},[icon('back'),el('span',{text:'All categories'})]);
     back.addEventListener('click',function(){state.cat=null;state.q='';render();});
     panel.appendChild(back);
     panel.appendChild(el('div',{'class':'cathead'},[
-      el('div',{'class':'ring'},[icon(c.icon)]),
+      el('div',{'class':'ring'+(state.cat==='must'?' mustring':'')},[icon(c.icon)]),
       el('h2',{text:c.label})
     ]));
     var list=placesIn(c.id).filter(function(p){
@@ -1279,6 +1422,17 @@ function renderCategories(){
     return;
   }
   var grid=el('div',{'class':'catgrid'});
+  var mlist=placesIn('must');
+  if(mlist.length){
+    var mb=el('button',{'class':'catcard mustcard',type:'button'});
+    var mh=el('div',{'class':'mustcardhead'},[el('span',{'class':'mustbadge'},[icon('star')]),
+      el('div',{'class':'catname'},[el('span',{text:MUSTCAT.label}),el('em',{text:String(mlist.length)})])]);
+    mb.appendChild(mh);
+    mb.appendChild(el('div',{'class':'catblurb',text:MUSTCAT.blurb}));
+    mb.appendChild(el('div',{'class':'catsample',text:mlist.map(function(p){return p.short;}).join(' · ')}));
+    mb.addEventListener('click',function(){state.cat='must';state.place=null;render();});
+    grid.appendChild(mb);
+  }
   TAX.forEach(function(c,i){
     var items=placesIn(c.id);
     if(!items.length)return;

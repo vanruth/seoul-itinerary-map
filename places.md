@@ -121,6 +121,21 @@ Getting in from the airport: the **AREX all-stop** train runs Incheon T1 → Hon
 Univ. with no transfer, roughly 50 minutes. The express is faster but only stops
 at Seoul Station, so it is the wrong train for this flat.
 
+## Definite Gos ★
+
+The ones that have to happen. They carry a star on the map, in the itinerary, in the option sheet and in Categories, and a panel at the top of the itinerary shows where each one sits in the plan (it turns red if one ever stops being a pick).
+
+| Place | Where | In the plan | Notes |
+|---|---|---|---|
+| molia (몰리아) | 13-9 Jeungga-ro 2F #202, Yeonhui | Wed ~15:35, after Yeonnam shopping, at the top of the walk down Yeontral Park | Almost nothing online about it — hours unconfirmed, check Naver |
+| Poset Seongsu (포셋 성수) | 36 Seoulsup-gil 2F, by Seoul Forest | Sat ~16:50, after the park | Postcard shop with writing tables |
+| oh, lolly day! Seoul Forest (오롤리데이 서울숲) | 18-11 Seoulsup 2-gil 1F | Sat ~17:25, two minutes from Poset | There is a second store on Yeonmujang-gil — this is the Seoul Forest one |
+| Zero Space Bukchon (제로스페이스 북촌점) | 5-5 Bukchon-ro 5-gil | Sun ~13:45, same lane as Hwangsaengga | Zero Per Zero's maps and stationery, daily 11:00–19:00 (2025) |
+
+Also from the same batch of Google Maps links: **Vetiver** (베티버, croffle café, 18 Seongdeokjeong 11-gil) is a Saturday coffee option, and **Richard House Yeonnam** (리차드하우스 연남, 36 Donggyo-ro 46-gil 1F) is with the Yeonnam shops until we know what it is.
+
+Pins for these six are placed from their street addresses, not from Google's coordinates, so they can be off by a block.
+
 ## Shopping — clothes, shoes and k-fashion
 
 From the spreadsheet screenshot shared 7 Nov. Confirmed addresses only; the
