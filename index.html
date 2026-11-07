@@ -133,7 +133,7 @@ header h1{font:700 clamp(28px,5vw,38px)/1.08 var(--display);margin:0 0 8px;lette
 .notesw[aria-checked="true"] .knob{background:var(--accent)}
 .notesw[aria-checked="true"] .knob::after{transform:translateX(12px)}
 /* Notes off: keep names, times, picks and travel; drop the explanations */
-body.notes-off .shint,body.notes-off .owhy,body.notes-off .ometa,
+body.notes-off .snotes,body.notes-off .owhy,body.notes-off .ometa,
 body.notes-off .pwhy,body.notes-off .pmeta,body.notes-off .catblurb{display:none}
 body.notes-off .srow{padding-top:8px;padding-bottom:8px}
 .sheet{position:fixed;inset:0;z-index:80;background:rgba(10,16,13,.45);display:flex;justify-content:center;align-items:flex-end}
@@ -243,7 +243,14 @@ body.notes-off .srow{padding-top:8px;padding-bottom:8px}
 .sdur{font-size:10.5px;font-weight:700;color:var(--accent-ink);background:var(--sunk);border:1px solid var(--line-soft);
   border-radius:999px;padding:2px 7px;white-space:nowrap;letter-spacing:.01em}
 .slabel{font-weight:700;font-size:14px;letter-spacing:-.005em;overflow-wrap:anywhere}
-.shint{font-weight:400;color:var(--faint);font-size:12.5px}
+.snotes{display:grid;grid-template-columns:46px minmax(0,1fr);gap:3px 8px;margin:7px 0 1px;font-size:12.5px;line-height:1.45;
+  font-weight:400;text-align:left}
+.srow>.snotes{grid-column:2/-1;margin-top:-4px}
+.snotes .sk{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);padding-top:2px;white-space:nowrap}
+.snotes .sv{color:var(--muted);overflow-wrap:anywhere}
+.snotes .sli{display:block;position:relative;padding-left:11px}
+.snotes .sli::before{content:"";position:absolute;left:1px;top:.62em;width:4px;height:4px;border-radius:50%;background:var(--faint)}
+.snotes .sk.f-warn,.snotes .sv.f-warn{color:var(--d3)}
 .spick{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:3px;font-size:14.5px;font-weight:600;color:var(--ink)}
 .spick .tick{width:17px;height:17px;flex:none;color:var(--accent)}
 .spick .tick svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
@@ -671,6 +678,22 @@ function naver(p){return 'https://map.naver.com/p/search/'+encodeURIComponent(na
 
 /* place details, always the same labels in the same order */
 var FACTS=[['addr','Address'],['hours','Hours'],['closed','Closed'],['go','Getting there'],['tip','Tip'],['warn','Check']];
+/* Notes under an itinerary stop: same labelled lines as place details.
+   Spans, not a dl, because they sit inside the stop's <button>. */
+var SLOT_NOTES=[['plan','Plan'],['route','Route'],['when','Timing'],['go','Travel'],['tip','Tip'],['note','Note'],['warn','Check']];
+function slotNotes(s){
+  var rows=SLOT_NOTES.filter(function(f){return s[f[0]];}); if(!rows.length)return null;
+  var box=el('span',{'class':'snotes'});
+  rows.forEach(function(f){
+    var v=s[f[0]];
+    box.appendChild(el('span',{'class':'sk f-'+f[0],text:f[1]}));
+    var val=el('span',{'class':'sv f-'+f[0]});
+    if(Array.isArray(v))v.forEach(function(x){val.appendChild(el('span',{'class':'sli',text:x}));});
+    else val.textContent=v;
+    box.appendChild(val);
+  });
+  return box;
+}
 function facts(p){
   var rows=FACTS.filter(function(f){return p[f[0]];});
   if(!rows.length)return null;
@@ -1010,7 +1033,6 @@ function renderItinerary(){
       var lab=el('div',{'class':'slabel'},[el('span',{text:s.label})]);
       if(nn&&nn.now===si)lab.appendChild(el('span',{'class':'nowtag',text:'Now'}));
       if(nn&&nn.next===si)lab.appendChild(el('span',{'class':'nowtag next',text:'Next'}));
-      if(s.hint)lab.appendChild(el('span',{'class':'shint',text:' · '+s.hint}));
       mid.appendChild(lab);
       if(p){
         var pick=el('div',{'class':'spick'});
@@ -1037,6 +1059,7 @@ function renderItinerary(){
         head.disabled=true;
       }
       head.appendChild(right);
+      var sn=slotNotes(s); if(sn)head.appendChild(sn);   /* own row under the stop, full width */
       slot.appendChild(head);
 
       if(many){

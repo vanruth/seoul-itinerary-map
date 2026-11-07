@@ -580,74 +580,78 @@ window.PLACES = {
 };
 
 /* Days. Each slot is a bucket: a time, a label, and the options that fit it.
-   The first option is the default pick. Every option gets a map marker. */
+   The first option is the default pick. Every option gets a map marker.
+   Notes under a stop are labelled lines, each optional; a list gives one line per item:
+     plan  — what to do there        route — the order, or where things sit
+     when  — timing, opening hours   go    — travel
+     tip, note, warn (Check)  */
 window.DAYS = [
  {key:'Wed 11', date:'Wednesday 11 November', title:'Arrive and settle in', slots:[
-  {t:'06:35', label:'Land at Incheon T1', hint:'TW-162 from Singapore, immigration around 07:00', opts:['icn']},
-  {t:'07:30', label:'Breakfast', hint:'at the airport — still a question mark in your sheet', opts:['icn']},
-  {t:'~10:30', leg:'about 60 min — AREX all-stop, then 10 min on foot', label:'Drop bags', hint:'AREX all-stop runs straight to Hongik Univ. in about 50 min with no transfer — the express does not stop there. Then 10 min north up Seongmisan-ro. Leave the cases and keep going — you check in when you get back tonight', opts:['airbnb']},
-  {t:'~11:00', label:'Coffee', hint:'straight from dropping the bags — most Yeonnam cafes open at 11:00, Coffee Nap from 10:00. Overdeep is two doors down', opts:['overdeep','coffeenap','nothink','oats','koriko','meltingof','longvacation','layeredy','donggyo','yeonnam','heytea','unyoke']},
-  {t:'~12:15', label:'Lunch', hint:'Yeonnam — the first four are a few minutes from the flat. No need to go back: check in tonight', opts:['thinghow','choidining','choidak','hisashi','mibbedong','gitteul','sunnyhouse','mangwonmkt']},
-  {t:'~13:20', dur:'2 hr', label:'Yeonnam shopping', hint:'all within a few minutes of each other. Comme Toi is in the Thing How building, LOE and Vint New York share a street, Gleaming Day and Daol are next door to each other. Most open at 12:00–13:00, so straight after lunch is right', opts:['commetoi','loe','vintny','thatspring','uniland','artiwave','gleamingday','daol']},
-  {t:'~15:25', leg:'a minute or two — the park runs right through Yeonnam', label:'Walk off the flight', hint:'Yeontral Park runs the whole length of Yeonnam and on up past it. Walk up it as far as you feel like, then come back down it to Hongik Univ. Station exit 3, where the Hongdae shops start. Sunset is 17:20, so you get it in daylight', opts:['yeontral','yeonnam']},
-  {t:'~16:15', dur:'2.5 hr', label:'Hongdae shopping', hint:'straight off the end of the park. Early closers first: Musinsa Standard shuts at 21:00, SAPPUN and Chaakan Gudu at 22:00', opts:['musinsa','sappun','chaakan','oyhongdae','loof','nyunyuhd','nyunyuhdhouse']},
-  {t:'~18:45', label:'Dinner', hint:'Hongdae — dak galbi on the hotplate, then the fried rice in the leftover sauce', opts:['yoogane','shinmikyung','gitteul','mibbedong','geudongne','hongdae']},
-  {t:'~20:15', dur:'2 hr', label:'Late shopping', hint:'only the late ones are still open — LOOF and Olive Young Town run to 23:00 and both nyunyu stores keep going. Then home to check in', opts:['loof','oyhongdae','nyunyuhd','nyunyuhdhouse']}
+  {t:'06:35', label:'Land at Incheon T1', when:'TW-162 from Singapore · through immigration around 07:00', opts:['icn']},
+  {t:'07:30', label:'Breakfast', plan:'At the airport', warn:'Still a question mark in your sheet', opts:['icn']},
+  {t:'~10:30', leg:'about 60 min — AREX all-stop, then 10 min on foot', label:'Drop bags', plan:'Leave the cases and keep going — you check in when you get back tonight', go:'AREX all-stop to Hongik Univ., about 50 min with no transfer — the express does not stop there. Then 10 min north up Seongmisan-ro', opts:['airbnb']},
+  {t:'~11:00', label:'Coffee', plan:'Straight from dropping the bags', when:'Most Yeonnam cafes open at 11:00 · Coffee Nap from 10:00', tip:'Overdeep is two doors down', opts:['overdeep','coffeenap','nothink','oats','koriko','meltingof','longvacation','layeredy','donggyo','yeonnam','heytea','unyoke']},
+  {t:'~12:15', label:'Lunch', plan:'The first four are a few minutes from the flat', tip:'No need to go back after — you check in tonight', opts:['thinghow','choidining','choidak','hisashi','mibbedong','gitteul','sunnyhouse','mangwonmkt']},
+  {t:'~13:20', dur:'2 hr', label:'Yeonnam shopping', route:['Comme Toi — in the Thing How building', 'LOE and Vint New York — on the same street', 'Gleaming Day and Daol — next door to each other'], when:'Most open at 12:00–13:00, so straight after lunch is right', go:'All within a few minutes’ walk of each other', opts:['commetoi','loe','vintny','thatspring','uniland','artiwave','gleamingday','daol']},
+  {t:'~15:25', leg:'a minute or two — the park runs right through Yeonnam', label:'Walk off the flight', route:'Yeontral Park runs the whole length of Yeonnam and on past it. Walk up as far as you feel like, then back down it to Hongik Univ. Stn exit 3, where the Hongdae shops start', when:'Sunset is 17:20, so you get it in daylight', opts:['yeontral','yeonnam']},
+  {t:'~16:15', dur:'2.5 hr', label:'Hongdae shopping', when:['Early closers first — Musinsa Standard shuts at 21:00', 'SAPPUN and Chaakan Gudu at 22:00'], go:'Straight off the end of the park', opts:['musinsa','sappun','chaakan','oyhongdae','loof','nyunyuhd','nyunyuhdhouse']},
+  {t:'~18:45', label:'Dinner', plan:'Dak galbi on the hotplate, then fried rice in the leftover sauce', opts:['yoogane','shinmikyung','gitteul','mibbedong','geudongne','hongdae']},
+  {t:'~20:15', dur:'2 hr', label:'Late shopping', plan:'Then home to check in', when:'Only the late ones are still open — LOOF and Olive Young Town run to 23:00, both nyunyu stores keep going', opts:['loof','oyhongdae','nyunyuhd','nyunyuhdhouse']}
  ]},
  {key:'Thu 12', date:'Thursday 12 November', title:'Hannam, a rooftop, and Myeongdong', slots:[
-  {t:'~09:45', label:'Leave the flat', hint:'Hannam is across town. Walk 10 min to Hongik Univ., then the Gyeongui-Jungang line runs straight to Hannam — no change, but trains are every 10–15 min', opts:['airbnb']},
-  {t:'~10:30', leg:'about 40 min — Gyeongui-Jungang line, Hongik Univ. to Hannam, then 10 min up the hill', legFar:true, label:'Brunch', hint:'Hannam', opts:['keem','summerlane','motheroffline','milestone','narrowpath']},
-  {t:'~11:45', dur:'2 hr', label:'Shopping', hint:'Hannam — KIV and the three k-fashion flagships, plus Youssoful for homeware', opts:['kiv','raive','glowny','asura','youssoful','hannam']},
-  {t:'~14:00', label:'Lunch', hint:'Hannam and Haebangchon', opts:['gamjatang','haebang','gml']},
-  {t:'~15:30', dur:'2 hr', label:'Coffee with a view', hint:'Huam-dong — Villa Coffee is a rooftop over the city, so you get the light going from a chair. Naksan has moved to Friday, where it is 20 min away instead of 40', opts:['villacoffee','aanzee','rainreport']},
-  {t:'~17:30', dur:'2 hr', label:'Shopping', hint:'Myeongdong — Olive Young Town, nyunyu and Daiso, all open to 22:00 or later', opts:['oymyeongdong','nyunyumd','myeongdong']},
-  {t:'~19:45', label:'Dinner', hint:'Myeongdong — Myeongdong Kyoja stops serving around 21:00, Veteran runs later', opts:['veteran','myeongdongkyoja']},
-  {t:'~21:00', label:'Evening walk', hint:'Cheonggyecheon is just north of Myeongdong — down at water level, lit at night, and you come up at a station for home. Moved from Friday, where it meant doubling back', opts:['cheonggye']}
+  {t:'~09:45', label:'Leave the flat', go:'Hannam is across town: 10 min walk to Hongik Univ., then the Gyeongui-Jungang line straight there, no change', warn:'Trains are only every 10–15 min', opts:['airbnb']},
+  {t:'~10:30', leg:'about 40 min — Gyeongui-Jungang line, Hongik Univ. to Hannam, then 10 min up the hill', legFar:true, label:'Brunch', opts:['keem','summerlane','motheroffline','milestone','narrowpath']},
+  {t:'~11:45', dur:'2 hr', label:'Shopping', plan:'KIV and the three k-fashion flagships, plus Youssoful for homeware', opts:['kiv','raive','glowny','asura','youssoful','hannam']},
+  {t:'~14:00', label:'Lunch', opts:['gamjatang','haebang','gml']},
+  {t:'~15:30', dur:'2 hr', label:'Coffee with a view', plan:'Villa Coffee is a rooftop over the city, so you watch the light go from a chair', note:'Naksan has moved to Friday, where it is 20 min away instead of 40', opts:['villacoffee','aanzee','rainreport']},
+  {t:'~17:30', dur:'2 hr', label:'Shopping', plan:'Olive Young Town, nyunyu and Daiso', when:'All open to 22:00 or later', opts:['oymyeongdong','nyunyumd','myeongdong']},
+  {t:'~19:45', label:'Dinner', when:'Myeongdong Kyoja stops serving around 21:00 · Veteran runs later', opts:['veteran','myeongdongkyoja']},
+  {t:'~21:00', label:'Evening walk', plan:'Down at water level, lit at night', route:'Just north of Myeongdong — you come up at a station for home', note:'Moved from Friday, where it meant doubling back', opts:['cheonggye']}
  ]},
  {key:'Fri 13', date:'Friday 13 November', title:'Seochon, Insadong, and the wall at sunset', slots:[
-  {t:'~08:25', label:'Leave the flat', hint:'Seochon is about 30 min by subway or bus, or roughly 20 by taxi if you want the extra sleep', opts:['airbnb']},
-  {t:'~09:00', leg:'about 30 min by subway or bus — 20 by taxi', label:'Breakfast', hint:'straight to Leedorim. From here the day runs one way, west to east, and finishes at the bottom of the Naksan wall', opts:['leedorim','rafre','seochon']},
-  {t:'~10:00', label:'Wall walk', hint:'Deoksugung stone wall in the morning light — the guard change at Daehanmun is at 11:00', opts:['deoksu']},
-  {t:'~11:30', label:'Lunch', hint:'Seol Yi Dong, 10 min from Deoksugung. Get there by 11:30 — the offices around it empty out at noon and the queue follows', opts:['seolyidong','sujebi','tosokchon']},
-  {t:'~12:30', label:'Stationery stop', hint:'Kyobo — Hottracks in the basement, 4 min walk from lunch', opts:['kyobo']},
-  {t:'~13:00', dur:'2 hr', label:'Shopping', hint:'east into Insadong-gil and Ssamziegil', opts:['ssamziegil','insadong']},
-  {t:'~15:05', label:'Dessert and tea', hint:'Dotori Garden, a few minutes from Insadong — then up into Bukchon', opts:['dotori','cheongsudang','jaiso','cafesudal','layereda','osulloc','miltoast']},
-  {t:'~15:50', label:'Hanok village', hint:'up from Anguk into the back alleys. Leave by 16:20 — the wall is 35 min away with the climb', opts:['bukchon']},
-  {t:'~16:55', label:'Up the wall for sunset', hint:'Naksan — on the wall by about 16:55 after the 15 min climb from Hyehwa, sunset is 17:20. Stay as the lights come on, then follow the lit wall downhill to Heunginjimun — that walk is the way to dinner', opts:['naksan']},
-  {t:'~18:40', label:'Dinner', hint:'at the bottom of the wall — dakhanmari alley. No bookings, and the queue builds from 19:00, so get there before it', opts:['jinokhwa']}
+  {t:'~08:25', label:'Leave the flat', go:'About 30 min to Seochon by subway or bus · roughly 20 by taxi if you want the extra sleep', opts:['airbnb']},
+  {t:'~09:00', leg:'about 30 min by subway or bus — 20 by taxi', label:'Breakfast', plan:'Straight to Leedorim', route:'From here the day runs one way, west to east, and finishes at the bottom of the Naksan wall', opts:['leedorim','rafre','seochon']},
+  {t:'~10:00', label:'Wall walk', plan:'Deoksugung stone wall in the morning light', when:'Guard change at Daehanmun at 11:00', opts:['deoksu']},
+  {t:'~11:30', label:'Lunch', when:'Get there by 11:30 — the offices around it empty out at noon and the queue follows', go:'10 min from Deoksugung', opts:['seolyidong','sujebi','tosokchon']},
+  {t:'~12:30', label:'Stationery stop', plan:'Hottracks in the basement', go:'4 min walk from lunch', opts:['kyobo']},
+  {t:'~13:00', dur:'2 hr', label:'Shopping', route:'East into Insadong-gil and Ssamziegil', opts:['ssamziegil','insadong']},
+  {t:'~15:05', label:'Dessert and tea', route:'Dotori Garden is a few minutes from Insadong — then up into Bukchon', opts:['dotori','cheongsudang','jaiso','cafesudal','layereda','osulloc','miltoast']},
+  {t:'~15:50', label:'Hanok village', route:'Up from Anguk into the back alleys', when:'Leave by 16:20 — the wall is 35 min away with the climb', opts:['bukchon']},
+  {t:'~16:55', label:'Up the wall for sunset', route:'Follow the lit wall downhill to Heunginjimun — that walk is the way to dinner', when:['On the wall by about 16:55, after the 15 min climb from Hyehwa', 'Sunset 17:20 — stay as the lights come on'], opts:['naksan']},
+  {t:'~18:40', label:'Dinner', plan:'Dakhanmari alley, at the bottom of the wall', when:'No bookings, and the queue builds from 19:00 — get there before it', opts:['jinokhwa']}
  ]},
  {key:'Sat 14', date:'Saturday 14 November', title:'Seongsu and the Han River', slots:[
-  {t:'~10:10', label:'Leave the flat', hint:'Seongsu is the far side of the city, but line 2 runs straight there from Hongik Univ. with no change', opts:['airbnb']},
-  {t:'~11:00', leg:'about 45 min — 10 min walk, then line 2 straight through to Seongsu, no change', legFar:true, dur:'2 hr', label:'Shopping', hint:'Seongsu — nyunyu, Romand Pink Office, PLAY X STUDIO and the giant Olive Young, all on Yeonmujang-gil', opts:['seongsu','nyunyuss','nyunyusshouse','oyseongsu','playx']},
-  {t:'~13:15', label:'Lunch', hint:'Seongsu', opts:['anmok','tofindpeter','gogitbar','mibbedong']},
-  {t:'~14:30', label:'Coffee and bakery', hint:'Seongsu — Hanjungsun and Obok are both on the way to the park', opts:['fiveto7','hanjungsun','obok','atob','supermatcha','haz','rafre']},
-  {t:'~15:45', label:'Park', hint:'autumn colour should still be going', opts:['seoulforest']},
-  {t:'~18:30', label:'Dinner outside', hint:'ramyeon and chimaek on the grass — Ttukseom is a 10 min walk from Seoul Forest, Banpo is 45 min away and its fountain is off until March', opts:['ttukseom','banpo']}
+  {t:'~10:10', label:'Leave the flat', go:'Seongsu is the far side of the city, but line 2 runs straight there from Hongik Univ. with no change', opts:['airbnb']},
+  {t:'~11:00', leg:'about 45 min — 10 min walk, then line 2 straight through to Seongsu, no change', legFar:true, dur:'2 hr', label:'Shopping', plan:'nyunyu, Romand Pink Office, PLAY X STUDIO and the giant Olive Young', route:'All on Yeonmujang-gil', opts:['seongsu','nyunyuss','nyunyusshouse','oyseongsu','playx']},
+  {t:'~13:15', label:'Lunch', opts:['anmok','tofindpeter','gogitbar','mibbedong']},
+  {t:'~14:30', label:'Coffee and bakery', route:'Hanjungsun and Obok are both on the way to the park', opts:['fiveto7','hanjungsun','obok','atob','supermatcha','haz','rafre']},
+  {t:'~15:45', label:'Park', when:'Autumn colour should still be going', opts:['seoulforest']},
+  {t:'~18:30', label:'Dinner outside', plan:'Ramyeon and chimaek on the grass', go:'Ttukseom is a 10 min walk from Seoul Forest · Banpo is 45 min away', warn:'Banpo’s fountain is off until March', opts:['ttukseom','banpo']}
  ]},
  {key:'Sun 15', date:'Sunday 15 November', title:'Changdeokgung and Ikseon-dong', slots:[
-  {t:'~09:15', label:'Leave the flat', hint:'10 min down the park to Hongik Univ.', opts:['airbnb']},
-  {t:'09:30', label:'Meet', hint:'Hongik Univ. Station, 10 min from the flat. Jongno is 35–40 min from here on line 2 then line 3 to Anguk — one of the three long legs in the week, and the 40 min before the palace covers it', opts:['hongdae']},
-  {t:'10:10', label:'Palace', hint:'Secret Garden tour 11:30, 5,000 won, ends around 12:30', opts:['changdeok']},
-  {t:'~13:00', label:'Lunch', hint:'Hwangsaengga, 10 min west of the Secret Garden exit through Bukchon — then 11 min on to Ikseon for the cafe. Weekend lunch queues, so head straight there from the tour', opts:['hwangsaengga','ikseon','miltoast']},
-  {t:'~14:00', label:'Steffi goes to the Melon Music Awards', hint:'venue still to be confirmed in your sheet', opts:[]},
-  {t:'~14:30', label:'Cafe', hint:'Ikseon-dong — abebe is 1 km east, on the way to Dongdaemun', opts:['cheongsudang','seoulcoffee','jayeondo','tteuran','dotori','abebe']},
-  {t:'~17:00', dur:'2 hr', label:'Shopping', hint:'Dongdaemun wholesale — nyunyu and Mimiline are next-door buildings. Mimiline shuts earliest, so start there', opts:['nyunyudd','mimiline','minibrand']},
-  {t:'~19:15', label:'Dinner', hint:'around Dongdaemun and Sindang', opts:['palezze']},
-  {t:'~20:30', label:'Evening', hint:'DDP is better once the lights come on', opts:['ddp']}
+  {t:'~09:15', label:'Leave the flat', go:'10 min down the park to Hongik Univ.', opts:['airbnb']},
+  {t:'09:30', label:'Meet', plan:'Hongik Univ. Station, 10 min from the flat', go:'Jongno is 35–40 min from here: line 2, then line 3 to Anguk. One of the three long legs of the week — the 40 min before the palace covers it', opts:['hongdae']},
+  {t:'10:10', label:'Palace', plan:'Secret Garden tour at 11:30, 5,000 won', when:'Ends around 12:30', opts:['changdeok']},
+  {t:'~13:00', label:'Lunch', route:'Hwangsaengga is 10 min west of the Secret Garden exit, through Bukchon — then 11 min on to Ikseon for the cafe', when:'Weekend lunch queues, so head straight there from the tour', opts:['hwangsaengga','ikseon','miltoast']},
+  {t:'~14:00', label:'Steffi goes to the Melon Music Awards', warn:'Venue still to be confirmed in your sheet', opts:[]},
+  {t:'~14:30', label:'Cafe', route:'abebe is 1 km east, on the way to Dongdaemun', opts:['cheongsudang','seoulcoffee','jayeondo','tteuran','dotori','abebe']},
+  {t:'~17:00', dur:'2 hr', label:'Shopping', plan:'Dongdaemun wholesale — nyunyu and Mimiline are next-door buildings', when:'Mimiline shuts earliest, so start there', opts:['nyunyudd','mimiline','minibrand']},
+  {t:'~19:15', label:'Dinner', opts:['palezze']},
+  {t:'~20:30', label:'Evening', when:'DDP is better once the lights come on', opts:['ddp']}
  ]},
  {key:'Mon 16', date:'Monday 16 November', title:'Fly home', slots:[
-  {t:'11:00', label:'Check out', hint:'', opts:['airbnb']},
-  {t:'11:30', label:'Last lunch', hint:'all two minutes from the door, so you can eat with the bags. Tuk Tuk opens 11:30 and is shut Wednesdays, so this is the day for it — ask the host to hold the cases, or use the lockers at Hongik Univ. Stn on the way', opts:['tuktuk','choidining','thinghow','choidak','overdeep','nothink','coffeenap','oats','mangwonmkt','teanomad','floormangwon']},
-  {t:'12:30', label:'Leave for the airport', hint:'', opts:['airbnb']},
-  {t:'13:30', leg:'about 60 min — 10 min to Hongik Univ., then AREX all-stop', label:'Reach Incheon T1', hint:'', opts:['icn']},
-  {t:'15:30', label:'Flight TW-161', hint:'lands at Changi T2 at 21:25', opts:['icn']}
+  {t:'11:00', label:'Check out', opts:['airbnb']},
+  {t:'11:30', label:'Last lunch', plan:'All two minutes from the door, so you can eat with the bags', when:'Tuk Tuk opens 11:30 and is shut Wednesdays, so this is the day for it', tip:'Ask the host to hold the cases, or use the lockers at Hongik Univ. Stn on the way', opts:['tuktuk','choidining','thinghow','choidak','overdeep','nothink','coffeenap','oats','mangwonmkt','teanomad','floormangwon']},
+  {t:'12:30', label:'Leave for the airport', opts:['airbnb']},
+  {t:'13:30', leg:'about 60 min — 10 min to Hongik Univ., then AREX all-stop', label:'Reach Incheon T1', opts:['icn']},
+  {t:'15:30', label:'Flight TW-161', when:'Lands at Changi T2 at 21:25', opts:['icn']}
  ]},
  {key:'Spare', date:'Did not fit anywhere', title:'saved, but nowhere to put them', spare:true, slots:[
-  {t:'', label:'Gangnam side', hint:'', opts:['paldang','londonbagel','cafeeero','oygangnam','nyunyugn','nyunyugnhouse']},
-  {t:'', label:'Further out', hint:'', opts:['deepin','simdu','oneinonejan']},
-  {t:'', label:'Cut from the plan', hint:'Gyeongbokgung came out for shopping, Namsan when Naksan took the sunset, Gwangjang because you do not want it. Say the word on any of them', opts:['gyeongbok','namsan','gwangjang']},
-  {t:'', label:'Shops I could not place', hint:'on your list, but no findable address — open your Naver collection and tell me where they are', opts:['miramira','creammarket','clo','hauseaver','minibrand','chunmong']},
-  {t:'', label:'Night in', hint:'rose tteokbokki from Yeopgi, original fried chicken from BBQ Chicken', opts:[]}
+  {t:'', label:'Gangnam side', opts:['paldang','londonbagel','cafeeero','oygangnam','nyunyugn','nyunyugnhouse']},
+  {t:'', label:'Further out', opts:['deepin','simdu','oneinonejan']},
+  {t:'', label:'Cut from the plan', tip:'Say the word on any of them', note:['Gyeongbokgung came out for shopping', 'Namsan when Naksan took the sunset', 'Gwangjang because you do not want it'], opts:['gyeongbok','namsan','gwangjang']},
+  {t:'', label:'Shops I could not place', tip:'Open your Naver collection and tell me where they are', warn:'On your list, but no findable address', opts:['miramira','creammarket','clo','hauseaver','minibrand','chunmong']},
+  {t:'', label:'Night in', plan:['Rose tteokbokki from Yeopgi', 'Original fried chicken from BBQ Chicken'], opts:[]}
  ]}
 ];
 
