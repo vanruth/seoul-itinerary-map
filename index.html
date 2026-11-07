@@ -9,10 +9,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* Layout: a sticky schematic map (day chips above it) over a day-by-day list; one colour per day, shared by pins and list badges. */
   --bg:#F4F6F3; --surface:#FFFFFF; --ink:#16201C; --muted:#586861; --line:#D8DFDA; --accent:#1F6F5B;
   --land:#E9EEE8; --river:#B5D1E4; --river-ink:#5E87A3; --hill:#D3E2CE; --on-pin:#FFFFFF;
-  --d1:#2F5D9E; --d2:#BE4430; --d3:#9E6500; --d4:#1F7A62; --d5:#7A4A92; --d6:#52707C;
+  --d1:#2F5D9E; --d2:#BE4430; --d3:#9E6500; --d4:#1F7A62; --d5:#7A4A92; --d6:#52707C; --d7:#6B6B6B;
   --display:"Gowun Batang","Apple Myungjo",Georgia,serif;
   --body:"Figtree","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;
   --maph:clamp(250px,36vh,360px);
@@ -22,26 +21,27 @@
   :root:not([data-theme="light"]){
     --bg:#121715; --surface:#1B2220; --ink:#E7EEEA; --muted:#9DADA5; --line:#2B3632; --accent:#5CC2A5;
     --land:#19201D; --river:#1E3445; --river-ink:#6C93AE; --hill:#223027; --on-pin:#0E1311;
-    --d1:#7BA5E0; --d2:#EB8173; --d3:#E0A640; --d4:#55C6A5; --d5:#BC92D6; --d6:#8EAAB6;
+    --d1:#7BA5E0; --d2:#EB8173; --d3:#E0A640; --d4:#55C6A5; --d5:#BC92D6; --d6:#8EAAB6; --d7:#A6A6A6;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --bg:#121715; --surface:#1B2220; --ink:#E7EEEA; --muted:#9DADA5; --line:#2B3632; --accent:#5CC2A5;
   --land:#19201D; --river:#1E3445; --river-ink:#6C93AE; --hill:#223027; --on-pin:#0E1311;
-  --d1:#7BA5E0; --d2:#EB8173; --d3:#E0A640; --d4:#55C6A5; --d5:#BC92D6; --d6:#8EAAB6;
+  --d1:#7BA5E0; --d2:#EB8173; --d3:#E0A640; --d4:#55C6A5; --d5:#BC92D6; --d6:#8EAAB6; --d7:#A6A6A6;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font:16px/1.45 var(--body);-webkit-text-size-adjust:100%}
-button{font:inherit;color:inherit}
+button,select{font:inherit;color:inherit}
 a{color:var(--accent)}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .wrap{max-width:1180px;margin:0 auto;padding:16px 16px 40px}
 header h1{font:700 30px/1.15 var(--display);margin:4px 0 6px;text-wrap:balance}
-header p{margin:0;color:var(--muted);max-width:62ch}
-.hlinks{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:14px}
+header p{margin:0;color:var(--muted);max-width:66ch}
+.hlinks{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:14px;align-items:center}
+.hlinks button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:13px;font-weight:600}
 .layout{display:grid;gap:16px;grid-template-columns:minmax(0,1fr);margin-top:14px}
 .mapcol{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;align-self:start}
 .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}
@@ -56,38 +56,37 @@ header p{margin:0;color:var(--muted);max-width:62ch}
 .ctrl{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:6px}
 .ctrl button{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-size:20px;line-height:1;font-weight:600;cursor:pointer;display:grid;place-items:center}
 .ctrl button svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.card{position:absolute;left:10px;right:60px;bottom:10px;max-height:62%;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;box-shadow:0 6px 22px rgba(0,0,0,.14)}
+.card{position:absolute;left:10px;right:60px;bottom:10px;max-height:66%;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;box-shadow:0 6px 22px rgba(0,0,0,.14)}
 .card[hidden]{display:none}
 .card h3{margin:0;font:700 17px/1.2 var(--display);padding-right:30px}
 .card .ko{color:var(--muted);font-size:13px;margin-top:2px}
-.card .visits{margin:6px 0 0;padding:0;list-style:none;font-size:13px;color:var(--muted)}
-.card .visits b{color:var(--ink);font-weight:600}
+.card .why{font-size:13.5px;margin-top:6px}
+.card .meta{font-size:12.5px;color:var(--muted);margin-top:5px}
 .card .links{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:14px;font-weight:600}
-.card .alts{margin-top:8px;font-size:13px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.card .alts button{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:4px 10px;cursor:pointer;font-size:13px;font-weight:600}
 .card .x{position:absolute;top:4px;right:4px;width:36px;height:36px;border:0;background:none;font-size:22px;cursor:pointer;color:var(--muted)}
-.card .note{font-size:13px;color:var(--muted);margin-top:6px}
-.day{margin-bottom:22px}
+.day{margin-bottom:24px}
 .dayhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-left:4px solid var(--c);padding-left:10px;margin-bottom:10px}
 .dayhead h2{margin:0;font:700 20px/1.2 var(--display)}
 .dayhead span{color:var(--muted);font-size:14px}
-.stops{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.stop{display:grid;grid-template-columns:52px minmax(0,1fr) 30px;gap:10px;align-items:start;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;scroll-margin-top:calc(var(--maph) + 78px)}
-button.stop{cursor:pointer}
-button.stop:hover{border-color:var(--c)}
-.stop[aria-current="true"]{outline:2px solid var(--c);outline-offset:0;border-color:var(--c)}
-.stop .time{font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px;font-weight:600;padding-top:1px}
-.stop .title{font-weight:600;display:block}
-.stop .note{display:block;color:var(--muted);font-size:14px;margin-top:1px}
-.badge{width:28px;height:28px;border-radius:50%;background:var(--c);color:var(--on-pin);display:grid;place-items:center;font-size:13px;font-weight:700}
+.slots{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.slot{display:grid;grid-template-columns:52px minmax(0,1fr) 30px;gap:10px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;scroll-margin-top:calc(var(--maph) + 78px)}
+.slot[data-active="1"]{outline:2px solid var(--c);border-color:var(--c)}
+.slot .time{font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px;font-weight:600;padding-top:3px}
+.label{font-weight:700;font-size:14.5px;display:flex;flex-wrap:wrap;gap:6px;align-items:baseline}
+.label .hint{font-weight:500;color:var(--muted);font-size:13px}
+.pickrow{display:flex;gap:8px;align-items:center;margin-top:5px;flex-wrap:wrap}
+select.pick{flex:1 1 220px;min-width:0;padding:7px 9px;border-radius:9px;border:1px solid var(--line);background:var(--bg);font-size:14.5px;font-weight:600;cursor:pointer}
+.slot .fixedname{margin-top:3px;font-weight:600;font-size:15px}
+.detail{margin-top:5px;font-size:13.5px;color:var(--muted)}
+.detail b{color:var(--ink);font-weight:600}
+.detail .dlinks{display:flex;gap:12px;margin-top:4px;font-size:13px;font-weight:600;flex-wrap:wrap}
+.showmap{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:5px 11px;cursor:pointer;font-size:13px;font-weight:600;white-space:nowrap}
+.badge{width:28px;height:28px;border-radius:50%;background:var(--c);color:var(--on-pin);display:grid;place-items:center;font-size:13px;font-weight:700;margin-top:2px}
 .badge.none{background:none;border:1.5px dashed var(--muted);color:var(--muted)}
-.foot{margin-top:6px;color:var(--muted);font-size:13px;max-width:62ch}
-/* map drawing */
+.foot{margin-top:6px;color:var(--muted);font-size:13px;max-width:66ch}
 .pin{cursor:pointer}
 .pin .body{stroke:var(--surface);stroke-width:2.5}
 .pin use{stroke:var(--on-pin);fill:none;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
-.pin.alt .body{fill:var(--surface);stroke:var(--c);stroke-width:2;stroke-dasharray:4 3}
-.pin.alt use{stroke:var(--c)}
 .pin .num circle{fill:var(--ink);stroke:var(--surface);stroke-width:1.5}
 .pin .num text{fill:var(--bg);font:700 9px var(--body);text-anchor:middle}
 .pin .ring{fill:none;stroke:var(--c);stroke-width:2.5;opacity:.55}
@@ -96,9 +95,9 @@ button.stop:hover{border-color:var(--c)}
 .rivlab{font:italic 600 11px var(--body);letter-spacing:.08em;fill:var(--river-ink);text-anchor:middle;pointer-events:none}
 @media (min-width:900px){
   :root{--maph:clamp(460px,66vh,700px)}
-  .layout{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px}
+  .layout{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px}
   .mapcol{top:12px;padding-top:0}
-  .stop{scroll-margin-top:24px}
+  .slot{scroll-margin-top:24px}
 }
 @media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto!important} }
 </style>
@@ -109,20 +108,24 @@ button.stop:hover{border-color:var(--c)}
     <symbol id="i-food" viewBox="0 0 24 24"><path d="M8 3v7M5 3v5a3 3 0 0 0 6 0V3M8 10v11M17 21V3c-2.5 1.5-4 4.5-4 8h4"/></symbol>
     <symbol id="i-cafe" viewBox="0 0 24 24"><path d="M5 9h11v4a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5V9zM16 10h2a2 2 0 0 1 0 4h-2M8 3v3M12 3v3"/></symbol>
     <symbol id="i-shop" viewBox="0 0 24 24"><path d="M6 8h12l1 12H5L6 8zM9 8V6a3 3 0 0 1 6 0v2"/></symbol>
-    <symbol id="i-park" viewBox="0 0 24 24"><path d="M12 21v-7M12 3a6 6 0 0 0-5 9.2c.8 1.2 2.600 1.800 5 1.800s4.200-.6 5-1.800A6 6 0 0 0 12 3z"/></symbol>
-    <symbol id="i-palace" viewBox="0 0 24 24"><path d="M2 10c4.500 0 7-3 10-6.500 3 3.500 5.500 6.500 10 6.500M6 10v9M18 10v9M3 19h18M10 19v-5h4v5"/></symbol>
+    <symbol id="i-park" viewBox="0 0 24 24"><path d="M12 21v-7M12 3a6 6 0 0 0-5 9.2c.8 1.2 2.6 1.8 5 1.8s4.2-.6 5-1.8A6 6 0 0 0 12 3z"/></symbol>
+    <symbol id="i-palace" viewBox="0 0 24 24"><path d="M2 10c4.5 0 7-3 10-6.5 3 3.5 5.5 6.5 10 6.5M6 10v9M18 10v9M3 19h18M10 19v-5h4v5"/></symbol>
     <symbol id="i-stay" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M6 10v10h12V10M10 20v-5h4v5"/></symbol>
-    <symbol id="i-plane" viewBox="0 0 24 24"><path d="M21 15l-8-4V5a1 1 0 0 0-2 0v6l-8 4v2l8-2v4l-2 1.500V22l3-1 3 1v-1.500L13 19v-4l8 2z"/></symbol>
+    <symbol id="i-plane" viewBox="0 0 24 24"><path d="M21 15l-8-4V5a1 1 0 0 0-2 0v6l-8 4v2l8-2v4l-2 1.5V22l3-1 3 1v-1.5L13 19v-4l8 2z"/></symbol>
     <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"/></symbol>
     <symbol id="i-tower" viewBox="0 0 24 24"><path d="M12 2v6M9 8h6l-1 4h-4zM10 12l-2 10M14 12l2 10M8 22h8"/></symbol>
+    <symbol id="i-bakery" viewBox="0 0 24 24"><path d="M4 13c0-4 3.6-7 8-7s8 3 8 7v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM9 10v6M15 10v6"/></symbol>
   </defs>
 </svg>
 
 <div class="wrap">
   <header>
     <h1>Seoul, 11 to 16 November</h1>
-    <p>Your itinerary from the sheet, placed on a map. Tap a stop in the list to jump to it on the map, or tap a pin to find it in the list. The map is a schematic and positions are approximate, so use the Google Maps or Naver links on each pin for directions.</p>
-    <div class="hlinks"><a href="https://naver.me/xnO2YSWJ" target="_blank" rel="noopener noreferrer">Your Naver map collection</a></div>
+    <p>Each slot in the day is a bucket with a dropdown of options, drawn from your saved TikToks. Change a pick and the map and the details update. Your choices are remembered in this browser. The map is schematic, so use the Google Maps or Naver links for real directions.</p>
+    <div class="hlinks">
+      <a href="https://naver.me/xnO2YSWJ" target="_blank" rel="noopener noreferrer">Your Naver map collection</a>
+      <button type="button" id="reset">Reset all picks</button>
+    </div>
   </header>
 
   <div class="layout">
@@ -140,445 +143,548 @@ button.stop:hover{border-color:var(--c)}
     </div>
     <main id="list"></main>
   </div>
-  <p class="foot">Times marked ~ are suggestions. The rest come from your sheet. Dashed pins are alternatives. The airport sits at the map edge because it is about 50 km west of the city.</p>
+  <p class="foot">Times marked ~ are suggestions. Fixed times come from your sheet. The airport sits at the map edge because it is about 50 km west of the city. Where a post never named the neighbourhood, the entry says so.</p>
 </div>
 
 <script>
 (function(){
-  var NS='http://www.w3.org/2000/svg';
-  var W=1000,H=629,LAT0=37.59,LNG0=126.89,DLAT=0.09,DLNG=0.18;
-  function proj(lat,lng){return [(lng-LNG0)/DLNG*W,(LAT0-lat)/DLAT*H];}
+var NS='http://www.w3.org/2000/svg';
+var W=1000,H=629,LAT0=37.59,LNG0=126.89,DLAT=0.09,DLNG=0.18;
+function proj(lat,lng){return [(lng-LNG0)/DLNG*W,(LAT0-lat)/DLAT*H];}
 
-  /* ---------- data ---------- */
-  var P={
-    icn:{name:'Incheon Airport, Terminal 1',short:'Incheon T1',ko:'인천국제공항 제1여객터미널',kind:'plane',xy:[34,440],side:'r',q:'Incheon International Airport Terminal 1',off:'About 50 km west of the city, so it is shown at the map edge.'},
-    airbnb:{name:'Airbnb',short:'Airbnb',kind:'stay',lat:37.5590,lng:126.9100,side:'t',noext:true,off:'Position is approximate. The address is in the general info tab of your sheet.'},
-    mangwon:{name:'Mangwon Market',short:'Mangwon Market',ko:'망원시장',kind:'food',lat:37.5564,lng:126.9054,side:'b'},
-    yeonnam:{name:'Yeonnamdong',short:'Yeonnamdong',ko:'연남동',kind:'cafe',lat:37.5617,lng:126.9250,side:'r'},
-    hongdae:{name:'Hongdae (Hongik Univ. Station)',short:'Hongdae',ko:'홍대입구역',kind:'shop',lat:37.5563,lng:126.9236,side:'r'},
-    hannam:{name:'Hannamdong',short:'Hannamdong',ko:'한남동',kind:'shop',lat:37.5365,lng:127.0010,side:'r'},
-    haebang:{name:'Haebangchon',short:'Haebangchon',ko:'해방촌',kind:'cafe',lat:37.5412,lng:126.9871,side:'l'},
-    namsan:{name:'Namsan Seoul Tower',short:'Namsan Tower',ko:'남산서울타워',kind:'tower',lat:37.5512,lng:126.9882,side:'r'},
-    naksan:{name:'Naksan Park',short:'Naksan Park',ko:'낙산공원',kind:'park',lat:37.5808,lng:127.0073,side:'r'},
-    myeong:{name:'Myeongdong Kyoja',short:'Myeongdong',ko:'명동교자',kind:'food',lat:37.5634,lng:126.9849,side:'l'},
-    seochon:{name:'Seochon',short:'Seochon',ko:'서촌',kind:'cafe',lat:37.5797,lng:126.9714,side:'l'},
-    gyeongbok:{name:'Gyeongbokgung Palace',short:'Gyeongbokgung',ko:'경복궁',kind:'palace',lat:37.5796,lng:126.9770,side:'b'},
-    bukchon:{name:'Bukchon Hanok Village',short:'Bukchon',ko:'북촌한옥마을',kind:'palace',lat:37.5826,lng:126.9835,side:'t'},
-    deoksu:{name:'Deoksugung stone wall',short:'Deoksugung',ko:'덕수궁 돌담길',kind:'palace',lat:37.5658,lng:126.9751,side:'l'},
-    kyobo:{name:'Kyobo Bookstore, Gwanghwamun',short:'Kyobo Books',ko:'교보문고 광화문점',kind:'shop',lat:37.5710,lng:126.9777,side:'l'},
-    cheonggye:{name:'Cheonggyecheon Stream',short:'Cheonggyecheon',ko:'청계천',kind:'park',lat:37.5692,lng:126.9890,side:'b'},
-    gwangjang:{name:'Gwangjang Market',short:'Gwangjang Market',ko:'광장시장',kind:'food',lat:37.5701,lng:126.9996,side:'r'},
-    seongsu:{name:'Seongsu',short:'Seongsu',ko:'성수동',kind:'shop',lat:37.5447,lng:127.0560,side:'l'},
-    seoulforest:{name:'Seoul Forest',short:'Seoul Forest',ko:'서울숲',kind:'park',lat:37.5444,lng:127.0374,side:'b'},
-    banpo:{name:'Banpo Hangang Park',short:'Banpo Hangang Park',ko:'반포한강공원',kind:'food',lat:37.5111,lng:126.9963,side:'l'},
-    changdeok:{name:'Changdeokgung',short:'Changdeokgung',ko:'창덕궁',kind:'palace',lat:37.5794,lng:126.9910,side:'t'},
-    ikseon:{name:'Ikseon-dong',short:'Ikseon-dong',ko:'익선동',kind:'cafe',lat:37.5746,lng:126.9893,side:'r'},
-    ddp:{name:'Dongdaemun Design Plaza',short:'DDP',ko:'동대문디자인플라자',kind:'shop',lat:37.5671,lng:127.0092,side:'r'}
-  };
-  Object.keys(P).forEach(function(id){var p=P[id];p.id=id;if(!p.xy)p.xy=proj(p.lat,p.lng);});
+/* ---------- places ---------- */
+var P={
+ icn:{name:'Incheon Airport, Terminal 1',short:'Incheon T1',ko:'인천공항 제1터미널',kind:'plane',xy:[34,440],side:'r',q:'Incheon International Airport Terminal 1',why:'TW-162 lands 06:35; TW-161 home departs 15:30.',meta:'About 50 km west of the city, shown at the map edge.'},
+ airbnb:{name:'Airbnb',short:'Airbnb',kind:'stay',lat:37.5590,lng:126.9100,side:'t',noext:true,why:'Base for the week, Mangwon side.',meta:'Address is in the general info tab of your sheet. Pin is approximate.'},
 
-  var DAYS=[
-    {key:'Wed 11',date:'Wednesday 11 November',title:'Arrive and settle in',items:[
-      {t:'06:35',title:'Land at Incheon T1',note:'TW-162 from Singapore. Clear immigration around 07:00.',p:'icn'},
-      {t:'07:30',title:'Breakfast at the airport',note:'Still a question mark in your sheet.',p:'icn'},
-      {t:'~11:30',title:'Drop bags at the Airbnb',note:'Ask about early check-in or luggage storage.',p:'airbnb'},
-      {t:'~12:30',title:'Lunch at Mangwon Market',p:'mangwon'},
-      {t:'15:00',title:'Airbnb check-in',p:'airbnb'},
-      {t:'~16:30',title:'Yeonnamdong',note:'Cafes, perfume shops, the frame store and the salmon flat udon place.',p:'yeonnam'},
-      {t:'~19:00',title:'Hongdae for dinner and Musinsa',p:'hongdae'},
-      {t:'~21:00',title:'Noraebang',note:'Karaoke rooms in Hongdae.',p:'hongdae'}
-    ]},
-    {key:'Thu 12',date:'Thursday 12 November',title:'Hannamdong to Myeongdong',items:[
-      {t:'~10:30',title:'Hannamdong',note:'Fashion shops and KIV.',p:'hannam'},
-      {t:'~13:00',title:'Lunch and the cafe alley in Haebangchon',p:'haebang'},
-      {t:'~16:30',title:'Namsan Tower',note:'Or Naksan Park for the city wall views.',p:'namsan',alt:['naksan']},
-      {t:'~18:30',title:'Dinner at Myeongdong Kyoja',p:'myeong'},
-      {t:'~20:00',title:'Myeongdong shopping',note:'Olive Young and Daiso.',p:'myeong'}
-    ]},
-    {key:'Fri 13',date:'Friday 13 November',title:'Palaces and Jongno',items:[
-      {t:'~10:00',title:'Breakfast at Leedorim, Seochon',p:'seochon'},
-      {t:'~11:30',title:'Gyeongbokgung Palace',p:'gyeongbok'},
-      {t:'~14:00',title:'Bukchon Hanok Village',note:'Back alleys.',p:'bukchon'},
-      {t:'~15:30',title:'Deoksugung stone wall',note:'Kyobo Bookstore is the stationery stop nearby.',p:'deoksu',alt:['kyobo']},
-      {t:'~18:00',title:'Cheonggyecheon Stream evening walk',p:'cheonggye'},
-      {t:'~19:30',title:'Dinner at Gwangjang Market',p:'gwangjang'}
-    ]},
-    {key:'Sat 14',date:'Saturday 14 November',title:'Seongsu and the Han River',items:[
-      {t:'~11:00',title:'Seongsu',note:'Nyunyu and Romand Pink Office.',p:'seongsu'},
-      {t:'~14:30',title:'Seoul Forest',p:'seoulforest'},
-      {t:'~18:30',title:'Ramyeon and chimaek at Banpo Hangang Park',p:'banpo'}
-    ]},
-    {key:'Sun 15',date:'Sunday 15 November',title:'Changdeokgung and Ikseon-dong',items:[
-      {t:'09:30',title:'Meet at Hongik Univ. Station',p:'hongdae'},
-      {t:'10:10',title:'Arrive at Changdeokgung',p:'changdeok'},
-      {t:'11:30',title:'Secret Garden tour',note:'5,000 won. Ends around 12:30.',p:'changdeok'},
-      {t:'~13:00',title:'Lunch nearby',p:'ikseon'},
-      {t:'~14:00',title:'Steffi goes to MMA',note:'Location still to be confirmed in your sheet.',p:null},
-      {t:'~14:30',title:'Ikseon-dong and Cheongsudang cafe',p:'ikseon'},
-      {t:'~17:00',title:'Dongdaemun Design Plaza',p:'ddp'}
-    ]},
-    {key:'Mon 16',date:'Monday 16 November',title:'Fly home',items:[
-      {t:'11:00',title:'Check out of the Airbnb',p:'airbnb'},
-      {t:'11:30',title:'Lunch',note:'Mangwon Market is the option from Wednesday.',p:'mangwon'},
-      {t:'12:30',title:'Leave for the airport',p:'airbnb'},
-      {t:'13:30',title:'Reach Incheon T1',p:'icn'},
-      {t:'15:30',title:'Flight TW-161 to Singapore',note:'Lands at Changi T2 at 21:25.',p:'icn'}
-    ]}
-  ];
+ mangwonmkt:{name:'Mangwon Market',short:'Mangwon Market',ko:'망원시장',kind:'food',lat:37.5564,lng:126.9054,side:'b',why:'Classic market street food, spoilt for choice and very walkable from the Airbnb.',meta:'Mapo-gu · solo friendly'},
+ teanomad:{name:'Tea Nomad',short:'Tea Nomad',kind:'cafe',lat:37.5570,lng:126.9040,side:'l',why:'All-time favourite, 10/10. Traditional dessert and tea set, strong matcha and hojicha.',meta:'Mangwon'},
+ floormangwon:{name:'floor mangwon',short:'floor mangwon',kind:'cafe',lat:37.5558,lng:126.9048,side:'r',why:'Quiet neighbourhood cafe, saved off a Naver pin list.',meta:'472-19 Mangwon-dong, Mapo-gu'},
 
-  /* ---------- state and helpers ---------- */
-  var state={day:'all',place:null,item:null};
-  var view={cx:500,cy:315,w:1000};
-  var raf=0,u=1;
-  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var $=function(id){return document.getElementById(id);};
-  var mapEl=$('map'),svg=$('svg'),card=$('card');
+ yeonnam:{name:'Yeonnamdong (wander)',short:'Yeonnamdong',ko:'연남동',kind:'shop',lat:37.5617,lng:126.9250,side:'r',why:'Cafes, perfume shops, the frame store and the salmon flat udon place.',meta:'Mapo-gu'},
+ nothink:{name:'nothink',short:'nothink',kind:'cafe',lat:37.5625,lng:126.9245,side:'r',why:'Only locals the last three visits. Tiramisu and oat cream latte.',meta:'Yeonnam'},
+ coffeenap:{name:'Coffee Nap Roasters',short:'Coffee Nap',kind:'cafe',lat:37.5620,lng:126.9235,side:'l',why:'Best iced white in Seoul, good enough to buy the beans on the way out.',meta:'Yeonnam'},
+ koriko:{name:'Koriko Cafe',short:'Koriko Cafe',kind:'cafe',lat:37.5612,lng:126.9255,side:'r',why:"Kiki's Delivery Service themed. Good for sitting alone.",meta:'Yeonnam-dong · solo friendly'},
+ meltingof:{name:'Melting Of',short:'Melting Of',kind:'cafe',lat:37.5608,lng:126.9242,side:'b',why:'Coquette themed, very cute. Good for sitting alone.',meta:'Yeonnam-dong · solo friendly'},
+ longvacation:{name:'Long Vacation',short:'Long Vacation',kind:'cafe',lat:37.5630,lng:126.9250,side:'t',why:'Matcha pudding. Off a local Naver map pin list.',meta:'390-39 Yeonnam-dong, Mapo-gu'},
+ layeredy:{name:'Cafe Layered, Yeonnam',short:'Layered Yeonnam',kind:'bakery',lat:37.5628,lng:126.9258,side:'r',why:'Scones and cakes, terrace seating.',meta:'223-20 Yeonnam-dong, Mapo-gu · daily 11:00-22:00'},
+ donggyo:{name:'Quiet cafe on Donggyo-ro',short:'Donggyo-ro cafe',kind:'cafe',lat:37.5590,lng:126.9230,side:'l',noext:true,why:'Recommended as the calm escape between the loud ends of Hongdae and Yeonnam. Cosy enough to read or journal in. Matcha latte was decent but milky.',meta:'187 Donggyo-ro, Mapo-gu · name not shown in the post, the door number is the only clue'},
 
-  function el(tag,attrs,kids,ns){
-    var e=ns?document.createElementNS(ns,tag):document.createElement(tag);
-    if(attrs)Object.keys(attrs).forEach(function(k){
-      if(k==='text')e.textContent=attrs[k];else e.setAttribute(k,attrs[k]);});
-    (kids||[]).forEach(function(c){if(c)e.appendChild(c);});
-    return e;
-  }
-  var S=function(tag,attrs,kids){return el(tag,attrs,kids,NS);};
-  function dayVar(i){return 'var(--d'+(i+1)+')';}
+ hongdae:{name:'Hongdae (Hongik Univ. Station)',short:'Hongdae',ko:'홍대입구역',kind:'shop',lat:37.5563,lng:126.9236,side:'r',why:'Dinner, Musinsa, and the noraebang rooms.',meta:'Mapo-gu'},
+ momentcoffee:{name:'Moment Coffee',short:'Moment Coffee',kind:'cafe',lat:37.5540,lng:126.9230,side:'l',why:'The perfect breakfast and brunch spot.',meta:'Hongdae'},
+ gitteul:{name:'git teul',short:'git teul',kind:'food',lat:37.5555,lng:126.9225,side:'l',why:'Looks like a tourist trap, is not. The meat is the point, the stews are skippable.',meta:'Hongdae'},
+ mibbedong:{name:'Mibbedong',short:'Mibbedong',kind:'food',lat:37.5550,lng:126.9240,side:'b',why:'Salmon sashimi bowl. "Cannot come to Seoul without having this at least once."',meta:'Branches in Seongsu and Hongdae · solo friendly'},
+ sunnyhouse:{name:'Sunny House',short:'Sunny House',kind:'cafe',lat:37.5478,lng:126.9224,side:'l',why:'Brunch and matcha, down a quiet side street.',meta:'Near Sangsu Station, Mapo-gu'},
 
-  /* places shown for a day (or all), with order numbers and alternative flags */
-  function shown(){
-    var out=[],seen={},n=0;
-    var days=state.day==='all'?DAYS.map(function(_,i){return i;}):[state.day];
-    days.forEach(function(di){
-      DAYS[di].items.forEach(function(it){
-        if(it.p&&!seen[it.p]){seen[it.p]=1;n++;out.push({id:it.p,day:di,num:state.day==='all'?null:n,alt:false});}
-      });
+ hannam:{name:'Hannamdong (wander)',short:'Hannamdong',ko:'한남동',kind:'shop',lat:37.5365,lng:127.0010,side:'r',why:'Fashion shops and KIV.',meta:'Yongsan-gu'},
+ keem:{name:'KEEM',short:'KEEM',kind:'cafe',lat:37.5355,lng:127.0000,side:'r',why:'Hannamdong brunch cafe, weekend brunch spot.',meta:'Hannam-dong'},
+ summerlane:{name:'Summer Lane',short:'Summer Lane',kind:'cafe',lat:37.5360,lng:126.9990,side:'l',why:"A local's favourite brunch spot in Hannam.",meta:'49 Itaewon-ro 55ga-gil, Yongsan-gu'},
+ motheroffline:{name:'Mother Offline',short:'Mother Offline',kind:'cafe',lat:37.5345,lng:127.0005,side:'b',why:'Signature coffee drinks — the corn coffee latte is the one.',meta:'Hannam-dong'},
+ narrowpath:{name:'Narrow Path',short:'Narrow Path',kind:'cafe',lat:37.5350,lng:127.0015,side:'r',why:'Dessert and coffee, off a local Naver pin list.',meta:'683-85 Hannam-dong, Yongsan-gu'},
+ milestone:{name:'Milestone Coffee',short:'Milestone',kind:'cafe',lat:37.5348,lng:126.9995,side:'l',why:'Vienna latte, tiramisu and apple crumble. The bakes are the standout; the iced latte is the weak one.',meta:'Branches in Hannam, Sinsa (Garosu-gil) and Apgujeong. The post did not say which.'},
+ gml:{name:'Gml Hannam',short:'Gml Hannam',kind:'cafe',lat:37.5358,lng:127.0020,side:'r',why:"A local's pick for a coffee and soju date.",meta:'3F, 22 Hannam-daero 27ga-gil, Yongsan-gu'},
+ gamjatang:{name:'Hannam Dong Gamjatang',short:'Hannam Gamjatang',kind:'food',lat:37.5362,lng:127.0030,side:'b',why:'Gamjatang, paired with Gml in the same local guide.',meta:'3 Daesagwan-ro, Yongsan-gu'},
+
+ haebang:{name:'Haebangchon (cafe alley)',short:'Haebangchon',ko:'해방촌',kind:'cafe',lat:37.5412,lng:126.9871,side:'l',why:'The cafe alley, good for an unplanned afternoon.',meta:'Yongsan-gu'},
+ villacoffee:{name:'Villa Coffee Bar',short:'Villa Coffee',kind:'cafe',lat:37.5450,lng:126.9790,side:'l',why:'Rooftop over the Huam-dong hills with Namsan Tower straight ahead. Basque cheesecake is the signature.',meta:'2F, 101-9 Sinheung-ro, Yongsan-gu · closed Mondays'},
+ aanzee:{name:'Aanzee',short:'Aanzee',kind:'cafe',lat:37.5340,lng:126.9690,side:'b',why:'White dreamy interior, cheesecakes.',meta:'Yongridan-gil, Yongsan-gu'},
+ rainreport:{name:'Rain Report',short:'Rain Report',kind:'bakery',lat:37.5345,lng:126.9940,side:'r',why:'Pastries and laminated things, pistachio croissants.',meta:'258-63 Itaewon-dong, Yongsan-gu'},
+ namsan:{name:'Namsan Seoul Tower',short:'Namsan Tower',ko:'남산서울타워',kind:'tower',lat:37.5512,lng:126.9882,side:'r',why:'The classic view.',meta:'Yongsan-gu'},
+ naksan:{name:'Naksan Park',short:'Naksan Park',ko:'낙산공원',kind:'park',lat:37.5808,lng:127.0073,side:'r',why:'City wall walk, quieter alternative to Namsan.',meta:'Jongno-gu'},
+
+ myeongdongkyoja:{name:'Myeongdong Kyoja',short:'Myeongdong Kyoja',ko:'명동교자',kind:'food',lat:37.5634,lng:126.9849,side:'l',why:'The kalguksu institution.',meta:'Myeong-dong'},
+ veteran:{name:'Veteran Kalguksu',short:'Veteran Kalguksu',kind:'food',lat:37.5640,lng:126.9855,side:'r',why:'"Hands down one of the best kalguksu I have had." Counter seating.',meta:'Myeong-dong · solo friendly'},
+ myeongdong:{name:'Myeongdong shopping',short:'Myeongdong',ko:'명동',kind:'shop',lat:37.5636,lng:126.9820,side:'b',why:'Olive Young and Daiso.',meta:'Jung-gu'},
+
+ seochon:{name:'Seochon',short:'Seochon',ko:'서촌',kind:'cafe',lat:37.5797,lng:126.9714,side:'l',why:'Low-rise streets west of the palace.',meta:'Jongno-gu'},
+ leedorim:{name:'Leedorim',short:'Leedorim',kind:'cafe',lat:37.5795,lng:126.9712,side:'l',why:'The breakfast stop already in your sheet.',meta:'Seochon'},
+ rafre:{name:'Rafre Fruit',short:'Rafre Fruit',kind:'bakery',lat:37.5800,lng:126.9710,side:'t',why:'Fruit cakes. Use the Seochon outlet to skip the Seongsu queue.',meta:'Seochon and Seongsu · solo friendly'},
+ gyeongbok:{name:'Gyeongbokgung Palace',short:'Gyeongbokgung',ko:'경복궁',kind:'palace',lat:37.5796,lng:126.9770,side:'b',why:'The big one.',meta:'Jongno-gu'},
+ tosokchon:{name:'Tosokchon Samgyetang',short:'Tosokchon',kind:'food',lat:37.5780,lng:126.9730,side:'l',why:'Ginseng chicken soup, two minutes from the palace. Portions defeat people.',meta:'Near Gyeongbokgung · solo friendly'},
+ sujebi:{name:'Samcheongdong Sujebi',short:'Samcheong Sujebi',kind:'food',lat:37.5830,lng:126.9820,side:'r',why:'Hand-torn noodle soup, the house speciality.',meta:'Samcheong-ro · solo friendly'},
+ bukchon:{name:'Bukchon Hanok Village',short:'Bukchon',ko:'북촌한옥마을',kind:'palace',lat:37.5826,lng:126.9835,side:'t',why:'Back alleys rather than the photo corner.',meta:'Jongno-gu'},
+ osulloc:{name:'Osulloc Tea House',short:'Osulloc',kind:'cafe',lat:37.5820,lng:126.9850,side:'r',why:'Traditional dessert sets and fragrant tea, several floors, rooftop views over Bukchon.',meta:'Bukchon · solo friendly'},
+ layereda:{name:'Cafe Layered, Anguk',short:'Layered Anguk',kind:'bakery',lat:37.5790,lng:126.9845,side:'l',why:'Scones and layer cakes, opens early.',meta:'2-3 Bukchon-ro 2-gil, Jongno-gu · from 08:00 weekdays'},
+ cafesudal:{name:'Cafe Sudal',short:'Cafe Sudal',kind:'cafe',lat:37.5780,lng:126.9860,side:'r',why:'Best brown cheese croffle, and the bingsu is good too.',meta:'Anguk'},
+ jaiso:{name:'Jaiso',short:'Jaiso',kind:'cafe',lat:37.5785,lng:126.9855,side:'b',why:'Best mochi in Seoul, wide range. The cherry tomato one is the surprise.',meta:'Anguk'},
+ deoksu:{name:'Deoksugung stone wall',short:'Deoksugung',ko:'덕수궁 돌담길',kind:'palace',lat:37.5658,lng:126.9751,side:'l',why:'The wall walk.',meta:'Jung-gu'},
+ kyobo:{name:'Kyobo Bookstore, Gwanghwamun',short:'Kyobo Books',ko:'교보문고',kind:'shop',lat:37.5710,lng:126.9777,side:'l',why:'The stationery stop.',meta:'Jongno-gu'},
+ cheonggye:{name:'Cheonggyecheon Stream',short:'Cheonggyecheon',ko:'청계천',kind:'park',lat:37.5692,lng:126.9890,side:'b',why:'Evening walk along the water.',meta:'Jung-gu'},
+ gwangjang:{name:'Gwangjang Market',short:'Gwangjang Market',ko:'광장시장',kind:'food',lat:37.5701,lng:126.9996,side:'r',why:'Bindaetteok, mayak gimbap, the whole circus.',meta:'Jongno-gu'},
+ abebe:{name:'abebe bakery',short:'abebe',kind:'bakery',lat:37.5705,lng:127.0005,side:'b',why:'Donuts, just down the street from Gwangjang. Converts people who do not like donuts.',meta:'Near Gwangjang Market'},
+
+ ikseon:{name:'Ikseon-dong',short:'Ikseon-dong',ko:'익선동',kind:'cafe',lat:37.5746,lng:126.9893,side:'r',why:'Hanok alleys full of cafes.',meta:'Jongno-gu'},
+ cheongsudang:{name:'Cheongsudang',short:'Cheongsudang',kind:'cafe',lat:37.5746,lng:126.9886,side:'l',why:'Old but gold, the most photographed courtyard in Ikseon. Tiramisu 10/10, matcha is only okay.',meta:'144 Ikseon-dong, Jongno-gu'},
+ seoulcoffee:{name:'Seoul Coffee',short:'Seoul Coffee',kind:'cafe',lat:37.5744,lng:126.9896,side:'r',why:'Coffee is fine; the seasonal pastries and bread are the reason to go.',meta:'Ikseon-dong'},
+ jayeondo:{name:'Jayeondo',short:'Jayeondo',kind:'bakery',lat:37.5748,lng:126.9890,side:'t',why:'The best salt bread in Seoul, with the hallabong juice.',meta:'Ikseon-dong branch'},
+ tteuran:{name:'Tteuran Korean Herbal Tea House',short:'Tteuran',kind:'cafe',lat:37.5742,lng:126.9900,side:'b',why:'Cosy traditional tea house with heartwarming desserts. Skews older, in a good way.',meta:'Ikseon-dong'},
+ dotori:{name:'Dotori Garden',short:'Dotori Garden',kind:'cafe',lat:37.5750,lng:126.9880,side:'l',why:'Ghibli-coded. Rich greek yoghurt, french onion salt bread, acorn madeleine.',meta:'Anguk / Ikseon-dong'},
+ miltoast:{name:'Mil Toast',short:'Mil Toast',kind:'bakery',lat:37.5710,lng:126.9910,side:'r',why:'Steamed brioche in wooden baskets, plus souffle toast.',meta:'1F, 30-3 Supyo-ro 28-gil, Jongno-gu · 5 min from Jongno 3-ga'},
+ changdeok:{name:'Changdeokgung',short:'Changdeokgung',ko:'창덕궁',kind:'palace',lat:37.5794,lng:126.9910,side:'t',why:'Secret Garden tour is booked for 11:30, 5,000 won.',meta:'Jongno-gu'},
+ ddp:{name:'Dongdaemun Design Plaza',short:'DDP',ko:'동대문디자인플라자',kind:'shop',lat:37.5671,lng:127.0092,side:'r',why:'The Zaha Hadid blob, good at dusk.',meta:'Jung-gu'},
+ palezze:{name:'Cofe de Palezze',short:'Palezze',kind:'cafe',lat:37.5660,lng:127.0180,side:'r',why:'The black sesame latte everyone saves.',meta:'236-302 Sindang-dong, Jung-gu · Dongdaemun side'},
+
+ seongsu:{name:'Seongsu (shopping)',short:'Seongsu',ko:'성수동',kind:'shop',lat:37.5447,lng:127.0560,side:'l',why:'Nyunyu and Romand Pink Office.',meta:'Seongdong-gu'},
+ fiveto7:{name:'5 to 7',short:'5 to 7',kind:'cafe',lat:37.5440,lng:127.0530,side:'b',why:'The fluffiest pancakes in the city. The ube ones are very good and not too sweet.',meta:'Seongsu'},
+ atob:{name:'a to b cafe',short:'a to b',kind:'cafe',lat:37.5450,lng:127.0545,side:'r',why:'Always full of locals. Hunter latte, and a banana tiramisu you will not find elsewhere.',meta:'Seongsu'},
+ supermatcha:{name:'Super Matcha',short:'Super Matcha',kind:'cafe',lat:37.5435,lng:127.0555,side:'l',why:'Matcha flights and a matcha roll cake.',meta:'668-9 Seongsu-dong 1-ga'},
+ haz:{name:'Haz Bakery',short:'Haz Bakery',kind:'bakery',lat:37.5455,lng:127.0570,side:'r',why:"A local's favourite bakery in Seongsu.",meta:'316-46 Seongsudong 2-ga, Seongdong-gu'},
+ anmok:{name:'anmok',short:'anmok',kind:'food',lat:37.5442,lng:127.0550,side:'b',why:'Brimming with tourists and still genuinely good. Add the salted shrimp to the soup.',meta:'Seongsu'},
+ tofindpeter:{name:'To Find Peter',short:'To Find Peter',kind:'food',lat:37.5460,lng:127.0600,side:'r',why:'Abalone innards cream pasta — sounds odd, works. Hidden gem prices for what it is.',meta:'2F, 97 Achasan-ro, Seongdong-gu · several branches'},
+ gogitbar:{name:'Gogit Bar',short:'Gogit Bar',kind:'food',lat:37.5452,lng:127.0565,side:'l',why:'Solo KBBQ at a counter. "Introvert heaven."',meta:'Seongsu · solo friendly'},
+ seoulforest:{name:'Seoul Forest',short:'Seoul Forest',ko:'서울숲',kind:'park',lat:37.5444,lng:127.0374,side:'b',why:'Walk it off after Seongsu.',meta:'Seongdong-gu'},
+ banpo:{name:'Banpo Hangang Park',short:'Banpo Park',ko:'반포한강공원',kind:'food',lat:37.5111,lng:126.9963,side:'l',why:'Ramyeon from the convenience store and chimaek on the grass.',meta:'Seocho-gu'},
+
+ deepin:{name:'deepin',short:'deepin',kind:'food',lat:37.5400,lng:127.0180,side:'r',why:'Opened by a Culinary Class Wars chef. Famous for pasta, but the olive oil ice cream is the thing worth coming back for.',meta:'Oksu'},
+ paldang:{name:'pal dang',short:'pal dang',kind:'food',lat:37.5200,lng:127.0280,side:'r',why:'Recommended by chef Ahn Sungjae. Pig trotters — you will love it or hate it.',meta:'Gangnam'},
+ londonbagel:{name:'London Bagel Museum, Dosan',short:'London Bagel',kind:'bakery',lat:37.5255,lng:127.0340,side:'l',why:'The truffle pecan cream cheese is the order.',meta:'642-25 Sinsa-dong, Gangnam-gu'},
+ cafeeero:{name:'Cafe Eero',short:'Cafe Eero',kind:'cafe',lat:37.4925,lng:127.0075,side:'r',why:'Dessert cafe off a local Naver pin list.',meta:'1555-2 Seocho-dong, Seocho-gu'},
+ simdu:{name:'Simdu',short:'Simdu',kind:'cafe',lat:37.5660,lng:126.9390,side:'r',why:'Reservations only. Quirky, homely dishes — like being cooked for in an artist’s studio.',meta:'Seodaemun'},
+ oneinonejan:{name:'1 in 1 Jan',short:'1 in 1 Jan',kind:'food',lat:37.6350,lng:126.9310,side:'b',why:'"My favourite place to solo dine" — tables looking over the hanok roofs.',meta:'Eunpyeong Hanok Village · far north-west, well off this map'},
+ unyoke:{name:'Unyoke',short:'Unyoke',kind:'cafe',lat:37.5617,lng:126.9280,side:'r',noext:false,why:'Cosy neighbourhood vibes.',meta:'Neighbourhood never stated in the post and I could not confirm it — pin is a guess, check before travelling to it.'},
+ heytea:{name:'Hey Tea',short:'Hey Tea',kind:'cafe',lat:37.5570,lng:126.9245,side:'l',why:'Mango coconut boom.',meta:'Chain with several Seoul branches — the post did not say which.'}
+};
+Object.keys(P).forEach(function(id){var p=P[id];p.id=id;if(!p.xy)p.xy=proj(p.lat,p.lng);});
+
+/* ---------- days and buckets ---------- */
+/* opts: first entry is the default pick */
+var DAYS=[
+ {key:'Wed 11',date:'Wednesday 11 November',title:'Arrive and settle in',slots:[
+  {t:'06:35',label:'Land at Incheon T1',hint:'TW-162 from Singapore, immigration around 07:00',opts:['icn']},
+  {t:'07:30',label:'Breakfast',hint:'at the airport — still a question mark in your sheet',opts:['icn']},
+  {t:'~11:30',label:'Drop bags',hint:'ask about early check-in or storage',opts:['airbnb']},
+  {t:'~12:30',label:'Lunch',hint:'Mangwon / Hongdae',opts:['mangwonmkt','mibbedong','gitteul','sunnyhouse']},
+  {t:'15:00',label:'Airbnb check-in',hint:'',opts:['airbnb']},
+  {t:'~16:30',label:'Afternoon coffee',hint:'Yeonnam',opts:['yeonnam','nothink','coffeenap','koriko','meltingof','longvacation','layeredy','donggyo','heytea','unyoke']},
+  {t:'~19:00',label:'Dinner',hint:'Hongdae, then Musinsa',opts:['hongdae','gitteul','mibbedong']},
+  {t:'~21:00',label:'Noraebang',hint:'karaoke rooms in Hongdae',opts:['hongdae']}
+ ]},
+ {key:'Thu 12',date:'Thursday 12 November',title:'Hannam to Myeongdong',slots:[
+  {t:'~10:30',label:'Brunch',hint:'Hannam',opts:['keem','summerlane','motheroffline','milestone','narrowpath']},
+  {t:'~12:00',label:'Shopping',hint:'Hannamdong — fashion shops and KIV',opts:['hannam']},
+  {t:'~13:00',label:'Lunch',hint:'Hannam / Haebangchon',opts:['haebang','gamjatang','gml']},
+  {t:'~15:00',label:'Coffee with a view',hint:'Huam-dong / Yongsan',opts:['villacoffee','aanzee','rainreport']},
+  {t:'~16:30',label:'Viewpoint',hint:'',opts:['namsan','naksan']},
+  {t:'~18:30',label:'Dinner',hint:'Myeongdong',opts:['myeongdongkyoja','veteran']},
+  {t:'~20:00',label:'Shopping',hint:'Olive Young and Daiso',opts:['myeongdong']}
+ ]},
+ {key:'Fri 13',date:'Friday 13 November',title:'Palaces and Jongno',slots:[
+  {t:'~10:00',label:'Breakfast',hint:'Seochon',opts:['leedorim','rafre','seochon']},
+  {t:'~11:30',label:'Palace',hint:'',opts:['gyeongbok']},
+  {t:'~13:00',label:'Lunch',hint:'by the palace',opts:['tosokchon','sujebi']},
+  {t:'~14:00',label:'Hanok village',hint:'back alleys',opts:['bukchon']},
+  {t:'~15:00',label:'Dessert / tea',hint:'Bukchon, Anguk, Ikseon',opts:['osulloc','layereda','cafesudal','jaiso','dotori','miltoast']},
+  {t:'~15:30',label:'Wall walk',hint:'Kyobo Books is the stationery stop nearby',opts:['deoksu','kyobo']},
+  {t:'~18:00',label:'Evening walk',hint:'',opts:['cheonggye']},
+  {t:'~19:30',label:'Dinner',hint:'market food',opts:['gwangjang','abebe']}
+ ]},
+ {key:'Sat 14',date:'Saturday 14 November',title:'Seongsu and the Han River',slots:[
+  {t:'~11:00',label:'Shopping',hint:'Nyunyu and Romand Pink Office',opts:['seongsu']},
+  {t:'~12:30',label:'Lunch',hint:'Seongsu',opts:['anmok','tofindpeter','gogitbar','mibbedong']},
+  {t:'~14:00',label:'Coffee / bakery',hint:'Seongsu',opts:['fiveto7','atob','supermatcha','haz','rafre']},
+  {t:'~15:00',label:'Park',hint:'',opts:['seoulforest']},
+  {t:'~18:30',label:'Dinner',hint:'ramyeon and chimaek on the grass',opts:['banpo']}
+ ]},
+ {key:'Sun 15',date:'Sunday 15 November',title:'Changdeokgung and Ikseon-dong',slots:[
+  {t:'09:30',label:'Meet',hint:'Hongik Univ. Station',opts:['hongdae']},
+  {t:'10:10',label:'Palace',hint:'Secret Garden tour 11:30, 5,000 won, ends around 12:30',opts:['changdeok']},
+  {t:'~13:00',label:'Lunch',hint:'Ikseon-dong and around',opts:['ikseon','miltoast','gwangjang']},
+  {t:'~14:00',label:'Steffi goes to MMA',hint:'location still to be confirmed in your sheet',opts:[]},
+  {t:'~14:30',label:'Cafe',hint:'Ikseon-dong',opts:['cheongsudang','seoulcoffee','jayeondo','tteuran','dotori']},
+  {t:'~17:00',label:'Evening',hint:'',opts:['ddp','palezze']}
+ ]},
+ {key:'Mon 16',date:'Monday 16 November',title:'Fly home',slots:[
+  {t:'11:00',label:'Check out',hint:'',opts:['airbnb']},
+  {t:'11:30',label:'Last lunch',hint:'close to the Airbnb',opts:['mangwonmkt','teanomad','floormangwon']},
+  {t:'12:30',label:'Leave for the airport',hint:'',opts:['airbnb']},
+  {t:'13:30',label:'Reach Incheon T1',hint:'',opts:['icn']},
+  {t:'15:30',label:'Flight TW-161',hint:'lands at Changi T2 at 21:25',opts:['icn']}
+ ]},
+ {key:'Spare',date:'Did not fit anywhere',title:'other saved places',spare:true,slots:[
+  {t:'',label:'Gangnam side',hint:'',opts:['paldang','londonbagel','milestone','cafeeero']},
+  {t:'',label:'Further out',hint:'',opts:['deepin','simdu','oneinonejan','palezze']},
+  {t:'',label:'Delivery night in',hint:'rose tteokbokki from Yeopgi, original fried chicken from BBQ Chicken',opts:[]}
+ ]}
+];
+
+/* ---------- state ---------- */
+var LS='seoul-itinerary-picks-v1';
+var choices={};
+try{choices=JSON.parse(localStorage.getItem(LS)||'{}')||{};}catch(e){choices={};}
+function save(){try{localStorage.setItem(LS,JSON.stringify(choices));}catch(e){}}
+function slotKey(di,si){return di+'-'+si;}
+function pickOf(di,si){
+  var s=DAYS[di].slots[si];
+  if(!s.opts.length)return null;
+  var k=slotKey(di,si), c=choices[k];
+  return (c&&s.opts.indexOf(c)>=0)?c:s.opts[0];
+}
+
+var state={day:'all',place:null,slot:null};
+var view={cx:500,cy:315,w:1000};
+var raf=0,u=1;
+var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var $=function(id){return document.getElementById(id);};
+var mapEl=$('map'),svg=$('svg'),card=$('card');
+
+function el(tag,attrs,kids,ns){
+  var e=ns?document.createElementNS(ns,tag):document.createElement(tag);
+  if(attrs)Object.keys(attrs).forEach(function(k){
+    if(k==='text')e.textContent=attrs[k];else e.setAttribute(k,attrs[k]);});
+  (kids||[]).forEach(function(c){if(c)e.appendChild(c);});
+  return e;
+}
+var S=function(tag,attrs,kids){return el(tag,attrs,kids,NS);};
+function dayVar(i){return 'var(--d'+(i+1)+')';}
+function visibleDays(){
+  if(state.day==='all')return DAYS.map(function(d,i){return i;}).filter(function(i){return !DAYS[i].spare;});
+  return [state.day];
+}
+/* chosen places for the visible days, in order, numbered */
+function shown(){
+  var out=[],seen={},n=0;
+  visibleDays().forEach(function(di){
+    DAYS[di].slots.forEach(function(s,si){
+      var id=pickOf(di,si);
+      if(!id||seen[id])return;
+      seen[id]=1;n++;
+      out.push({id:id,day:di,num:state.day==='all'?null:n});
     });
-    days.forEach(function(di){
-      DAYS[di].items.forEach(function(it){
-        (it.alt||[]).forEach(function(a){if(!seen[a]){seen[a]=1;out.push({id:a,day:di,num:null,alt:true});}});
-      });
-    });
-    return out;
+  });
+  return out;
+}
+function numberFor(di,id){
+  var n=0,seen={};
+  for(var i=0;i<DAYS[di].slots.length;i++){
+    var p=pickOf(di,i);
+    if(p&&!seen[p]){seen[p]=1;n++;if(p===id)return n;}
   }
-  function numberFor(di,id){
-    var n=0,seen={};
-    for(var i=0;i<DAYS[di].items.length;i++){
-      var p=DAYS[di].items[i].p;
-      if(p&&!seen[p]){seen[p]=1;n++;if(p===id)return n;}
+  return null;
+}
+
+/* ---------- base map ---------- */
+function smooth(pts){
+  var d='M'+pts[0][0]+','+pts[0][1];
+  for(var i=0;i<pts.length-1;i++){
+    var p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2;
+    var c1=[p1[0]+(p2[0]-p0[0])/6,p1[1]+(p2[1]-p0[1])/6];
+    var c2=[p2[0]-(p3[0]-p1[0])/6,p2[1]-(p3[1]-p1[1])/6];
+    d+=' C'+c1[0]+','+c1[1]+' '+c2[0]+','+c2[1]+' '+p2[0]+','+p2[1];
+  }
+  return d;
+}
+var layerBase=S('g'),layerRoute=S('g'),layerPins=S('g');
+function scal(g,x,y){g.setAttribute('data-x',x);g.setAttribute('data-y',y);g.classList.add('scal');return g;}
+function drawBase(){
+  layerBase.appendChild(S('rect',{x:-3000,y:-3000,width:7000,height:7000,fill:'var(--land)'}));
+  var ns=proj(37.5520,126.9900);
+  layerBase.appendChild(S('ellipse',{cx:ns[0],cy:ns[1],rx:92,ry:32,fill:'var(--hill)',transform:'rotate(-8 '+ns[0]+' '+ns[1]+')'}));
+  var sf=proj(37.5444,127.0374);
+  layerBase.appendChild(S('rect',{x:sf[0]-34,y:sf[1]-22,width:68,height:44,rx:14,fill:'var(--hill)'}));
+  var river=[[37.5290,127.0700],[37.5312,127.0450],[37.5305,127.0200],[37.5240,127.0020],[37.5160,126.9900],[37.5130,126.9750],[37.5170,126.9550],[37.5230,126.9380],[37.5310,126.9280],[37.5390,126.9160],[37.5460,126.9040],[37.5530,126.8930]].map(function(a){return proj(a[0],a[1]);});
+  layerBase.appendChild(S('path',{d:smooth(river),fill:'none',stroke:'var(--river)','stroke-width':46,'stroke-linecap':'round','stroke-linejoin':'round'}));
+  var ccc=[[37.5692,126.9784],[37.5689,126.9890],[37.5700,127.0090],[37.5712,127.0270],[37.5690,127.0400]].map(function(a){return proj(a[0],a[1]);});
+  layerBase.appendChild(S('path',{d:smooth(ccc),fill:'none',stroke:'var(--river)','stroke-width':5,'stroke-linecap':'round'}));
+  [['MAPO',37.5470,126.9130],['JONGNO',37.5870,126.9930],['JUNG',37.5600,126.9990],['YONGSAN',37.5330,126.9770],['SEONGDONG',37.5560,127.0450],['GANGNAM',37.5150,127.0330]].forEach(function(a){
+    var xy=proj(a[1],a[2]);
+    var g=scal(S('g'),xy[0],xy[1]);g.appendChild(S('text',{'class':'dist',text:a[0]}));layerBase.appendChild(g);
+  });
+  var rl=proj(37.5318,127.0450);
+  var rg=scal(S('g'),rl[0],rl[1]);rg.appendChild(S('text',{'class':'rivlab',text:'Han River · 한강'}));layerBase.appendChild(rg);
+}
+
+/* ---------- pins ---------- */
+function drawPins(){
+  while(layerPins.firstChild)layerPins.removeChild(layerPins.firstChild);
+  while(layerRoute.firstChild)layerRoute.removeChild(layerRoute.firstChild);
+  var list=shown();
+  var dayView=state.day!=='all';
+  if(dayView&&!DAYS[state.day].spare){
+    var pts=[];
+    DAYS[state.day].slots.forEach(function(s,si){
+      var id=pickOf(state.day,si);
+      if(!id)return;
+      if(pts[pts.length-1]!==id)pts.push(id);
+    });
+    if(pts.length>1){
+      layerRoute.appendChild(S('polyline',{points:pts.map(function(id){return P[id].xy.join(',');}).join(' '),fill:'none',stroke:dayVar(state.day),'stroke-width':2.5,'stroke-dasharray':'7 6','stroke-linecap':'round','stroke-linejoin':'round','vector-effect':'non-scaling-stroke',opacity:.8}));
     }
-    return null;
   }
-
-  /* ---------- map base drawing ---------- */
-  function smooth(pts){
-    var d='M'+pts[0][0]+','+pts[0][1];
-    for(var i=0;i<pts.length-1;i++){
-      var p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2;
-      var c1=[p1[0]+(p2[0]-p0[0])/6,p1[1]+(p2[1]-p0[1])/6];
-      var c2=[p2[0]-(p3[0]-p1[0])/6,p2[1]-(p3[1]-p1[1])/6];
-      d+=' C'+c1[0]+','+c1[1]+' '+c2[0]+','+c2[1]+' '+p2[0]+','+p2[1];
+  var order=list.slice().sort(function(a,b){return (a.id===state.place)-(b.id===state.place);});
+  order.forEach(function(s){
+    var p=P[s.id],sel=s.id===state.place;
+    var R=dayView?13:10;
+    var g=scal(S('g',{'class':'pin',role:'button',tabindex:0,'data-id':s.id,'aria-label':p.name,style:'--c:'+dayVar(s.day)}),p.xy[0],p.xy[1]);
+    if(sel)g.appendChild(S('circle',{'class':'ring',r:R+7}));
+    var body=S('g',{transform:sel?'scale(1.2)':''});
+    body.appendChild(S('circle',{'class':'body',r:R,fill:dayVar(s.day)}));
+    body.appendChild(S('use',{href:'#i-'+p.kind,x:-R*0.62,y:-R*0.62,width:R*1.24,height:R*1.24}));
+    g.appendChild(body);
+    if(dayView&&s.num){
+      var nm=S('g',{'class':'num',transform:'translate('+(R*0.78)+','+(-R*0.78)+')'});
+      nm.appendChild(S('circle',{r:7.5}));
+      nm.appendChild(S('text',{y:3.2,text:String(s.num)}));
+      g.appendChild(nm);
     }
-    return d;
-  }
-  var gScal=[]; /* elements whose size stays constant in screen pixels */
-  var layerBase=S('g'),layerRoute=S('g'),layerPins=S('g');
-  function scal(g,x,y){g.setAttribute('data-x',x);g.setAttribute('data-y',y);g.classList.add('scal');return g;}
+    if(dayView||sel){
+      var side=p.side||'r',tx=0,ty=0,anchor='start';
+      if(side==='r'){tx=R+7;ty=4;}
+      if(side==='l'){tx=-R-7;ty=4;anchor='end';}
+      if(side==='t'){ty=-R-8;anchor='middle';}
+      if(side==='b'){ty=R+17;anchor='middle';}
+      g.appendChild(S('text',{'class':'lab',x:tx,y:ty,'text-anchor':anchor,text:p.short}));
+    }
+    g.addEventListener('click',function(){if(dragMoved)return;selectPlace(s.id,null,true);});
+    g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();selectPlace(s.id,null,true);}});
+    layerPins.appendChild(g);
+  });
+  applyScale();
+}
 
-  function drawBase(){
-    layerBase.appendChild(S('rect',{x:-3000,y:-3000,width:7000,height:7000,fill:'var(--land)'}));
-    var ns=proj(37.5520,126.9900);
-    layerBase.appendChild(S('ellipse',{cx:ns[0],cy:ns[1],rx:92,ry:32,fill:'var(--hill)',transform:'rotate(-8 '+ns[0]+' '+ns[1]+')'}));
-    var sf=proj(37.5444,127.0374);
-    layerBase.appendChild(S('rect',{x:sf[0]-34,y:sf[1]-22,width:68,height:44,rx:14,fill:'var(--hill)'}));
-    var river=[[37.5290,127.0700],[37.5312,127.0450],[37.5305,127.0200],[37.5240,127.0020],[37.5160,126.9900],[37.5130,126.9750],[37.5170,126.9550],[37.5230,126.9380],[37.5310,126.9280],[37.5390,126.9160],[37.5460,126.9040],[37.5530,126.8930]].map(function(a){return proj(a[0],a[1]);});
-    layerBase.appendChild(S('path',{d:smooth(river),fill:'none',stroke:'var(--river)','stroke-width':46,'stroke-linecap':'round','stroke-linejoin':'round'}));
-    var ccc=[[37.5692,126.9784],[37.5689,126.9890],[37.5700,127.0090],[37.5712,127.0270],[37.5690,127.0400]].map(function(a){return proj(a[0],a[1]);});
-    layerBase.appendChild(S('path',{d:smooth(ccc),fill:'none',stroke:'var(--river)','stroke-width':5,'stroke-linecap':'round'}));
-    [['MAPO',37.5470,126.9130],['JONGNO',37.5870,126.9930],['JUNG',37.5600,126.9990],['YONGSAN',37.5330,126.9770],['SEONGDONG',37.5560,127.0450],['NAMSAN',37.5470,126.9960]].forEach(function(a){
-      var xy=proj(a[1],a[2]);
-      var g=scal(S('g'),xy[0],xy[1]);g.appendChild(S('text',{class:'dist',text:a[0]}));layerBase.appendChild(g);
-    });
-    var rl=proj(37.5318,127.0450);
-    var rg=scal(S('g'),rl[0],rl[1]);rg.appendChild(S('text',{class:'rivlab',text:'Han River · 한강'}));layerBase.appendChild(rg);
+/* ---------- view ---------- */
+function size(){return [mapEl.clientWidth||360,mapEl.clientHeight||320];}
+function applyView(){
+  var s=size(),h=view.w*s[1]/s[0];
+  svg.setAttribute('viewBox',(view.cx-view.w/2)+' '+(view.cy-h/2)+' '+view.w+' '+h);
+  u=view.w/s[0];
+  applyScale();
+}
+function applyScale(){
+  var nodes=svg.querySelectorAll('.scal');
+  for(var i=0;i<nodes.length;i++){
+    var n=nodes[i];
+    n.setAttribute('transform','translate('+n.getAttribute('data-x')+','+n.getAttribute('data-y')+') scale('+u+')');
   }
+}
+function animateTo(t,instant){
+  cancelAnimationFrame(raf);
+  if(instant||reduce){view=t;applyView();return;}
+  var s={cx:view.cx,cy:view.cy,w:view.w},t0=performance.now(),D=420;
+  (function f(now){
+    var k=Math.min(1,(now-t0)/D),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+    view={cx:s.cx+(t.cx-s.cx)*e,cy:s.cy+(t.cy-s.cy)*e,w:s.w+(t.w-s.w)*e};
+    applyView();
+    if(k<1)raf=requestAnimationFrame(f);
+  })(t0);
+}
+function fitTarget(){
+  var pts=shown().map(function(s){return P[s.id].xy;});
+  if(!pts.length)pts=[[500,315]];
+  var x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;
+  pts.forEach(function(p){x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1]);});
+  var s=size(),ar=s[0]/s[1];
+  var w=Math.max((x1-x0)+130,((y1-y0)+130)*ar,260);
+  return {cx:(x0+x1)/2,cy:(y0+y1)/2,w:Math.min(w,1800)};
+}
+function focusOn(id){
+  var s=size(),p=P[id].xy,w=Math.min(view.w,300);
+  var h=w*s[1]/s[0];
+  animateTo({cx:p[0],cy:p[1]+h*0.16,w:Math.max(w,200)});
+}
+function zoomBy(f){animateTo({cx:view.cx,cy:view.cy,w:Math.max(120,Math.min(1800,view.w*f))});}
 
-  /* ---------- pins ---------- */
-  function drawPins(){
-    while(layerPins.firstChild)layerPins.removeChild(layerPins.firstChild);
-    while(layerRoute.firstChild)layerRoute.removeChild(layerRoute.firstChild);
-    var list=shown();
-    var dayView=state.day!=='all';
-    if(dayView){
-      var pts=[];
-      DAYS[state.day].items.forEach(function(it){
-        if(!it.p)return;
-        var last=pts[pts.length-1];
-        if(last!==it.p)pts.push(it.p);
-      });
-      if(pts.length>1){
-        layerRoute.appendChild(S('polyline',{points:pts.map(function(id){return P[id].xy.join(',');}).join(' '),fill:'none',stroke:dayVar(state.day),'stroke-width':2.5,'stroke-dasharray':'7 6','stroke-linecap':'round','stroke-linejoin':'round','vector-effect':'non-scaling-stroke',opacity:.8}));
+/* ---------- card ---------- */
+function gmaps(p){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.q||(p.name+' Seoul'));}
+function naver(p){return 'https://map.naver.com/p/search/'+encodeURIComponent(p.ko||p.name);}
+function renderCard(){
+  card.innerHTML='';
+  if(!state.place){card.hidden=true;return;}
+  var p=P[state.place];
+  card.hidden=false;
+  card.appendChild(el('h3',{text:p.name}));
+  if(p.ko)card.appendChild(el('div',{'class':'ko',text:p.ko}));
+  if(p.why)card.appendChild(el('div',{'class':'why',text:p.why}));
+  if(p.meta)card.appendChild(el('div',{'class':'meta',text:p.meta}));
+  if(!p.noext){
+    card.appendChild(el('div',{'class':'links'},[
+      el('a',{href:gmaps(p),target:'_blank',rel:'noopener noreferrer',text:'Google Maps'}),
+      el('a',{href:naver(p),target:'_blank',rel:'noopener noreferrer',text:'Naver Map'})
+    ]));
+  }
+  var x=el('button',{'class':'x',type:'button','aria-label':'Close',text:'×'});
+  x.addEventListener('click',function(){state.place=null;state.slot=null;drawPins();renderCard();markList();});
+  card.appendChild(x);
+}
+function markList(){
+  var items=document.querySelectorAll('.slot[data-key]');
+  for(var i=0;i<items.length;i++){
+    if(items[i].getAttribute('data-key')===state.slot)items[i].setAttribute('data-active','1');
+    else items[i].removeAttribute('data-active');
+  }
+}
+function selectPlace(id,key,fromPin){
+  if(!P[id])return;
+  state.place=id;state.slot=key;
+  if(fromPin){
+    var m=document.querySelector('.slot[data-place="'+id+'"]');
+    if(m)state.slot=m.getAttribute('data-key');
+  }
+  drawPins();renderCard();markList();focusOn(id);
+  if(fromPin){
+    var t=document.querySelector('.slot[data-active="1"]');
+    if(t)t.scrollIntoView({block:'nearest',behavior:reduce?'auto':'smooth'});
+  }
+}
+
+/* ---------- chips, list ---------- */
+function renderChips(){
+  var box=$('chips');box.innerHTML='';
+  var all=el('button',{type:'button','class':'chip','aria-pressed':String(state.day==='all')},[el('i'),el('span',{text:'All days'})]);
+  all.addEventListener('click',function(){setDay('all');});
+  box.appendChild(all);
+  DAYS.forEach(function(d,i){
+    var b=el('button',{type:'button','class':'chip','aria-pressed':String(state.day===i),style:'--c:'+dayVar(i)},[el('i'),el('span',{text:d.key})]);
+    b.addEventListener('click',function(){setDay(i);});
+    box.appendChild(b);
+  });
+}
+function detailNode(p){
+  var d=el('div',{'class':'detail'});
+  if(p.why)d.appendChild(el('div',{text:p.why}));
+  if(p.meta)d.appendChild(el('div',{text:p.meta}));
+  if(!p.noext){
+    d.appendChild(el('div',{'class':'dlinks'},[
+      el('a',{href:gmaps(p),target:'_blank',rel:'noopener noreferrer',text:'Google Maps'}),
+      el('a',{href:naver(p),target:'_blank',rel:'noopener noreferrer',text:'Naver'})
+    ]));
+  }
+  return d;
+}
+function renderList(){
+  var main=$('list');main.innerHTML='';
+  DAYS.forEach(function(d,di){
+    if(state.day!=='all'&&state.day!==di)return;
+    if(state.day==='all'&&d.spare)return;
+    var sec=el('section',{'class':'day',style:'--c:'+dayVar(di)});
+    sec.appendChild(el('div',{'class':'dayhead'},[el('h2',{text:d.date}),el('span',{text:d.title})]));
+    var ul=el('ul',{'class':'slots'});
+    d.slots.forEach(function(s,si){
+      var key=slotKey(di,si);
+      var id=pickOf(di,si);
+      var p=id?P[id]:null;
+      var num=id?numberFor(di,id):null;
+
+      var mid=el('div');
+      mid.appendChild(el('div',{'class':'label'},[
+        el('span',{text:s.label}),
+        s.hint?el('span',{'class':'hint',text:'· '+s.hint}):null
+      ]));
+
+      if(s.opts.length>1){
+        var row=el('div',{'class':'pickrow'});
+        var sel=el('select',{'class':'pick','aria-label':s.label+' options'});
+        s.opts.forEach(function(oid){
+          var o=el('option',{value:oid,text:P[oid].name});
+          if(oid===id)o.setAttribute('selected','selected');
+          sel.appendChild(o);
+        });
+        sel.addEventListener('change',function(){
+          choices[key]=sel.value;save();
+          state.place=sel.value;state.slot=key;
+          renderList();drawPins();renderCard();focusOn(sel.value);
+        });
+        row.appendChild(sel);
+        var btn=el('button',{type:'button','class':'showmap',text:'Show on map'});
+        btn.addEventListener('click',function(){selectPlace(id,key,false);});
+        row.appendChild(btn);
+        mid.appendChild(row);
+        mid.appendChild(detailNode(p));
+      }else if(s.opts.length===1){
+        var nm=el('div',{'class':'fixedname',text:p.name});
+        mid.appendChild(nm);
+        if(p.why||p.meta)mid.appendChild(detailNode(p));
       }
-    }
-    var order=list.slice().sort(function(a,b){return (a.id===state.place)-(b.id===state.place);});
-    order.forEach(function(s){
-      var p=P[s.id],sel=s.id===state.place;
-      var R=dayView?13:10;
-      var g=scal(S('g',{'class':'pin'+(s.alt?' alt':''),role:'button',tabindex:0,'data-id':s.id,'aria-label':p.name+(s.alt?' (alternative)':''),style:'--c:'+dayVar(s.day)}),p.xy[0],p.xy[1]);
-      if(sel)g.appendChild(S('circle',{'class':'ring',r:R+7}));
-      var body=S('g',{transform:sel?'scale(1.2)':''});
-      body.appendChild(S('circle',{'class':'body',r:R,fill:dayVar(s.day)}));
-      body.appendChild(S('use',{href:'#i-'+p.kind,x:-R*0.62,y:-R*0.62,width:R*1.24,height:R*1.24}));
-      g.appendChild(body);
-      if(dayView&&s.num){
-        var nm=S('g',{'class':'num',transform:'translate('+(R*0.78)+','+(-R*0.78)+')'});
-        nm.appendChild(S('circle',{r:7.5}));
-        nm.appendChild(S('text',{y:3.2,text:String(s.num)}));
-        g.appendChild(nm);
-      }
-      if(dayView||sel){
-        var side=p.side||'r',tx=0,ty=0,anchor='start';
-        if(side==='r'){tx=R+7;ty=4;}
-        if(side==='l'){tx=-R-7;ty=4;anchor='end';}
-        if(side==='t'){ty=-R-8;anchor='middle';}
-        if(side==='b'){ty=R+17;anchor='middle';}
-        g.appendChild(S('text',{'class':'lab',x:tx,y:ty,'text-anchor':anchor,text:p.short}));
-      }
-      g.addEventListener('click',function(e){if(dragMoved){return;}selectPlace(s.id,null,true);});
-      g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();selectPlace(s.id,null,true);}});
-      layerPins.appendChild(g);
-    });
-    applyScale();
-  }
 
-  /* ---------- view ---------- */
-  function size(){return [mapEl.clientWidth||360,mapEl.clientHeight||320];}
-  function applyView(){
-    var s=size(),h=view.w*s[1]/s[0];
-    svg.setAttribute('viewBox',(view.cx-view.w/2)+' '+(view.cy-h/2)+' '+view.w+' '+h);
-    u=view.w/s[0];
-    applyScale();
-  }
-  function applyScale(){
-    var nodes=svg.querySelectorAll('.scal');
-    for(var i=0;i<nodes.length;i++){
-      var n=nodes[i];
-      n.setAttribute('transform','translate('+n.getAttribute('data-x')+','+n.getAttribute('data-y')+') scale('+u+')');
-    }
-  }
-  function animateTo(t,instant){
-    cancelAnimationFrame(raf);
-    if(instant||reduce){view=t;applyView();return;}
-    var s={cx:view.cx,cy:view.cy,w:view.w},t0=performance.now(),D=420;
-    (function f(now){
-      var k=Math.min(1,(now-t0)/D),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
-      view={cx:s.cx+(t.cx-s.cx)*e,cy:s.cy+(t.cy-s.cy)*e,w:s.w+(t.w-s.w)*e};
-      applyView();
-      if(k<1)raf=requestAnimationFrame(f);
-    })(t0);
-  }
-  function fitTarget(){
-    var all=shown(),main=all.filter(function(s){return !s.alt;});
-    var pts=(main.length?main:all).map(function(s){return P[s.id].xy;});
-    var x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;
-    pts.forEach(function(p){x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1]);});
-    var s=size(),ar=s[0]/s[1];
-    var w=Math.max((x1-x0)+130,((y1-y0)+130)*ar,260);
-    return {cx:(x0+x1)/2,cy:(y0+y1)/2,w:Math.min(w,1500)};
-  }
-  function focusOn(id){
-    var s=size(),p=P[id].xy,w=Math.min(view.w,300);
-    var h=w*s[1]/s[0];
-    animateTo({cx:p[0],cy:p[1]+h*0.16,w:Math.max(w,200)});
-  }
-  function zoomBy(f){
-    animateTo({cx:view.cx,cy:view.cy,w:Math.max(120,Math.min(1500,view.w*f))});
-  }
-
-  /* ---------- selection and card ---------- */
-  function visitsOf(id){
-    var out=[];
-    DAYS.forEach(function(d){d.items.forEach(function(it){
-      if(it.p===id)out.push({day:d.key,t:it.t,title:it.title,alt:false});
-      else if((it.alt||[]).indexOf(id)>=0)out.push({day:d.key,t:it.t,title:it.title,alt:true});
-    });});
-    return out;
-  }
-  function gmaps(p){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.q||(p.name+' Seoul'));}
-  function naver(p){return 'https://map.naver.com/p/search/'+encodeURIComponent(p.ko||p.name);}
-  function renderCard(){
-    card.innerHTML='';
-    if(!state.place){card.hidden=true;return;}
-    var p=P[state.place];
-    card.hidden=false;
-    card.appendChild(el('h3',{text:p.name}));
-    if(p.ko)card.appendChild(el('div',{'class':'ko',text:p.ko}));
-    var ul=el('ul',{'class':'visits'});
-    var vs=visitsOf(p.id);
-    if(vs.length===1&&!vs[0].alt&&window.innerWidth<600)vs=[];
-    vs.forEach(function(v){
       var li=el('li');
-      li.appendChild(el('b',{text:v.day+' '+v.t}));
-      li.appendChild(document.createTextNode(' '+(v.alt?'Alternative to: ':'')+v.title));
+      var slot=el('div',{'class':'slot','data-key':key},[
+        el('span',{'class':'time',text:s.t||''}),
+        mid,
+        el('span',{'class':'badge'+(id?'':' none'),text:id?String(num):'–','aria-hidden':'true'})
+      ]);
+      if(id)slot.setAttribute('data-place',id);
+      slot.style.setProperty('--c',dayVar(di));
+      if(id&&s.opts.length===1){
+        slot.style.cursor='pointer';
+        slot.addEventListener('click',function(){selectPlace(id,key,false);});
+      }
+      li.appendChild(slot);
       ul.appendChild(li);
     });
-    card.appendChild(ul);
-    if(p.off)card.appendChild(el('div',{'class':'note',text:p.off}));
-    if(!p.noext){
-      card.appendChild(el('div',{'class':'links'},[
-        el('a',{href:gmaps(p),target:'_blank',rel:'noopener noreferrer',text:'Google Maps'}),
-        el('a',{href:naver(p),target:'_blank',rel:'noopener noreferrer',text:'Naver Map'})
-      ]));
-    }
-    var alts=[];
-    DAYS.forEach(function(d){d.items.forEach(function(it){
-      if(it.p===p.id)(it.alt||[]).forEach(function(a){if(alts.indexOf(a)<0)alts.push(a);});
-      if((it.alt||[]).indexOf(p.id)>=0&&alts.indexOf(it.p)<0)alts.push(it.p);
-    });});
-    if(alts.length){
-      var box=el('div',{'class':'alts'},[el('span',{text:'Or:'})]);
-      alts.forEach(function(a){
-        var b=el('button',{type:'button',text:P[a].short});
-        b.addEventListener('click',function(){selectPlace(a,null,true);});
-        box.appendChild(b);
-      });
-      card.appendChild(box);
-    }
-    var x=el('button',{'class':'x',type:'button','aria-label':'Close',text:'×'});
-    x.addEventListener('click',function(){state.place=null;state.item=null;drawPins();renderCard();markList();});
-    card.appendChild(x);
-  }
-  function markList(){
-    var items=document.querySelectorAll('.stop[data-key]');
-    for(var i=0;i<items.length;i++){
-      var on=items[i].getAttribute('data-key')===state.item;
-      if(on)items[i].setAttribute('aria-current','true');else items[i].removeAttribute('aria-current');
-    }
-  }
-  function selectPlace(id,itemKey,fromPin){
-    if(!P[id])return;
-    state.place=id;state.item=itemKey;
-    /* a tapped pin is matched to the first listed stop that uses it */
-    if(fromPin){
-      var m=document.querySelector('.stop[data-place="'+id+'"]');
-      if(m){state.item=m.getAttribute('data-key');}
-    }
-    drawPins();renderCard();markList();focusOn(id);
-    if(fromPin){
-      var t=document.querySelector('.stop[aria-current="true"]');
-      if(t)t.scrollIntoView({block:'nearest',behavior:reduce?'auto':'smooth'});
-    }
-  }
+    sec.appendChild(ul);
+    main.appendChild(sec);
+  });
+  markList();
+}
+function setDay(d){
+  state.day=d;
+  var ids=shown().map(function(s){return s.id;});
+  if(state.place&&ids.indexOf(state.place)<0){state.place=null;state.slot=null;}
+  renderChips();renderList();drawPins();renderCard();
+  animateTo(fitTarget());
+}
 
-  /* ---------- list and chips ---------- */
-  function renderChips(){
-    var box=$('chips');box.innerHTML='';
-    var all=el('button',{type:'button','class':'chip','aria-pressed':String(state.day==='all')},[el('i'),el('span',{text:'All days'})]);
-    all.addEventListener('click',function(){setDay('all');});
-    box.appendChild(all);
-    DAYS.forEach(function(d,i){
-      var b=el('button',{type:'button','class':'chip','aria-pressed':String(state.day===i),style:'--c:'+dayVar(i)},[el('i'),el('span',{text:d.key})]);
-      b.addEventListener('click',function(){setDay(i);});
-      box.appendChild(b);
-    });
+/* ---------- drag and pinch ---------- */
+var ptrs={},dragMoved=false,startPt=null,pinch0=null;
+svg.addEventListener('pointerdown',function(e){
+  ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+  startPt={x:e.clientX,y:e.clientY};
+  dragMoved=false;
+  var ids=Object.keys(ptrs);
+  if(ids.length===2){
+    var a=ptrs[ids[0]],b=ptrs[ids[1]];
+    pinch0={d:Math.hypot(a.x-b.x,a.y-b.y),w:view.w};
   }
-  function renderList(){
-    var main=$('list');main.innerHTML='';
-    DAYS.forEach(function(d,di){
-      if(state.day!=='all'&&state.day!==di)return;
-      var sec=el('section',{'class':'day',style:'--c:'+dayVar(di)});
-      sec.appendChild(el('div',{'class':'dayhead'},[el('h2',{text:d.date}),el('span',{text:d.title})]));
-      var ul=el('ul',{'class':'stops'});
-      d.items.forEach(function(it,ii){
-        var key=di+'-'+ii;
-        var num=it.p?numberFor(di,it.p):null;
-        var inner=[
-          el('span',{'class':'time',text:it.t}),
-          el('span',null,[el('span',{'class':'title',text:it.title}),it.note?el('span',{'class':'note',text:it.note}):null]),
-          el('span',{'class':'badge'+(it.p?'':' none'),text:it.p?String(num):'–','aria-hidden':'true'})
-        ];
-        var node;
-        if(it.p){
-          node=el('button',{type:'button','class':'stop','data-key':key,'data-place':it.p,'aria-label':it.t+' '+it.title+'. Show on map.'},inner);
-          node.addEventListener('click',function(){selectPlace(it.p,key,false);});
-        }else{
-          node=el('div',{'class':'stop'},inner);
-        }
-        node.style.setProperty('--c',dayVar(di));
-        ul.appendChild(el('li',null,[node]));
-      });
-      sec.appendChild(ul);
-      main.appendChild(sec);
-    });
-    markList();
-  }
-  function setDay(d){
-    state.day=d;
-    if(state.place){
-      var ids=shown().map(function(s){return s.id;});
-      if(ids.indexOf(state.place)<0){state.place=null;state.item=null;}
-    }
-    renderChips();renderList();drawPins();renderCard();
-    animateTo(fitTarget());
-  }
-
-  /* ---------- drag and pinch ---------- */
-  var ptrs={},dragMoved=false,startPt=null,pinch0=null;
-  svg.addEventListener('pointerdown',function(e){
+});
+svg.addEventListener('pointermove',function(e){
+  var p=ptrs[e.pointerId];if(!p)return;
+  var ids=Object.keys(ptrs);
+  if(ids.length===2&&pinch0){
     ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
-    startPt={x:e.clientX,y:e.clientY};
-    dragMoved=false;
-    var ids=Object.keys(ptrs);
-    if(ids.length===2){
-      var a=ptrs[ids[0]],b=ptrs[ids[1]];
-      pinch0={d:Math.hypot(a.x-b.x,a.y-b.y),w:view.w};
-    }
-  });
-  svg.addEventListener('pointermove',function(e){
-    var p=ptrs[e.pointerId];if(!p)return;
-    var ids=Object.keys(ptrs);
-    if(ids.length===2&&pinch0){
-      ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
-      var a=ptrs[ids[0]],b=ptrs[ids[1]];
-      var d=Math.hypot(a.x-b.x,a.y-b.y);
-      cancelAnimationFrame(raf);
-      view.w=Math.max(120,Math.min(1500,pinch0.w*pinch0.d/Math.max(d,1)));
-      dragMoved=true;applyView();return;
-    }
-    var dx=e.clientX-p.x,dy=e.clientY-p.y;
-    if(!dragMoved&&Math.hypot(e.clientX-startPt.x,e.clientY-startPt.y)>6){
-      dragMoved=true;
-      try{svg.setPointerCapture(e.pointerId);}catch(err){}
-      svg.classList.add('drag');
-    }
-    if(dragMoved){
-      cancelAnimationFrame(raf);
-      view.cx-=dx*u;view.cy-=dy*u;
-      ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
-      applyView();
-    }
-  });
-  function endPtr(e){
-    delete ptrs[e.pointerId];
-    if(Object.keys(ptrs).length<2)pinch0=null;
-    svg.classList.remove('drag');
-    setTimeout(function(){dragMoved=false;},0);
+    var a=ptrs[ids[0]],b=ptrs[ids[1]];
+    var d=Math.hypot(a.x-b.x,a.y-b.y);
+    cancelAnimationFrame(raf);
+    view.w=Math.max(120,Math.min(1800,pinch0.w*pinch0.d/Math.max(d,1)));
+    dragMoved=true;applyView();return;
   }
-  svg.addEventListener('pointerup',endPtr);
-  svg.addEventListener('pointercancel',endPtr);
+  var dx=e.clientX-p.x,dy=e.clientY-p.y;
+  if(!dragMoved&&Math.hypot(e.clientX-startPt.x,e.clientY-startPt.y)>6){
+    dragMoved=true;
+    try{svg.setPointerCapture(e.pointerId);}catch(err){}
+    svg.classList.add('drag');
+  }
+  if(dragMoved){
+    cancelAnimationFrame(raf);
+    view.cx-=dx*u;view.cy-=dy*u;
+    ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+    applyView();
+  }
+});
+function endPtr(e){
+  delete ptrs[e.pointerId];
+  if(Object.keys(ptrs).length<2)pinch0=null;
+  svg.classList.remove('drag');
+  setTimeout(function(){dragMoved=false;},0);
+}
+svg.addEventListener('pointerup',endPtr);
+svg.addEventListener('pointercancel',endPtr);
 
-  $('zin').addEventListener('click',function(){zoomBy(0.65);});
-  $('zout').addEventListener('click',function(){zoomBy(1.55);});
-  $('zfit').addEventListener('click',function(){animateTo(fitTarget());});
-  if(window.ResizeObserver)new ResizeObserver(function(){applyView();}).observe(mapEl);
-  window.addEventListener('resize',applyView);
+$('zin').addEventListener('click',function(){zoomBy(0.65);});
+$('zout').addEventListener('click',function(){zoomBy(1.55);});
+$('zfit').addEventListener('click',function(){animateTo(fitTarget());});
+$('reset').addEventListener('click',function(){
+  choices={};save();
+  state.place=null;state.slot=null;
+  renderList();drawPins();renderCard();animateTo(fitTarget());
+});
+if(window.ResizeObserver)new ResizeObserver(function(){applyView();}).observe(mapEl);
+window.addEventListener('resize',applyView);
 
-  /* ---------- start ---------- */
-  svg.appendChild(layerBase);svg.appendChild(layerRoute);svg.appendChild(layerPins);
-  drawBase();
-  renderChips();renderList();drawPins();
-  view=fitTarget();applyView();
-  /* sizes can settle after fonts and layout, so fit once more */
-  requestAnimationFrame(function(){view=fitTarget();applyView();});
+/* ---------- start ---------- */
+svg.appendChild(layerBase);svg.appendChild(layerRoute);svg.appendChild(layerPins);
+drawBase();
+renderChips();renderList();drawPins();
+view=fitTarget();applyView();
+requestAnimationFrame(function(){view=fitTarget();applyView();});
 })();
 </script>
 </body>
