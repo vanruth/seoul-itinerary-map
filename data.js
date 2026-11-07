@@ -565,10 +565,10 @@ window.DAYS = [
   {t:'~10:00', label:'Wall walk', hint:'Deoksugung stone wall in the morning light — the guard change at Daehanmun is at 11:00', opts:['deoksu']},
   {t:'~11:30', label:'Lunch', hint:'Seol Yi Dong, 10 min from Deoksugung. Get there by 11:30 — the offices around it empty out at noon and the queue follows', opts:['seolyidong','sujebi','tosokchon']},
   {t:'~12:30', label:'Stationery stop', hint:'Kyobo — Hottracks in the basement, 4 min walk from lunch', opts:['kyobo']},
-  {t:'~13:15', dur:'2 hr', label:'Shopping', hint:'east into Insadong-gil and Ssamziegil', opts:['ssamziegil','insadong']},
-  {t:'~15:25', label:'Hanok village', hint:'up from Insadong into the back alleys', opts:['bukchon']},
-  {t:'~16:05', label:'Dessert and tea', hint:'Osulloc is in Bukchon itself, so tea is where the walk ends — keep it short, the wall is next', opts:['osulloc','layereda','cafesudal','jaiso','dotori','cheongsudang','miltoast']},
-  {t:'~16:40', label:'Up the wall for sunset', hint:'Naksan — the climb from Hyehwa is about 15 min, sunset is 17:20. Stay as the lights come on, then follow the lit wall downhill to Heunginjimun — that walk is the way to dinner', opts:['naksan']},
+  {t:'~13:00', dur:'2 hr', label:'Shopping', hint:'east into Insadong-gil and Ssamziegil', opts:['ssamziegil','insadong']},
+  {t:'~15:05', label:'Dessert and tea', hint:'Dotori Garden, a few minutes from Insadong — then up into Bukchon', opts:['dotori','cheongsudang','jaiso','cafesudal','layereda','osulloc','miltoast']},
+  {t:'~15:50', label:'Hanok village', hint:'up from Anguk into the back alleys. Leave by 16:35 to make the wall for sunset', opts:['bukchon']},
+  {t:'~16:35', label:'Up the wall for sunset', hint:'Naksan — the climb from Hyehwa is about 15 min, sunset is 17:20. Stay as the lights come on, then follow the lit wall downhill to Heunginjimun — that walk is the way to dinner', opts:['naksan']},
   {t:'~18:40', label:'Dinner', hint:'at the bottom of the wall — dakhanmari alley. No bookings, and the queue builds from 19:00, so get there before it', opts:['jinokhwa']}
  ]},
  {key:'Sat 14', date:'Saturday 14 November', title:'Seongsu and the Han River', slots:[
