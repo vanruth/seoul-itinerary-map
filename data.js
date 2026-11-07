@@ -24,10 +24,11 @@ window.PLACES = {
     q:'Incheon International Airport Terminal 1',
     why:'TW-162 lands 06:35. TW-161 home leaves 15:30 and reaches Changi at 21:25.',
     meta:'About 50 km west of the city, so it sits at the edge of this map'},
-  airbnb:{name:'The Airbnb', short:'Airbnb', type:'transport', area:'Mangwon', gu:'Mapo-gu',
-    lat:37.5590, lng:126.9100, side:'t', noext:true,
-    why:'Base for the week, on the Mangwon side of the river.',
-    meta:'Address is in the general info tab of your sheet. Pin is approximate'},
+  airbnb:{name:'The Airbnb', short:'Airbnb', ko:'성미산로 149-10', type:'transport',
+    area:'Yeonnam', gu:'Mapo-gu', lat:37.5618, lng:126.9232, side:'l',
+    q:'서울 마포구 성미산로 149-10',
+    why:'Base for the week, on the Seongmisan-ro cafe strip in Yeonnam — the Wednesday coffee stops are a few minutes on foot, and Hongik Univ. Station is about 10 minutes south.',
+    meta:'149-10 Seongmisan-ro, Yeonnam-dong, Mapo-gu 03980 · jibun 연남동 240-46 · Mangwon is about 2 km west, not walking distance'},
 
   /* ---- markets ---- */
   mangwonmkt:{name:'Mangwon Market', short:'Mangwon Market', ko:'망원시장', type:'market',
@@ -510,7 +511,7 @@ window.DAYS = [
  ]},
  {key:'Mon 16', date:'Monday 16 November', title:'Fly home', slots:[
   {t:'11:00', label:'Check out', hint:'', opts:['airbnb']},
-  {t:'11:30', label:'Last lunch', hint:'close to the flat', opts:['mangwonmkt','teanomad','floormangwon']},
+  {t:'11:30', label:'Last lunch', hint:'Yeonnam is the walkable one now — Mangwon is a 2 km hop west', opts:['nothink','coffeenap','oats','mangwonmkt','teanomad','floormangwon']},
   {t:'12:30', label:'Leave for the airport', hint:'', opts:['airbnb']},
   {t:'13:30', label:'Reach Incheon T1', hint:'', opts:['icn']},
   {t:'15:30', label:'Flight TW-161', hint:'lands at Changi T2 at 21:25', opts:['icn']}

@@ -159,6 +159,17 @@ Ikseon, Hannam, Jongno) has standard-size branches only.
 | Olive Young Hongdae Town | 57 Hongik-ro 6-gil, Mapo-gu | ~300 pyeong, 1–3F. Second-largest Town store. Half of 1F is brand pop-ups |
 | Olive Young Gangnam Town | 429 Gangnam-daero, Seocho-gu (Dongil Building 1–3F) | Town store. Premium brands and beauty devices |
 
+## Where you are staying
+
+**The Airbnb** — 149-10 Seongmisan-ro, Yeonnam-dong, Mapo-gu, Seoul 03980
+(jibun 연남동 240-46).
+
+This is **Yeonnam, not Mangwon** — the map said Mangwon until 7 Nov, which was
+wrong by about 2 km. What that changes: the Yeonnam cafes (nothink, Coffee Nap,
+Oats) are a few minutes on foot, Hongik Univ. Station is roughly 10 minutes
+south, and Mangwon Market is a bus or subway hop west rather than a stroll.
+Monday's "last lunch close to the flat" now leads with the Yeonnam options.
+
 ## Delivery
 
 - Rose tteokbokki from **Yeopgi**
