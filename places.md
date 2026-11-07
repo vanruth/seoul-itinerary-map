@@ -198,21 +198,28 @@ Ikseon, Hannam, Jongno) has standard-size branches only.
 
 ## Friday, as it stands
 
-Gwangjang is out (asked for 7 Nov), so the day starts straight at Leedorim in
-Seochon, and **Deoksugung is back in** — in the morning rather than late
-afternoon, because Naksan now has the sunset. That turns out to be the better
-slot anyway: the royal guard change at Daehanmun is **11:00 and 14:00 daily**
-(not Mondays), so a 10:00 arrival catches the 11:00 one, which is roughly what
-was lost when Gyeongbokgung came out.
+Rebuilt 7 Nov so it never returns to somewhere already visited. The old order
+went Seochon → Deoksugung → back to Seochon for lunch, and then out east to
+Naksan → back west to Cheonggyecheon and Myeongdong for dinner.
 
-09:00 Leedorim → 10:00 Deoksugung wall + guard change → 11:45 lunch, Seochon →
-12:45 Bukchon → 13:30 Insadong shopping (2 hr) → 15:40 dessert, Anguk →
-16:30 Naksan for sunset → 18:30 Cheonggyecheon → 19:45 dinner, Myeongdong.
+09:00 Leedorim → 10:00 Deoksugung wall + 11:00 guard change → 11:20 **Kyobo /
+Hottracks** (its own slot now, 8 min up from Deoksugung) → 12:05 lunch at
+Samcheongdong Sujebi → 13:05 Bukchon → 13:50 Insadong shopping (2 hr) → 15:55
+dessert, Anguk → 16:30 Naksan for the 17:20 sunset → walk the lit wall down to
+Heunginjimun → 18:30 dinner at **Jinokhwa Halmae Wonjo Dakhanmari**, the
+original in Dongdaemun dakhanmari alley (18 Jongno 40ga-gil, 10:30–01:00, no
+bookings, queue from 19:00).
 
-Longest leg is the 30 min up to Naksan, and 15 of that is the climb.
+The only southward dip is Deoksugung itself, which is forced by starting at
+Leedorim; after it, the day only goes north and then east. Total 7.8 km of
+hops, down from 9.7.
 
-abebe, the donut shop, lost its home with Gwangjang. It is now an option in
-Sunday's Ikseon cafe slot — it is 1 km east of Ikseon, on the way to Dongdaemun.
+Tosokchon is still a lunch option but now a small detour west. Cheonggyecheon
+moved to **Thursday at 21:00**, two minutes north of the Myeongdong dinner,
+where it is on the way home instead of a doubling-back.
+
+Every other day was checked the same way (any A → B → C where C lands back
+near A after a real trip out to B) and none needed changing.
 
 ## Cut from the plan
 

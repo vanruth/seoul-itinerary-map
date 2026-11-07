@@ -481,6 +481,11 @@ window.PLACES = {
     q:'신미경 홍대닭갈비 와우산로21길 31-10',
     why:'The alternative if Yoogane has a queue, and the better one if you want cheese — there is a self-serve melted cheese bar you pull from as you go. Same fried-rice finish.',
     meta:'31-10 Wausan-ro 21-gil · 4.6 on Tripadvisor · order mid-spicy with cheese · can come out a bit burnt when they are slammed'},
+  jinokhwa:{name:'Jinokhwa Halmae Wonjo Dakhanmari', short:'Jinokhwa Dakhanmari', ko:'진옥화할매원조닭한마리', type:'restaurant',
+    area:'Dongdaemun', gu:'Jongno-gu', lat:37.5705, lng:127.0075, side:'l',
+    q:'진옥화할매원조닭한마리 종로40가길 18',
+    why:'The original in Dongdaemun dakhanmari alley — a whole chicken simmered in a pot at the table, then knife-cut noodles into the broth at the end. It sits at the bottom of the Naksan wall, so dinner is where the walk down ends.',
+    meta:'18 Jongno 40ga-gil · daily 10:30–01:00, last order 23:30 · no bookings, queue peaks 19:00–21:00 · 5 min from Dongdaemun Stn'},
   choidining:{name:'Choi Dining Yeonnam', short:'Choi Dining', ko:'초이다이닝 연남점', type:'restaurant',
     area:'Yeonnam', gu:'Mapo-gu', lat:37.5609, lng:126.9247, side:'r',
     q:'초이다이닝 연남점 동교로36길 3',
@@ -544,18 +549,19 @@ window.DAYS = [
   {t:'~14:00', label:'Lunch', hint:'Hannam and Haebangchon', opts:['gamjatang','haebang','gml']},
   {t:'~15:30', dur:'2 hr', label:'Coffee with a view', hint:'Huam-dong — Villa Coffee is a rooftop over the city, so you get the light going from a chair. Naksan has moved to Friday, where it is 20 min away instead of 40', opts:['villacoffee','aanzee','rainreport']},
   {t:'~17:30', dur:'2 hr', label:'Shopping', hint:'Myeongdong — Olive Young Town, nyunyu and Daiso, all open to 22:00 or later', opts:['oymyeongdong','nyunyumd','myeongdong']},
-  {t:'~19:45', label:'Dinner', hint:'Myeongdong — Myeongdong Kyoja stops serving around 21:00, Veteran runs later', opts:['veteran','myeongdongkyoja']}
+  {t:'~19:45', label:'Dinner', hint:'Myeongdong — Myeongdong Kyoja stops serving around 21:00, Veteran runs later', opts:['veteran','myeongdongkyoja']},
+  {t:'~21:00', label:'Evening walk', hint:'Cheonggyecheon is just north of Myeongdong — down at water level, lit at night, and you come up at a station for home. Moved from Friday, where it meant doubling back', opts:['cheonggye']}
  ]},
  {key:'Fri 13', date:'Friday 13 November', title:'Seochon, Insadong, and the wall at sunset', slots:[
-  {t:'~09:00', label:'Breakfast', hint:'straight to Leedorim — Gwangjang is out, so the day starts in Seochon', opts:['leedorim','rafre','seochon']},
-  {t:'~10:00', label:'Wall walk', hint:'Deoksugung stone wall in the morning light. The guard change is at Daehanmun at 11:00, so you catch it before lunch — it is the one you lost with Gyeongbokgung', opts:['deoksu']},
-  {t:'~11:45', label:'Lunch', hint:'back up to Seochon', opts:['tosokchon','sujebi']},
-  {t:'~12:45', label:'Hanok village', hint:'back alleys', opts:['bukchon']},
-  {t:'~13:30', dur:'2 hr', label:'Shopping', hint:'what was the palace slot. Insadong-gil and Ssamziegil, then Hottracks in the Kyobo basement', opts:['ssamziegil','insadong','kyobo']},
-  {t:'~15:40', label:'Dessert and tea', hint:'Anguk and Ikseon, already heading east towards the wall', opts:['dotori','cheongsudang','miltoast','jaiso','cafesudal','layereda','osulloc']},
-  {t:'~16:30', label:'Up the wall for sunset', hint:'Naksan — the climb from Hyehwa is about 15 min, sunset is 17:20. Stay up as the lights come on, the wall is lit after dark', opts:['naksan']},
-  {t:'~18:30', label:'Evening walk', hint:'straight down off the ridge — the east end of Cheonggyecheon sits below Naksan', opts:['cheonggye']},
-  {t:'~19:45', label:'Dinner', hint:'', opts:['veteran','myeongdongkyoja','gitteul']}
+  {t:'~09:00', label:'Breakfast', hint:'straight to Leedorim. From here the day runs one way, west to east, and finishes at the bottom of the Naksan wall', opts:['leedorim','rafre','seochon']},
+  {t:'~10:00', label:'Wall walk', hint:'Deoksugung stone wall in the morning light — the guard change at Daehanmun is at 11:00', opts:['deoksu']},
+  {t:'~11:20', label:'Stationery stop', hint:'Kyobo — Hottracks in the basement. 8 min walk up from Deoksugung, already on the way north', opts:['kyobo']},
+  {t:'~12:05', label:'Lunch', hint:'Samcheong-dong, at the foot of Bukchon. Tosokchon still works but is a small detour west, back towards where you had breakfast', opts:['sujebi','tosokchon']},
+  {t:'~13:05', label:'Hanok village', hint:'back alleys — two minutes from lunch', opts:['bukchon']},
+  {t:'~13:50', dur:'2 hr', label:'Shopping', hint:'downhill from Bukchon into Insadong-gil and Ssamziegil', opts:['ssamziegil','insadong']},
+  {t:'~15:55', label:'Dessert and tea', hint:'Anguk and Ikseon, already heading east towards the wall', opts:['dotori','cheongsudang','miltoast','jaiso','cafesudal','layereda','osulloc']},
+  {t:'~16:30', label:'Up the wall for sunset', hint:'Naksan — the climb from Hyehwa is about 15 min, sunset is 17:20. Stay as the lights come on, then follow the lit wall downhill to Heunginjimun — that walk is the way to dinner', opts:['naksan']},
+  {t:'~18:30', label:'Dinner', hint:'at the bottom of the wall — dakhanmari alley. No bookings, and the queue builds from 19:00, so 18:30 beats it', opts:['jinokhwa']}
  ]},
  {key:'Sat 14', date:'Saturday 14 November', title:'Seongsu and the Han River', slots:[
   {t:'~11:00', dur:'2 hr', label:'Shopping', hint:'Seongsu — nyunyu, Romand Pink Office, PLAY X STUDIO and the giant Olive Young, all on Yeonmujang-gil', opts:['seongsu','nyunyuss','nyunyusshouse','oyseongsu','playx']},
