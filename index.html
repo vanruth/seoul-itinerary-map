@@ -103,7 +103,7 @@ header h1{font:700 clamp(28px,5vw,38px)/1.08 var(--display);margin:0 0 8px;lette
 @media (max-width:919px){
   /* the pinned header must be wider than the cards scrolling under it,
      or a highlighted card's outline shows down both sides */
-  .mapcol{margin-left:-18px;margin-right:-18px;padding-left:18px;padding-right:18px}
+  .layout .mapcol{margin-left:-18px;margin-right:-18px;padding-left:18px;padding-right:18px}
   /* place card on phones: small square photo beside the words, low on the map */
   #card{flex-direction:row;align-items:stretch;left:8px;right:54px;bottom:8px;max-height:60%;overflow:hidden}
   #card .cimg{width:76px;height:76px;aspect-ratio:auto;max-height:none;flex:none;border-radius:10px;margin:10px 0 10px 10px;object-fit:cover}
@@ -113,6 +113,7 @@ header h1{font:700 clamp(28px,5vw,38px)/1.08 var(--display);margin:0 0 8px;lette
   #card .meta{font-size:12px}
   #card .links{margin-top:7px}
   .chip.maptog{display:inline-flex}
+  .chiprow:has(.daypick) .chip.maptog{min-height:40px}
   body.map-off .map{display:none}
   body.map-off .mapcol{padding-bottom:4px}
 }
