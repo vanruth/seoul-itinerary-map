@@ -666,10 +666,22 @@ try{saved=JSON.parse(localStorage.getItem(LS)||'{}')||{};}catch(e){saved={};}
 var choices=saved.choices||{}, openSlots=saved.open||{};
 function persist(){try{localStorage.setItem(LS,JSON.stringify({choices:choices,open:openSlots}));}catch(e){}}
 function slotKey(di,si){return di+'-'+si;}
-/* Shopping stops take several picks: a stop where every option is a shop or
-   a shopping street. choices[key] is then a list; anywhere else it is one id. */
+/* Shopping and café stops take several picks: a stop where every option is
+   a shop (or shopping street), or every option is a café or bakery and the
+   stop is not a meal. choices[key] is then a list; elsewhere it is one id. */
+function typesOf(s){return s.opts.map(function(id){return P[id]&&P[id].type;});}
 function isMulti(s){
-  return s.opts.length>1&&s.opts.every(function(id){var t=P[id]&&P[id].type;return t==='shopping'||t==='area';});
+  if(s.opts.length<2)return false;
+  var t=typesOf(s);
+  if(t.every(function(x){return x==='shopping'||x==='area';}))return true;
+  return !/breakfast|brunch|lunch|dinner/i.test(s.label)&&
+    t.every(function(x){return x==='cafe'||x==='bakery'||x==='area';})&&
+    t.some(function(x){return x==='cafe'||x==='bakery';});
+}
+/* what a several-pick stop is made of, for its wording */
+function noun(s,n){
+  var shop=typesOf(s).indexOf('shopping')>=0;
+  return n+' '+(shop?(n===1?'shop':'shops'):(n===1?'café':'cafés'));
 }
 function addChoice(key,s,id){
   var c=choices[key];
@@ -1148,7 +1160,7 @@ function pickRow(id,di,si,isPick){
   main.addEventListener('click',function(){
     if(multi){
       var cur=picksOf(di,si), on=cur.indexOf(id)>=0;
-      if(on&&cur.length===1){toast('Keep at least one — tick another shop first');return;}
+      if(on&&cur.length===1){toast('Keep at least one — tick another first');return;}
       var next=on?cur.filter(function(x){return x!==id;}):cur.concat([id]);
       next=sl.opts.filter(function(x){return next.indexOf(x)>=0;});
       choices[key]=next.length>1?next:next[0]; persist(); syncUrl();
@@ -1193,7 +1205,7 @@ var pickerReturn=null, pickerDirty=false, pickerAt=null;
 function pickerCount(di,si){
   var s=DAYS[di].slots[si], n=picksOf(di,si).length;
   $('pickCount').textContent=isMulti(s)?'Tick as many as you like · '+n+' picked':s.opts.length+' options · tap one to pick it';
-  $('pickDone').textContent=n>1?'Done · '+n+' shops':'Done';
+  $('pickDone').textContent=n>1?'Done · '+noun(s,n):'Done';
 }
 function openPicker(di,si){
   var d=DAYS[di], s=d.slots[si], picks=picksOf(di,si), multi=isMulti(s);
@@ -1220,7 +1232,8 @@ function closePicker(picked){
     state.place=first; state.slot=slotKey(pickerAt[0],pickerAt[1]);
     render(); focusOn(first);
     var n=picksOf(pickerAt[0],pickerAt[1]).length;
-    toast(n>1?n+' shops picked for '+DAYS[pickerAt[0]].slots[pickerAt[1]].label.toLowerCase():'One shop picked');
+    var ps=DAYS[pickerAt[0]].slots[pickerAt[1]];
+    toast(noun(ps,n)+' picked for '+ps.label.toLowerCase());
     return;
   }
   if(!picked&&pickerReturn&&pickerReturn.focus)pickerReturn.focus({preventScroll:true});
@@ -1356,7 +1369,7 @@ function renderItinerary(){
         var sub;
         if(several){
           var areas=[]; all.forEach(function(x){var a=P[x].area; if(a&&a!=='Unconfirmed'&&areas.indexOf(a)<0)areas.push(a);});
-          sub=areas.concat([all.length+' shops']);
+          sub=areas.concat([noun(s,all.length)]);
         }else{
           sub=[typeLabel(p.type)];
           if(p.area&&p.area!=='Unconfirmed')sub.unshift(p.area);
@@ -1370,7 +1383,7 @@ function renderItinerary(){
         var wd=closedOn(p,d);
         if(wd)meta.appendChild(el('span',{'class':'sclosed',text:'Closed '+wd}));
         var rest=s.opts.length-all.length;
-        if(multi)meta.appendChild(el('span',{'class':'smore',text:rest?'+'+rest+' more shop'+(rest>1?'s':''):'All picked'}));
+        if(multi)meta.appendChild(el('span',{'class':'smore',text:rest?'+'+noun(s,rest).replace(/^(\d+)/,'$1 more'):'All picked'}));
         else if(many)meta.appendChild(el('span',{'class':'smore',text:'+'+(s.opts.length-1)+' option'+(s.opts.length>2?'s':'')}));
         if(meta.childNodes.length)info.appendChild(meta);
         var th=thumb(p,'sthumb');
