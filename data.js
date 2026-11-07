@@ -546,13 +546,13 @@ window.DAYS = [
   {t:'~17:30', dur:'2 hr', label:'Shopping', hint:'Myeongdong — Olive Young Town, nyunyu and Daiso, all open to 22:00 or later', opts:['oymyeongdong','nyunyumd','myeongdong']},
   {t:'~19:45', label:'Dinner', hint:'Myeongdong — Myeongdong Kyoja stops serving around 21:00, Veteran runs later', opts:['veteran','myeongdongkyoja']}
  ]},
- {key:'Fri 13', date:'Friday 13 November', title:'Market, Insadong, and the wall at sunset', slots:[
-  {t:'~08:30', label:'Market breakfast', hint:'Jongno — go early while it is calm', opts:['gwangjang','abebe']},
-  {t:'~10:00', label:'Coffee', hint:'Seochon', opts:['leedorim','rafre','seochon']},
-  {t:'~11:15', label:'Lunch', hint:'Seochon — Tosokchon queues less before noon', opts:['tosokchon','sujebi']},
-  {t:'~12:30', label:'Hanok village', hint:'back alleys', opts:['bukchon']},
+ {key:'Fri 13', date:'Friday 13 November', title:'Seochon, Insadong, and the wall at sunset', slots:[
+  {t:'~09:00', label:'Breakfast', hint:'straight to Leedorim — Gwangjang is out, so the day starts in Seochon', opts:['leedorim','rafre','seochon']},
+  {t:'~10:00', label:'Wall walk', hint:'Deoksugung stone wall in the morning light. The guard change is at Daehanmun at 11:00, so you catch it before lunch — it is the one you lost with Gyeongbokgung', opts:['deoksu']},
+  {t:'~11:45', label:'Lunch', hint:'back up to Seochon', opts:['tosokchon','sujebi']},
+  {t:'~12:45', label:'Hanok village', hint:'back alleys', opts:['bukchon']},
   {t:'~13:30', dur:'2 hr', label:'Shopping', hint:'what was the palace slot. Insadong-gil and Ssamziegil, then Hottracks in the Kyobo basement', opts:['ssamziegil','insadong','kyobo']},
-  {t:'~15:45', label:'Dessert and tea', hint:'Anguk and Ikseon, already heading east towards the wall', opts:['dotori','cheongsudang','miltoast','jaiso','cafesudal','layereda','osulloc']},
+  {t:'~15:40', label:'Dessert and tea', hint:'Anguk and Ikseon, already heading east towards the wall', opts:['dotori','cheongsudang','miltoast','jaiso','cafesudal','layereda','osulloc']},
   {t:'~16:30', label:'Up the wall for sunset', hint:'Naksan — the climb from Hyehwa is about 15 min, sunset is 17:20. Stay up as the lights come on, the wall is lit after dark', opts:['naksan']},
   {t:'~18:30', label:'Evening walk', hint:'straight down off the ridge — the east end of Cheonggyecheon sits below Naksan', opts:['cheonggye']},
   {t:'~19:45', label:'Dinner', hint:'', opts:['veteran','myeongdongkyoja','gitteul']}
@@ -569,7 +569,7 @@ window.DAYS = [
   {t:'10:10', label:'Palace', hint:'Secret Garden tour 11:30, 5,000 won, ends around 12:30', opts:['changdeok']},
   {t:'~13:00', label:'Lunch', hint:'Ikseon-dong and around', opts:['ikseon','miltoast']},
   {t:'~14:00', label:'Steffi goes to the Melon Music Awards', hint:'venue still to be confirmed in your sheet', opts:[]},
-  {t:'~14:30', label:'Cafe', hint:'Ikseon-dong', opts:['cheongsudang','seoulcoffee','jayeondo','tteuran','dotori']},
+  {t:'~14:30', label:'Cafe', hint:'Ikseon-dong — abebe is 1 km east, on the way to Dongdaemun', opts:['cheongsudang','seoulcoffee','jayeondo','tteuran','dotori','abebe']},
   {t:'~17:00', dur:'2 hr', label:'Shopping', hint:'Dongdaemun wholesale — nyunyu and Mimiline are next-door buildings. Mimiline shuts earliest, so start there', opts:['nyunyudd','mimiline','minibrand']},
   {t:'~19:15', label:'Dinner', hint:'around Dongdaemun and Sindang', opts:['palezze']},
   {t:'~20:30', label:'Evening', hint:'DDP is better once the lights come on', opts:['ddp']}
@@ -584,7 +584,7 @@ window.DAYS = [
  {key:'Spare', date:'Did not fit anywhere', title:'saved, but nowhere to put them', spare:true, slots:[
   {t:'', label:'Gangnam side', hint:'', opts:['paldang','londonbagel','cafeeero','oygangnam','nyunyugn','nyunyugnhouse']},
   {t:'', label:'Further out', hint:'', opts:['deepin','simdu','oneinonejan']},
-  {t:'', label:'Cut from the plan', hint:'Gyeongbokgung came out for shopping; Deoksugung and Namsan came out when Naksan took the sunset. Say the word on any of them', opts:['gyeongbok','deoksu','namsan']},
+  {t:'', label:'Cut from the plan', hint:'Gyeongbokgung came out for shopping, Namsan when Naksan took the sunset, Gwangjang because you do not want it. Say the word on any of them', opts:['gyeongbok','namsan','gwangjang']},
   {t:'', label:'Shops I could not place', hint:'on your list, but no findable address — open your Naver collection and tell me where they are', opts:['miramira','creammarket','clo','hauseaver','minibrand','chunmong']},
   {t:'', label:'Night in', hint:'rose tteokbokki from Yeopgi, original fried chicken from BBQ Chicken', opts:[]}
  ]}

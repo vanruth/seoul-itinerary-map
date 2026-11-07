@@ -196,12 +196,32 @@ Ikseon, Hannam, Jongno) has standard-size branches only.
 | Olive Young Hongdae Town | 57 Hongik-ro 6-gil, Mapo-gu | ~300 pyeong, 1–3F. Second-largest Town store. Half of 1F is brand pop-ups |
 | Olive Young Gangnam Town | 429 Gangnam-daero, Seocho-gu (Dongil Building 1–3F) | Town store. Premium brands and beauty devices |
 
+## Friday, as it stands
+
+Gwangjang is out (asked for 7 Nov), so the day starts straight at Leedorim in
+Seochon, and **Deoksugung is back in** — in the morning rather than late
+afternoon, because Naksan now has the sunset. That turns out to be the better
+slot anyway: the royal guard change at Daehanmun is **11:00 and 14:00 daily**
+(not Mondays), so a 10:00 arrival catches the 11:00 one, which is roughly what
+was lost when Gyeongbokgung came out.
+
+09:00 Leedorim → 10:00 Deoksugung wall + guard change → 11:45 lunch, Seochon →
+12:45 Bukchon → 13:30 Insadong shopping (2 hr) → 15:40 dessert, Anguk →
+16:30 Naksan for sunset → 18:30 Cheonggyecheon → 19:45 dinner, Myeongdong.
+
+Longest leg is the 30 min up to Naksan, and 15 of that is the climb.
+
+abebe, the donut shop, lost its home with Gwangjang. It is now an option in
+Sunday's Ikseon cafe slot — it is 1 km east of Ikseon, on the way to Dongdaemun.
+
 ## Cut from the plan
 
 - **Noraebang** (Wed ~21:00) — the slot is now a second Hongdae shopping block.
   Only the late openers are in it: LOOF and Olive Young Hongdae Town run to
   23:00, both nyunyu stores keep going. The pre-dinner block was resequenced to
   put the early closers first (Musinsa Standard 21:00, SAPPUN and Chaakan 22:00).
+- **Gwangjang Market** (Fri ~08:30) — not wanted. Friday starts at Leedorim instead.
+- **Namsan** — Naksan took the sunset; see the travel-time section.
 - **Gyeongbokgung** (Fri ~11:30) — the slot is now 2 hours of Insadong shopping:
   Insadong-gil and Ssamziegil, then west to Hottracks in the Kyobo basement.
   Friday resequenced around it — lunch pulled to 11:30, Bukchon to 13:00,
