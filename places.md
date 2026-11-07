@@ -56,6 +56,7 @@ and every option shows on the map whether or not it is the current pick.
 | Hey Tea | **Branch unconfirmed** | Mango coconut boom. Chain with several Seoul branches |
 | Quiet cafe on Donggyo-ro | 187 Donggyo-ro, Mapo-gu | Calm escape between Hongdae and Yeonnam. **Name never shown — only the door number** |
 | Cat cafe | Gangnam | **Never named in the post.** 10/10 vibes |
+| Obok Tteokjip (오복떡집) | 32 Seongdeokjeong-gil, Seongdong-gu (Seongsu) | The viral **ang butter monaka** — mochi tteok with red bean and butter in a monaka wafer. ~08:00–21:00, shut 1st & 3rd Tue |
 
 ## Meals
 
@@ -82,6 +83,41 @@ and every option shows on the map whether or not it is the current pick.
 |---|---|---|
 | Mangwon Market | Mapo-gu | Spoilt for choice, walkable from the Airbnb |
 | abebe | Just past Gwangjang Market | Donuts. Converts people who don't like donuts |
+
+## Shopping — nyunyu (뉴뉴)
+
+Accessory and jewellery chain, about 16 stores, the densest cluster in Seongsu.
+Addresses below are from the brand's own channel listings and store pages;
+hours move around, so check before a late run.
+
+| Store | Address | Notes |
+|---|---|---|
+| nyunyu Seongsu (flagship) | 89 Yeonmujang-gil, Seongdong-gu | 3 floors. nyunyu Girls on 1F, nyunyu Lab in the basement of the same building |
+| nyunyu House Seongsu Station | 93 Seongsui-ro, Seongdong-gu | B1–3F, by the station |
+| nyunyu Hongdae | 8 Hongik-ro 3-gil, Mapo-gu | In the playground streets |
+| nyunyu House Hongdae | 44 Hongik-ro 3-gil, Mapo-gu | Larger, same street |
+| nyunyu Myeongdong | 22 Myeongdong 4-gil, Jung-gu | 1–4F, gift shop 4F. Daily 10:00–23:00 |
+| nyunyu Dongdaemun (wholesale) | 204-1 Sindang-dong, Jung-gu (also listed as 34 Majang-ro), 1–3F | Roughly 11:00–05:00. Closing days disputed between sources |
+| nyunyu Gangnam | 1 Gangnam-daero 65-gil, Seocho-gu | B1F. Daily 10:00–23:00 |
+| nyunyu House Gangnam | 428 Gangnam-daero, Seocho-gu | B1F |
+
+Also exist but **addresses unconfirmed**, so not pinned separately: nyunyu
+Yeonmujang, nyunyu Girls Black Seongsu (both in the Seongsu cluster), nyunyu
+Seogyo (Hongdae), nyunyu World Myeongdong and nyunyu House Myeongdong Station.
+
+## Shopping — Olive Young, large formats only
+
+Olive Young has 1,300+ branches, most of them small. Only about 20 are "Town"
+stores — the big ones — plus the Seongsu flagship. These four are the ones worth
+planning around; every other neighbourhood on this trip (Mangwon, Yeonnam,
+Ikseon, Hannam, Jongno) has standard-size branches only.
+
+| Store | Address | Size |
+|---|---|---|
+| Olive Young N Seongsu | 13 Yeonmujang 7-gil, Seongdong-gu (Factorial Seongsu) | Biggest in Korea. 5 floors, ~4,600 sqm. Trend zones, skin analysis, pop-ups, cafe |
+| Olive Young Myeongdong Town | 53 Myeongdong-gil, Jung-gu | ~350 pyeong, 2 floors. Largest Town store. Global service lounge + tax refund desk. 10:00–22:30 |
+| Olive Young Hongdae Town | 57 Hongik-ro 6-gil, Mapo-gu | ~300 pyeong, 1–3F. Second-largest Town store. Half of 1F is brand pop-ups |
+| Olive Young Gangnam Town | 429 Gangnam-daero, Seocho-gu (Dongil Building 1–3F) | Town store. Premium brands and beauty devices |
 
 ## Delivery
 
@@ -112,6 +148,16 @@ Analysed:
 - https://vt.tiktok.com/ZSp6XByfh — @seoulcollective.insider, Seongsu bakery
 - https://vt.tiktok.com/ZSp6Cwqkc — @seoulcollective.insider, Hannam brunch
 - https://vt.tiktok.com/ZSpMKay1t — @zhinseoul, Hannam brunch
+
+Added 7 Nov 2026 from a further TikTok and follow-up search:
+
+- TikTok screenshot, @waanlingg — "trying the viral ANG BUTTER MONAKA in seoul",
+  caption `trying seoul's latest obsession #seoul #seoulfood #tteok`. The post
+  never names the shop. Matched to **Obok Tteokjip** in Seongsu on the dish plus
+  the `#tteok` tag — it is the shop the ang butter monaka tteok trend comes from.
+  If the video turns out to be a different stall, that pin is the thing to change.
+- nyunyu and Olive Young branch lists assembled from brand listings, store pages
+  and press coverage, cross-checked where sources disagreed.
 
 Still outstanding:
 

@@ -227,6 +227,12 @@ window.PLACES = {
     area:'Banpo', gu:'Seocho-gu', img:'banpo', lat:37.5111, lng:126.9963, side:'l',
     why:'Convenience-store ramyeon and chimaek on the grass, with the bridge fountain going.'},
 
+  obok:{name:'Obok Tteokjip', short:'Obok Tteokjip', ko:'오복떡집', type:'bakery',
+    area:'Seongsu', gu:'Seongdong-gu', lat:37.5452, lng:127.0470, side:'b',
+    q:'오복떡집 성덕정길 32 성수동',
+    why:'The ang butter monaka — a chewy mochi rice cake packed with red bean and a slab of butter, then wrapped in a crisp monaka wafer. This is the viral one from the TikTok, and the reason the whole city is suddenly posting tteok.',
+    meta:'32 Seongdeokjeong-gil · by Ttukdo Market, 10 min walk from Seoul Forest Station · roughly 08:00–21:00, shut the 1st and 3rd Tuesday · tiramisu tteok is the other order'},
+
   /* ---- neighbourhoods ---- */
   yeonnam:{name:'Yeonnam-dong', short:'Yeonnam', ko:'연남동', type:'area', area:'Yeonnam', gu:'Mapo-gu',
     img:'yeonnam', lat:37.5617, lng:126.9250, side:'r',
@@ -283,7 +289,71 @@ window.PLACES = {
     why:'Olive Young and Daiso, both open late.'},
   kyobo:{name:'Kyobo Bookstore, Gwanghwamun', short:'Kyobo Books', ko:'교보문고', type:'shopping',
     area:'Gwanghwamun', gu:'Jongno-gu', lat:37.5710, lng:126.9777, side:'l',
-    why:'The stationery stop.'}
+    why:'The stationery stop.'},
+
+  /* ---- nyunyu (뉴뉴) — accessory and jewellery chain, 16 stores, biggest cluster in Seongsu ---- */
+  nyunyuss:{name:'nyunyu Seongsu', short:'nyunyu Seongsu', ko:'뉴뉴 성수점', type:'shopping',
+    area:'Seongsu', gu:'Seongdong-gu', lat:37.5429, lng:127.0572, side:'r',
+    q:'뉴뉴 성수점 연무장길 89',
+    why:'The flagship and the one the Seongsu posts are about — three floors of hair clips, earrings, bag charms and phone cases, priced to buy ten of.',
+    meta:'89 Yeonmujang-gil · 8 min from Seongsu Stn exit 3 · nyunyu Girls on 1F and nyunyu Lab in the basement of the same building'},
+  nyunyusshouse:{name:'nyunyu House Seongsu Station', short:'nyunyu House Seongsu', ko:'뉴뉴하우스 성수역점', type:'shopping',
+    area:'Seongsu', gu:'Seongdong-gu', lat:37.5444, lng:127.0552, side:'t',
+    q:'뉴뉴하우스 성수역점 성수이로 93',
+    why:'The bigger-format Seongsu branch, B1 to 3F, right by the station rather than down Yeonmujang-gil.',
+    meta:'93 Seongsui-ro · B1–3F'},
+  nyunyuhd:{name:'nyunyu Hongdae', short:'nyunyu Hongdae', ko:'뉴뉴 홍대점', type:'shopping',
+    area:'Hongdae', gu:'Mapo-gu', lat:37.5531, lng:126.9236, side:'b',
+    q:'뉴뉴 홍대점 홍익로3길 8',
+    why:'The Hongdae branch, in the thick of the playground streets — same stock, open late enough to fold into the noraebang night.',
+    meta:'8 Hongik-ro 3-gil'},
+  nyunyuhdhouse:{name:'nyunyu House Hongdae', short:'nyunyu House Hongdae', ko:'뉴뉴하우스 홍대점', type:'shopping',
+    area:'Hongdae', gu:'Mapo-gu', lat:37.5544, lng:126.9226, side:'l',
+    q:'뉴뉴하우스 홍대점 홍익로3길 44',
+    why:'The larger Hongdae store, a few doors up the same street from the original.',
+    meta:'44 Hongik-ro 3-gil · a third nyunyu, Seogyo, is also in this neighbourhood — address unconfirmed'},
+  nyunyumd:{name:'nyunyu Myeongdong', short:'nyunyu Myeongdong', ko:'뉴뉴 명동점', type:'shopping',
+    area:'Myeong-dong', gu:'Jung-gu', lat:37.5631, lng:126.9834, side:'l',
+    q:'뉴뉴 명동점 명동4길 22',
+    why:'Four floors of it, and open to 23:00 — the easy one to pair with the Myeongdong Olive Young run after dinner.',
+    meta:'22 Myeongdong 4-gil · 1–4F, gift shop on 4F · daily 10:00–23:00 · nyunyu World and nyunyu House Myeongdong Station are also in this neighbourhood'},
+  nyunyudd:{name:'nyunyu Dongdaemun wholesale', short:'nyunyu Dongdaemun', ko:'뉴뉴 동대문점', type:'shopping',
+    area:'Dongdaemun', gu:'Jung-gu', lat:37.5668, lng:127.0165, side:'r',
+    q:'뉴뉴 동대문 신당동 204-1',
+    why:'The wholesale store — cheapest per piece if you are buying in bulk, and it runs through the night like the rest of the Dongdaemun trade.',
+    meta:'204-1 Sindang-dong (also listed as 34 Majang-ro), 1–3F · 7 min from DDP · roughly 11:00 to 05:00, but sources disagree on closing days'},
+  nyunyugn:{name:'nyunyu Gangnam', short:'nyunyu Gangnam', ko:'뉴뉴 강남점', type:'shopping',
+    area:'Gangnam', gu:'Seocho-gu', lat:37.4998, lng:127.0258, side:'b',
+    q:'뉴뉴 강남점 강남대로65길 1',
+    why:'The Gangnam branch, one basement floor just off Gangnam-daero.',
+    meta:'1 Gangnam-daero 65-gil · B1F · daily 10:00–23:00'},
+  nyunyugnhouse:{name:'nyunyu House Gangnam', short:'nyunyu House Gangnam', ko:'뉴뉴하우스 강남점', type:'shopping',
+    area:'Gangnam', gu:'Seocho-gu', lat:37.5006, lng:127.0268, side:'r',
+    q:'뉴뉴하우스 강남 강남대로 428',
+    why:'Second Gangnam store, on the main road itself.',
+    meta:'428 Gangnam-daero · B1F'},
+
+  /* ---- Olive Young — only the genuinely large formats ---- */
+  oyseongsu:{name:'Olive Young N Seongsu', short:'Olive Young N Seongsu', ko:'올리브영N 성수', type:'shopping',
+    area:'Seongsu', gu:'Seongdong-gu', lat:37.5415, lng:127.0581, side:'b',
+    q:'올리브영N 성수 연무장7길 13',
+    why:'The biggest Olive Young in the country by a long way — five floors, about 4,600 sqm, with trend zones, skin analysis, brand pop-ups and a cafe. Treat it as an afternoon, not an errand.',
+    meta:'13 Yeonmujang 7-gil, Factorial Seongsu · 5 floors, ~1,400 pyeong'},
+  oymyeongdong:{name:'Olive Young Myeongdong Town', short:'Olive Young Myeongdong', ko:'올리브영 명동타운', type:'shopping',
+    area:'Myeong-dong', gu:'Jung-gu', lat:37.5640, lng:126.9830, side:'t',
+    q:'올리브영 명동타운 명동길 53',
+    why:'The largest of the Town stores and the one built for visitors — English-speaking staff, a global service lounge and the tax refund desk upstairs. Open to 22:30, so it survives a late dinner.',
+    meta:'53 Myeongdong-gil · ~350 pyeong over 2 floors · daily 10:00–22:30, last entry 22:20'},
+  oyhongdae:{name:'Olive Young Hongdae Town', short:'Olive Young Hongdae', ko:'올리브영 홍대타운', type:'shopping',
+    area:'Hongdae', gu:'Mapo-gu', lat:37.5550, lng:126.9240, side:'r',
+    q:'올리브영 홍대타운 홍익로6길 57',
+    why:'Second-largest Town store — three floors, half the ground floor given over to rotating brand pop-ups, colour and premium brands on 2F. The best one on your side of the river.',
+    meta:'57 Hongik-ro 6-gil · ~300 pyeong over 1–3F · roughly 10:00–23:00'},
+  oygangnam:{name:'Olive Young Gangnam Town', short:'Olive Young Gangnam', ko:'올리브영 강남타운', type:'shopping',
+    area:'Gangnam', gu:'Seocho-gu', lat:37.5009, lng:127.0252, side:'l',
+    q:'올리브영 강남타운 강남대로 429',
+    why:'The Town store for premium brands and beauty devices — the one locals go to for themselves rather than for souvenirs.',
+    meta:'429 Gangnam-daero, Dongil Building 1–3F'},
 };
 
 /* Days. Each slot is a bucket: a time, a label, and the options that fit it.
@@ -297,6 +367,7 @@ window.DAYS = [
   {t:'15:00', label:'Airbnb check-in', hint:'', opts:['airbnb']},
   {t:'~16:30', label:'Afternoon coffee', hint:'Yeonnam', opts:['yeonnam','oats','nothink','coffeenap','koriko','meltingof','longvacation','layeredy','donggyo','heytea','unyoke']},
   {t:'~19:00', label:'Dinner', hint:'Hongdae, then Musinsa', opts:['hongdae','gitteul','mibbedong','geudongne']},
+  {t:'~20:15', label:'Shopping', hint:'Hongdae — Olive Young Hongdae Town and the two nyunyu stores, all open late', opts:['oyhongdae','nyunyuhd','nyunyuhdhouse']},
   {t:'~21:00', label:'Noraebang', hint:'karaoke rooms in Hongdae', opts:['hongdae']}
  ]},
  {key:'Thu 12', date:'Thursday 12 November', title:'Hannam, then the wall at sunset', slots:[
@@ -306,7 +377,7 @@ window.DAYS = [
   {t:'~15:00', label:'Coffee with a view', hint:'Huam-dong and Yongsan', opts:['villacoffee','aanzee','rainreport']},
   {t:'~16:45', label:'Sunset into night', hint:'up on the city wall — sunset is about 17:20', opts:['naksan','namsan']},
   {t:'~19:15', label:'Dinner', hint:'Myeongdong', opts:['myeongdongkyoja','veteran']},
-  {t:'~20:30', label:'Shopping', hint:'Olive Young and Daiso', opts:['myeongdong']}
+  {t:'~20:30', label:'Shopping', hint:'Myeongdong — Olive Young Town, nyunyu and Daiso, all open late', opts:['myeongdong','oymyeongdong','nyunyumd']}
  ]},
  {key:'Fri 13', date:'Friday 13 November', title:'Morning market, then the palaces', slots:[
   {t:'~08:30', label:'Market breakfast', hint:'Jongno — go early while it is calm', opts:['gwangjang','abebe']},
@@ -320,9 +391,9 @@ window.DAYS = [
   {t:'~19:30', label:'Dinner', hint:'', opts:['veteran','myeongdongkyoja','gitteul']}
  ]},
  {key:'Sat 14', date:'Saturday 14 November', title:'Seongsu and the Han River', slots:[
-  {t:'~11:00', label:'Shopping', hint:'Nyunyu and Romand Pink Office', opts:['seongsu']},
+  {t:'~11:00', label:'Shopping', hint:'Seongsu — nyunyu, Romand Pink Office and the giant Olive Young', opts:['seongsu','nyunyuss','nyunyusshouse','oyseongsu']},
   {t:'~12:30', label:'Lunch', hint:'Seongsu', opts:['anmok','tofindpeter','gogitbar','mibbedong']},
-  {t:'~14:00', label:'Coffee and bakery', hint:'Seongsu', opts:['fiveto7','atob','supermatcha','haz','rafre']},
+  {t:'~14:00', label:'Coffee and bakery', hint:'Seongsu — Obok is on the way to the park', opts:['fiveto7','obok','atob','supermatcha','haz','rafre']},
   {t:'~15:30', label:'Park', hint:'autumn colour should still be going', opts:['seoulforest']},
   {t:'~18:30', label:'Dinner outside', hint:'ramyeon and chimaek on the grass', opts:['banpo']}
  ]},
@@ -332,7 +403,7 @@ window.DAYS = [
   {t:'~13:00', label:'Lunch', hint:'Ikseon-dong and around', opts:['ikseon','miltoast']},
   {t:'~14:00', label:'Steffi goes to the Melon Music Awards', hint:'venue still to be confirmed in your sheet', opts:[]},
   {t:'~14:30', label:'Cafe', hint:'Ikseon-dong', opts:['cheongsudang','seoulcoffee','jayeondo','tteuran','dotori']},
-  {t:'~17:00', label:'Evening', hint:'', opts:['ddp','palezze']}
+  {t:'~17:00', label:'Evening', hint:'DDP, and the nyunyu wholesale store is 7 min east', opts:['ddp','palezze','nyunyudd']}
  ]},
  {key:'Mon 16', date:'Monday 16 November', title:'Fly home', slots:[
   {t:'11:00', label:'Check out', hint:'', opts:['airbnb']},
@@ -342,7 +413,7 @@ window.DAYS = [
   {t:'15:30', label:'Flight TW-161', hint:'lands at Changi T2 at 21:25', opts:['icn']}
  ]},
  {key:'Spare', date:'Did not fit anywhere', title:'saved, but nowhere to put them', spare:true, slots:[
-  {t:'', label:'Gangnam side', hint:'', opts:['paldang','londonbagel','cafeeero']},
+  {t:'', label:'Gangnam side', hint:'', opts:['paldang','londonbagel','cafeeero','oygangnam','nyunyugn','nyunyugnhouse']},
   {t:'', label:'Further out', hint:'', opts:['deepin','simdu','oneinonejan']},
   {t:'', label:'Night in', hint:'rose tteokbokki from Yeopgi, original fried chicken from BBQ Chicken', opts:[]}
  ]}

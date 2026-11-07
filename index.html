@@ -354,7 +354,11 @@ function proj(lat,lng){return [(lng-LNG0)/DLNG*W,(LAT0-lat)/DLAT*H];}
 
 var P=window.PLACES, DAYS=window.DAYS, TAX=window.TAXONOMY;
 var ICON_OVERRIDE={icn:'transport',airbnb:'stay',namsan:'tower'};
-function iconOf(p){return ICON_OVERRIDE[p.id]||p.type;}
+function iconOf(p){
+  if(ICON_OVERRIDE[p.id])return ICON_OVERRIDE[p.id];
+  var e=TAX.filter(function(c){return c.id===p.type;})[0];
+  return (e&&e.icon)||p.type;
+}
 function typeLabel(t){var e=TAX.filter(function(c){return c.id===t;})[0];return e?e.label:t;}
 
 Object.keys(P).forEach(function(id){
