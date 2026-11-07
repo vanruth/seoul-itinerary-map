@@ -523,13 +523,25 @@ function picksParam(){
   });
   return out.join('_');
 }
+/* Where the page runs. Inside Claude it is an artifact in a sandboxed frame:
+   only a plain #name hash reaches it, so picks can also come as
+   #p-0-3-choidining-0-4-oats (hyphens only), and links it hands out point at
+   the public site, which is what a friend can actually open. */
+var SITE='https://eloquent-hamster-c8aade.netlify.app/';
+var IN_FRAME=(function(){try{return window.self!==window.top;}catch(e){return true;}})();
+function pickTriples(){
+  var h=location.hash||'', m=/[#&]p=([^&]*)/.exec(h), out=[];
+  if(m){
+    decodeURIComponent(m[1]).split('_').forEach(function(t){var a=t.split('.');if(a.length===3)out.push(a);});
+  }else if((m=/^#p-([a-z0-9-]+)$/i.exec(h))){
+    var t=m[1].split('-');
+    for(var i=0;i+2<t.length;i+=3)out.push([t[i],t[i+1],t[i+2]]);
+  }
+  return out;
+}
 function readPicks(){
-  var m=/[#&]p=([^&]*)/.exec(location.hash||'');
-  if(!m)return 0;
   var n=0;
-  decodeURIComponent(m[1]).split('_').forEach(function(t){
-    var a=t.split('.');
-    if(a.length!==3)return;
+  pickTriples().forEach(function(a){
     var di=+a[0], si=+a[1], id=a[2];
     var d=DAYS[di]; if(!d)return;
     var s=d.slots[si]; if(!s||s.opts.indexOf(id)<0)return;
@@ -540,9 +552,11 @@ function readPicks(){
 }
 function shareUrl(){
   var q=picksParam();
-  return location.origin+location.pathname+location.search+(q?'#p='+q:'');
+  var base=IN_FRAME?SITE:location.origin+location.pathname+location.search;
+  return base+(q?'#p='+q:'');
 }
 function syncUrl(){
+  if(IN_FRAME)return;                    /* the frame's address is not the page's to change */
   if(!window.history||!history.replaceState)return;
   var q=picksParam();
   try{history.replaceState(null,'',location.pathname+location.search+(q?'#p='+q:''));}catch(e){}
@@ -1249,13 +1263,32 @@ $('googleOpen').addEventListener('click',openG);
 $('gsheetClose').addEventListener('click',closeG);
 $('gsheet').addEventListener('click',function(e){if(e.target===$('gsheet'))closeG();});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('gsheet').hidden)closeG();});
-$('gDownload').addEventListener('click',function(){
-  var c=picksCsv();
+var CSV_NAME='seoul-picks-for-google-my-maps.csv';
+function plainDownload(c){
   var url=URL.createObjectURL(new Blob([c.text],{type:'text/csv;charset=utf-8'}));
-  var a=el('a',{href:url,download:'seoul-picks-for-google-my-maps.csv'});
+  var a=el('a',{href:url,download:CSV_NAME});
   document.body.appendChild(a); a.click();
   setTimeout(function(){URL.revokeObjectURL(url);a.remove();},1000);
   toast('Downloaded '+c.n+' places — now import it in Google My Maps');
+}
+$('gDownload').addEventListener('click',function(){
+  var c=picksCsv();
+  var host=window.claude&&typeof window.claude.use==='function'?window.claude:null;
+  if(!host){
+    if(IN_FRAME){toast('Downloads are not available here — use the site at '+SITE.replace('https://','').replace(/\/$/,''));return;}
+    plainDownload(c); return;
+  }
+  host.use('downloads').then(function(dl){
+    if(!dl){toast('Downloads are not available here — use the site at '+SITE.replace('https://','').replace(/\/$/,''));return;}
+    return dl.save({filename:CSV_NAME,data:c.text}).then(function(r){
+      if(r&&r.status==='saved')toast('Saved '+c.n+' places — now import it in Google My Maps');
+    },function(err){
+      var code=err&&err.code;
+      if(code==='declined')return;
+      if(code==='rate_limited'){toast('One save is already waiting for you — answer that first');return;}
+      toast('Could not save the file here — use the site at '+SITE.replace('https://','').replace(/\/$/,''));
+    });
+  }).catch(function(){toast('Downloads are not available here');});
 });
 
 window.addEventListener('hashchange',function(){
