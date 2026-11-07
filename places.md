@@ -177,6 +177,36 @@ Ikseon, Hannam, Jongno) has standard-size branches only.
 | Olive Young Hongdae Town | 57 Hongik-ro 6-gil, Mapo-gu | ~300 pyeong, 1–3F. Second-largest Town store. Half of 1F is brand pop-ups |
 | Olive Young Gangnam Town | 429 Gangnam-daero, Seocho-gu (Dongil Building 1–3F) | Town store. Premium brands and beauty devices |
 
+## Travel time between stops
+
+Checked 7 Nov: every consecutive pair of default picks, straight-line distance
+converted to a door-to-door estimate (walk under 1.2 km, otherwise transit with
+a fixed overhead for stations, waits and transfers).
+
+Three legs were fixed:
+
+- **Sat, Seoul Forest → Banpo** was the worst in the week at about 45 minutes
+  across the river. Replaced with **Ttukseom Hangang Park**, the stretch of
+  river directly below Seoul Forest — same ramyeon and chimaek on the grass,
+  about 10 minutes on foot. Banpo is kept as an option, but its Moonlight
+  Rainbow Fountain runs 16 March to 31 October, so it will be off this week,
+  which removes the only reason to make the trip.
+- **Thu, Villa Coffee → Naksan** was ~40 minutes. Villa Coffee Bar is a rooftop
+  looking straight at Namsan Tower, so **Namsan** is now the default for that
+  sunset slot: 1 km uphill instead of across town, and it also shortens the next
+  leg into Myeongdong from 2.9 km to 1.5 km. Naksan stays as the option — it is
+  the quieter wall, it just costs 40 minutes each way from Huam-dong.
+- **Mon, last lunch** is 2 minutes from the front door, so it works with cases
+  in hand.
+
+One leg cannot go under 30 minutes: **Sun, Hongik Univ. Station → Changdeokgung**,
+about 35–40 minutes on line 2 then line 3 to Anguk. Any Jongno day from a Mapo
+flat costs this, and the 09:30 → 10:10 gap already covers it. It is noted in the
+slot rather than hidden.
+
+Everything else in the week is now under 20 minutes, and most days never leave
+one neighbourhood.
+
 ## Where you are staying
 
 **The Airbnb** — 149-10 Seongmisan-ro, Yeonnam-dong, Mapo-gu, Seoul 03980

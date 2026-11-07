@@ -226,7 +226,13 @@ window.PLACES = {
     why:'Recommended by chef Ahn Sungjae. Pig trotters — you will love it or hate it.'},
   banpo:{name:'Banpo Hangang Park', short:'Banpo Park', ko:'반포한강공원', type:'restaurant',
     area:'Banpo', gu:'Seocho-gu', img:'banpo', lat:37.5111, lng:126.9963, side:'l',
-    why:'Convenience-store ramyeon and chimaek on the grass, with the bridge fountain going.'},
+    why:'Convenience-store ramyeon and chimaek on the grass. The Moonlight Rainbow Fountain is the reason to come here rather than any other stretch of river — but it runs 16 March to 31 October, so it will be off during your week.',
+    meta:'About 45 min from Seongsu, across the river · fountain out of season in November'},
+  ttukseom:{name:'Ttukseom Hangang Park', short:'Ttukseom Park', ko:'뚝섬한강공원', type:'restaurant',
+    area:'Seongsu', gu:'Seongdong-gu', lat:37.5385, lng:127.0400, side:'b',
+    q:'뚝섬한강공원',
+    why:'The same thing Banpo was for — ramyeon from the convenience store, chimaek delivered to the riverbank — but it is the stretch of river directly below Seoul Forest, so you walk there from the park instead of crossing the city.',
+    meta:'~10 min on foot from the south end of Seoul Forest, over Gangbyeonbuk-ro · there are delivery pickup points on the bank · if that crossing is shut, Ttukseom Resort Stn (line 7) exit 2 is the way in'},
 
   obok:{name:'Obok Tteokjip', short:'Obok Tteokjip', ko:'오복떡집', type:'bakery',
     area:'Seongsu', gu:'Seongdong-gu', lat:37.5452, lng:127.0470, side:'b',
@@ -510,7 +516,7 @@ window.DAYS = [
   {t:'~11:45', dur:'2 hr', label:'Shopping', hint:'Hannam — KIV and the three k-fashion flagships, plus Youssoful for homeware', opts:['kiv','raive','glowny','asura','youssoful','hannam']},
   {t:'~14:00', label:'Lunch', hint:'Hannam and Haebangchon', opts:['gamjatang','haebang','gml']},
   {t:'~15:15', label:'Coffee with a view', hint:'Huam-dong and Yongsan', opts:['villacoffee','aanzee','rainreport']},
-  {t:'~16:45', label:'Sunset into night', hint:'up on the city wall — sunset is about 17:20', opts:['naksan','namsan']},
+  {t:'~16:45', label:'Sunset into night', hint:'sunset is about 17:20. Villa Coffee looks straight at Namsan, so the tower is 1 km uphill — Naksan is the quieter wall but 40 min across town from Huam-dong', opts:['namsan','naksan']},
   {t:'~18:00', dur:'2 hr', label:'Shopping', hint:'Myeongdong — Olive Young Town, nyunyu and Daiso, all open to 22:00 or later', opts:['oymyeongdong','nyunyumd','myeongdong']},
   {t:'~20:15', label:'Dinner', hint:'Myeongdong — Myeongdong Kyoja stops serving around 21:00, Veteran runs later', opts:['veteran','myeongdongkyoja']}
  ]},
@@ -530,10 +536,10 @@ window.DAYS = [
   {t:'~13:15', label:'Lunch', hint:'Seongsu', opts:['anmok','tofindpeter','gogitbar','mibbedong']},
   {t:'~14:30', label:'Coffee and bakery', hint:'Seongsu — Hanjungsun and Obok are both on the way to the park', opts:['fiveto7','hanjungsun','obok','atob','supermatcha','haz','rafre']},
   {t:'~15:45', label:'Park', hint:'autumn colour should still be going', opts:['seoulforest']},
-  {t:'~18:30', label:'Dinner outside', hint:'ramyeon and chimaek on the grass', opts:['banpo']}
+  {t:'~18:30', label:'Dinner outside', hint:'ramyeon and chimaek on the grass — Ttukseom is a 10 min walk from Seoul Forest, Banpo is 45 min away and its fountain is off until March', opts:['ttukseom','banpo']}
  ]},
  {key:'Sun 15', date:'Sunday 15 November', title:'Changdeokgung and Ikseon-dong', slots:[
-  {t:'09:30', label:'Meet', hint:'Hongik Univ. Station', opts:['hongdae']},
+  {t:'09:30', label:'Meet', hint:'Hongik Univ. Station, 10 min from the flat. Jongno is 35–40 min from here on line 2 then line 3 to Anguk — the only leg all week over 30 min, and the 40 min before the palace covers it', opts:['hongdae']},
   {t:'10:10', label:'Palace', hint:'Secret Garden tour 11:30, 5,000 won, ends around 12:30', opts:['changdeok']},
   {t:'~13:00', label:'Lunch', hint:'Ikseon-dong and around', opts:['ikseon','miltoast']},
   {t:'~14:00', label:'Steffi goes to the Melon Music Awards', hint:'venue still to be confirmed in your sheet', opts:[]},
@@ -544,7 +550,7 @@ window.DAYS = [
  ]},
  {key:'Mon 16', date:'Monday 16 November', title:'Fly home', slots:[
   {t:'11:00', label:'Check out', hint:'', opts:['airbnb']},
-  {t:'11:30', label:'Last lunch', hint:'Yeonnam is the walkable one now — Mangwon is a 2 km hop west. Tuk Tuk opens at 11:30 and is shut on Wednesdays, so this is the day for it', opts:['tuktuk','thinghow','choidak','nothink','coffeenap','oats','mangwonmkt','teanomad','floormangwon']},
+  {t:'11:30', label:'Last lunch', hint:'all two minutes from the door, so you can eat with the bags. Tuk Tuk opens 11:30 and is shut Wednesdays, so this is the day for it — ask the host to hold the cases, or use the lockers at Hongik Univ. Stn on the way', opts:['tuktuk','thinghow','choidak','overdeep','nothink','coffeenap','oats','mangwonmkt','teanomad','floormangwon']},
   {t:'12:30', label:'Leave for the airport', hint:'', opts:['airbnb']},
   {t:'13:30', label:'Reach Incheon T1', hint:'', opts:['icn']},
   {t:'15:30', label:'Flight TW-161', hint:'lands at Changi T2 at 21:25', opts:['icn']}
