@@ -54,7 +54,7 @@ and every option shows on the map whether or not it is the current pick.
 | Cafe Layered — Yeonnam | 223-20 Yeonnam-dong, Mapo-gu | Terrace seating. Daily 11:00–22:00 |
 | Unyoke | **Unconfirmed** | Cosy neighbourhood vibes. Area never stated and not findable |
 | Hey Tea | **Branch unconfirmed** | Mango coconut boom. Chain with several Seoul branches |
-| Quiet cafe on Donggyo-ro | 187 Donggyo-ro, Mapo-gu | Calm escape between Hongdae and Yeonnam. **Name never shown — only the door number** |
+| Oscar Coffee Booth (오스카커피부스) | 187 Donggyo-ro, Dongmyeong Bldg 2F, Mapo-gu | Calm escape between Hongdae and Yeonnam. Hand drip, kabocha pudding. Weekdays 11:00–22:00, weekends 12:00–22:00. Was the unnamed "cafe on Donggyo-ro" — same address |
 | Cat cafe | Gangnam | **Never named in the post.** 10/10 vibes |
 | Obok Tteokjip (오복떡집) | 32 Seongdeokjeong-gil, Seongdong-gu (Seongsu) | The viral **ang butter monaka** — mochi tteok with red bean and butter in a monaka wafer. ~08:00–21:00, shut 1st & 3rd Tue |
 
