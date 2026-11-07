@@ -245,28 +245,20 @@ as good as a 40-minute trip gets.
 
 ## Friday, as it stands
 
-Rebuilt 7 Nov so it never returns to somewhere already visited. The old order
-went Seochon → Deoksugung → back to Seochon for lunch, and then out east to
-Naksan → back west to Cheonggyecheon and Myeongdong for dinner.
+08:30 leave the flat → 09:00 Leedorim → 10:00 Deoksugung wall + 11:00 guard
+change → 11:30 lunch at **Seol Yi Dong** (설이동, 179-1 Cheongjin-dong —
+kalguksu in a hanok, cold naengkalguksu and handmade mandu; 11:00–22:00,
+weekday lunch queue from noon) → 12:30 Kyobo / Hottracks, 4 min away → 13:15
+Insadong shopping (2 hr) → 15:25 Bukchon → 16:05 tea at Osulloc, in Bukchon →
+16:40 Naksan for the 17:20 sunset → down the lit wall → 18:40 dinner at
+Jinokhwa Halmae Wonjo Dakhanmari.
 
-09:00 Leedorim → 10:00 Deoksugung wall + 11:00 guard change → 11:20 **Kyobo /
-Hottracks** (its own slot now, 8 min up from Deoksugung) → 12:05 lunch at
-Samcheongdong Sujebi → 13:05 Bukchon → 13:50 Insadong shopping (2 hr) → 15:55
-dessert, Anguk → 16:30 Naksan for the 17:20 sunset → walk the lit wall down to
-Heunginjimun → 18:30 dinner at **Jinokhwa Halmae Wonjo Dakhanmari**, the
-original in Dongdaemun dakhanmari alley (18 Jongno 40ga-gil, 10:30–01:00, no
-bookings, queue from 19:00).
-
-The only southward dip is Deoksugung itself, which is forced by starting at
-Leedorim; after it, the day only goes north and then east. Total 7.8 km of
-hops, down from 9.7.
-
-Tosokchon is still a lunch option but now a small detour west. Cheonggyecheon
-moved to **Thursday at 21:00**, two minutes north of the Myeongdong dinner,
-where it is on the way home instead of a doubling-back.
-
-Every other day was checked the same way (any A → B → C where C lands back
-near A after a real trip out to B) and none needed changing.
+Seol Yi Dong took lunch because it is 10 min from Deoksugung and 4 min from
+Kyobo — on the route rather than off it. That also flipped Bukchon to *after*
+Insadong, so the walk goes Gwanghwamun → Insadong → up into Bukchon → east to
+Naksan without returning anywhere. Samcheongdong Sujebi and Tosokchon remain
+lunch options. Arriving 11:30 is deliberate: the offices around Cheongjin-dong
+empty out at noon.
 
 ## Cut from the plan
 
