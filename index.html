@@ -83,6 +83,14 @@ header h1{font:700 clamp(28px,5vw,38px)/1.08 var(--display);margin:0 0 8px;lette
 .share[data-done="1"]{border-color:var(--accent);color:var(--accent-ink)}
 .headbtns{display:flex;gap:8px;flex-wrap:wrap}
 .chiprow{display:flex;gap:7px;align-items:flex-start}
+.daypick{flex:1;min-width:0;position:relative;display:flex;align-items:center;gap:9px;min-height:40px;padding:0 14px;
+  border:1px solid var(--line);border-radius:999px;background:var(--surface);box-shadow:var(--shadow-s);cursor:pointer}
+.daypick:focus-within{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 30%,transparent)}
+.daypick>i{flex:none;width:10px;height:10px;border-radius:50%;background:var(--c)}
+.daypick select{flex:1;min-width:0;appearance:none;-webkit-appearance:none;border:0;background:none;outline:0;cursor:pointer;
+  font:600 14.5px/1.2 var(--body);color:var(--ink);padding:9px 22px 9px 0;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
+.daypick .dpchev{position:absolute;right:12px;width:15px;height:15px;transform:rotate(90deg);pointer-events:none;
+  stroke:var(--faint);fill:none;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
 .chiprow .chips{flex:1;min-width:0}
 .chip.maptog{flex:none;display:none}
 .chip.maptog[aria-pressed]{background:var(--surface);border-color:var(--line);color:var(--muted)}
@@ -876,15 +884,20 @@ function renderChips(){
     });
     return;
   }
-  var a=el('button',{type:'button','class':'chip','aria-pressed':String(state.day==='all')},[el('i'),el('span',{text:'All days'})]);
-  a.addEventListener('click',function(){setDay('all');});
-  box.appendChild(a);
+  /* days: one dropdown, the phone's own picker */
+  var wrap=el('label',{'class':'daypick',style:'--c:'+(state.day==='all'?'var(--accent)':dayVar(state.day))});
+  wrap.appendChild(el('i',{'aria-hidden':'true'}));
+  var sel=el('select',{id:'daySelect','aria-label':'Choose a day'});
+  sel.appendChild(el('option',{value:'all',text:'All days'}));
   DAYS.forEach(function(d,i){
-    var b=el('button',{type:'button','class':'chip','aria-pressed':String(state.day===i),style:'--c:'+dayVar(i)},
-      [el('i'),el('span',{text:d.key+(i===TODAY?' · Today':'')})]);
-    b.addEventListener('click',function(){setDay(i);});
-    box.appendChild(b);
+    var o=el('option',{value:String(i),text:d.key==='Spare'?'Spare — did not fit anywhere':d.key+' · '+d.title+(i===TODAY?' · Today':'')});
+    sel.appendChild(o);
   });
+  sel.value=state.day==='all'?'all':String(state.day);
+  sel.addEventListener('change',function(){setDay(sel.value==='all'?'all':+sel.value);});
+  wrap.appendChild(sel);
+  wrap.appendChild(icon('chev','dpchev'));
+  box.appendChild(wrap);
   var on=box.querySelector('.chip[aria-pressed="true"]');
   if(on)box.scrollLeft=Math.max(0,on.offsetLeft-box.clientWidth/2+on.offsetWidth/2);
 }
