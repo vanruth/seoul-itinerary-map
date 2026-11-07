@@ -212,6 +212,16 @@ flagged in the list as "check the result": Milestone (branch), Veteran,
 Leedorim, Dotori Garden, To Find Peter, Cheongsudang, Simdu, and — by address
 only — Cofe de Palezze and Cafe Eero.
 
+## Google Maps
+
+Google Maps has no way for other apps to add to saved lists either, but
+Google My Maps imports CSV and its maps appear in the Google Maps app under
+Saved → Maps. **Google Maps** in the header downloads the current picks as a
+CSV (same rows as the Naver list: Name, Korean, Day, Time, What, Area, Note,
+Latitude, Longitude, Google Maps link) with the import steps. Position by
+Latitude/Longitude, title by Name, style by Day to colour pins per day.
+Import has to be done on a computer.
+
 ## Every day starts at the flat
 
 Added 7 Nov. Each day after arrival now opens with a "Leave the flat" stop at
