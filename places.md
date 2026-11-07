@@ -131,7 +131,7 @@ The ones that have to happen. They carry a star on the map, in the itinerary, in
 | oh, lolly day! Seoul Forest (오롤리데이 서울숲) | 18-11 Seoulsup 2-gil 1F | Sat ~17:25, two minutes from Poset | There is a second store on Yeonmujang-gil — this is the Seoul Forest one |
 | Zero Space Bukchon (제로스페이스 북촌점) | 5-5 Bukchon-ro 5-gil | Sun ~13:45, same lane as Hwangsaengga | Zero Per Zero's maps and stationery, daily 11:00–19:00 (2025) |
 
-**molia** (몰리아, 13-9 Jeungga-ro 2F #202, Yeonhui) is no longer a definite go, but stays in the plan as a quick stop on Wednesday ~15:35, at the top of the walk down Yeontral Park. Hours unconfirmed — check Naver.
+**molia** (몰리아, 13-9 Jeungga-ro 2F #202, Yeonhui) is a café, now one of the Wednesday coffee options, about 15 min walk from the flat. Hours unconfirmed — check Naver.
 
 Also from the same batch of Google Maps links: **Vetiver** (베티버, croffle café, 18 Seongdeokjeong 11-gil) is a Saturday coffee option, and **Richard House Yeonnam** (리차드하우스 연남, 36 Donggyo-ro 46-gil 1F) is a Wednesday lunch option.
 
