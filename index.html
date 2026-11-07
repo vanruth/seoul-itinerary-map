@@ -82,6 +82,32 @@ header h1{font:700 clamp(28px,5vw,38px)/1.08 var(--display);margin:0 0 8px;lette
 .share:active{transform:translateY(1px)}
 .share[data-done="1"]{border-color:var(--accent);color:var(--accent-ink)}
 .headbtns{display:flex;gap:8px;flex-wrap:wrap}
+.chiprow{display:flex;gap:7px;align-items:flex-start}
+.chiprow .chips{flex:1;min-width:0}
+.chip.maptog{flex:none;display:none}
+.chip.maptog[aria-pressed]{background:var(--surface);border-color:var(--line);color:var(--muted)}
+.maptog svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.daystats{flex-basis:100%;font-size:12.5px;color:var(--faint);font-weight:600;font-variant-numeric:tabular-nums;margin-top:1px}
+.nowtag{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;font:700 10.5px/1.6 var(--body);
+  letter-spacing:.05em;text-transform:uppercase;vertical-align:1px;background:var(--c);color:var(--on-pin)}
+.nowtag.next{background:none;color:var(--c);box-shadow:inset 0 0 0 1.5px var(--c)}
+.slot[data-now="now"]{border-color:var(--c);box-shadow:0 0 0 1.5px var(--c)}
+@media (max-width:919px){
+  .chip.maptog{display:inline-flex}
+  body.map-off .map{display:none}
+  body.map-off .mapcol{padding-bottom:4px}
+}
+@media (max-width:640px){
+  .wrap{padding-top:16px}
+  header h1{font-size:27px;margin-bottom:6px}
+  .trip{font-size:13px;gap:2px 12px}
+  .headrow{margin-top:14px;gap:8px}
+  .tabs{width:100%}
+  .tab{flex:1;justify-content:center;padding:8px 10px}
+  .headbtns{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .headbtns .share{justify-content:center;padding:9px 8px;font-size:13.5px}
+  .lbl-long{display:none}
+}
 .notesw .knob{position:relative;width:30px;height:18px;border-radius:999px;background:var(--line);flex:none;transition:background .18s}
 .notesw .knob::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--surface);
   box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .18s}
@@ -377,15 +403,18 @@ footer .credhead:first-child{margin-top:0}
       </div>
       <div class="headbtns">
         <button class="share notesw" type="button" id="notesToggle" role="switch" aria-checked="true"><span class="knob" aria-hidden="true"></span><span>Notes</span></button>
-        <button class="share" type="button" id="naverOpen"><svg><use href="#i-pin"/></svg><span>Save to Naver</span></button>
-        <button class="share" type="button" id="share"><svg><use href="#i-share"/></svg><span id="shareLabel">Share my picks</span></button>
+        <button class="share" type="button" id="naverOpen"><svg><use href="#i-pin"/></svg><span><span class="lbl-long">Save to </span>Naver</span></button>
+        <button class="share" type="button" id="share"><svg><use href="#i-share"/></svg><span id="shareLabel">Share<span class="lbl-long"> my picks</span></span></button>
       </div>
     </div>
   </header>
 
   <div class="layout">
     <div class="mapcol">
-      <div class="chips" id="chips" role="group" aria-label="Filter the map"></div>
+      <div class="chiprow">
+        <div class="chips" id="chips" role="group" aria-label="Filter the map"></div>
+        <button type="button" class="chip maptog" id="mapToggle" aria-pressed="true"><svg><use href="#i-pin"/></svg><span id="mapLabel">Hide map</span></button>
+      </div>
       <div class="map" id="map">
         <svg id="svg" class="canvas" role="group" aria-label="Schematic map of Seoul with every saved place" preserveAspectRatio="xMidYMid meet"></svg>
         <div class="ctrl">
@@ -566,7 +595,29 @@ function syncUrl(){
   try{history.replaceState(null,'',location.pathname+location.search+(q?'#p='+q:''));}catch(e){}
 }
 
-var state={tab:'itinerary',day:'all',cat:null,q:'',place:null,slot:null};
+/* Seoul clock (UTC+9, no daylight saving). During the trip the page opens
+   on today and marks the stop you are at and the next one. */
+function tmin(t){var m=/(\d{1,2}):(\d{2})/.exec(t||'');return m?(+m[1])*60+(+m[2]):null;}
+function seoulNow(){
+  var d=new Date(Date.now()+9*3600e3);
+  return {y:d.getUTCFullYear(),m:d.getUTCMonth()+1,d:d.getUTCDate(),mins:d.getUTCHours()*60+d.getUTCMinutes()};
+}
+function todayIndex(){
+  var n=seoulNow(); if(n.y!==2026||n.m!==11)return -1;
+  for(var i=0;i<DAYS.length;i++){if(!DAYS[i].spare&&DAYS[i].key.split(' ')[1]===String(n.d))return i;}
+  return -1;
+}
+/* {now: slot index you are at, next: the one after}, or null outside the day */
+function nowNext(di){
+  if(di!==todayIndex())return null;
+  var mins=seoulNow().mins, sl=DAYS[di].slots, now=-1, next=-1;
+  for(var i=0;i<sl.length;i++){var t=tmin(sl[i].t); if(t===null)continue; if(t<=mins)now=i; else {next=i;break;}}
+  if(now<0&&next<0)return null;
+  if(next<0&&mins-tmin(sl[now].t)>180)return null;        /* the day is over */
+  return {now:now,next:next};
+}
+var TODAY=todayIndex();
+var state={tab:'itinerary',day:TODAY>=0?TODAY:'all',cat:null,q:'',place:null,slot:null};
 var view={cx:500,cy:315,w:1000}, raf=0, u=1;
 var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var $=function(id){return document.getElementById(id);};
@@ -797,6 +848,7 @@ function markActive(){
 }
 function selectPlace(id,key,fromPin){
   if(!P[id])return;
+  if(document.body.classList.contains('map-off'))setMap(true);
   state.place=id; state.slot=key;
   if(fromPin&&state.tab==='itinerary'){
     var m=document.querySelector('.slot[data-places~="'+id+'"]');
@@ -829,10 +881,12 @@ function renderChips(){
   box.appendChild(a);
   DAYS.forEach(function(d,i){
     var b=el('button',{type:'button','class':'chip','aria-pressed':String(state.day===i),style:'--c:'+dayVar(i)},
-      [el('i'),el('span',{text:d.key})]);
+      [el('i'),el('span',{text:d.key+(i===TODAY?' · Today':'')})]);
     b.addEventListener('click',function(){setDay(i);});
     box.appendChild(b);
   });
+  var on=box.querySelector('.chip[aria-pressed="true"]');
+  if(on)box.scrollLeft=Math.max(0,on.offsetLeft-box.clientWidth/2+on.offsetWidth/2);
 }
 
 /* ---------- itinerary panel ---------- */
@@ -881,23 +935,26 @@ function renderItinerary(){
     if(state.day!=='all'&&state.day!==di)return;
     if(state.day==='all'&&d.spare)return;
     var sec=el('section',{'class':'day',style:'--c:'+dayVar(di)});
-    sec.appendChild(el('div',{'class':'dayhead'},[el('h2',{text:d.date}),el('span',{text:d.title})]));
+    var head=el('div',{'class':'dayhead'},[el('h2',{text:d.date}),el('span',{text:d.title})]);
+    sec.appendChild(head);
     var ul=el('ul',{'class':'slots'});
-    var prevPlace=null;
+    var prevPlace=null, travel=0, stops=0, nn=nowNext(di);
     d.slots.forEach(function(s,si){
       var key=slotKey(di,si), id=pickOf(di,si), p=id?P[id]:null;
       if(!d.spare){
-        if(s.leg)ul.appendChild(legRow(s.leg,!!s.legFar));
+        if(s.leg){ul.appendChild(legRow(s.leg,!!s.legFar)); var lm=/(\d+)\s*min/.exec(s.leg); if(lm)travel+=+lm[1];}
         else{
           var lg=legBetween(prevPlace,p);
-          if(lg)ul.appendChild(legRow(lg.text,lg.m>30));
+          if(lg){ul.appendChild(legRow(lg.text,lg.m>30)); travel+=lg.m;}
         }
+        if(p)stops++;
       }
       prevPlace=(p&&p.lat!==undefined)?p:null;
       var many=s.opts.length>1;
       var isOpen=many&&openSlots[key];
       var slot=el('div',{'class':'slot','data-key':key,style:'--c:'+dayVar(di)});
       if(isOpen)slot.setAttribute('data-open','1');
+      if(nn&&nn.now===si)slot.setAttribute('data-now','now');
       if(s.opts.length)slot.setAttribute('data-places',s.opts.join(' '));
 
       var head=el('button',{type:'button','class':'srow'});
@@ -906,6 +963,8 @@ function renderItinerary(){
       head.appendChild(when);
       var mid=el('div');
       var lab=el('div',{'class':'slabel'},[el('span',{text:s.label})]);
+      if(nn&&nn.now===si)lab.appendChild(el('span',{'class':'nowtag',text:'Now'}));
+      if(nn&&nn.next===si)lab.appendChild(el('span',{'class':'nowtag next',text:'Next'}));
       if(s.hint)lab.appendChild(el('span',{'class':'shint',text:' · '+s.hint}));
       mid.appendChild(lab);
       if(p){
@@ -942,6 +1001,10 @@ function renderItinerary(){
       }
       ul.appendChild(el('li',null,[slot]));
     });
+    if(!d.spare&&stops){
+      var h=Math.floor(travel/60), m=travel%60;
+      head.appendChild(el('span',{'class':'daystats',text:stops+' stops · about '+(h?h+' h '+(m?m+' min':''):m+' min')+' getting around'}));
+    }
     sec.appendChild(ul);
     panel.appendChild(sec);
   });
@@ -1135,9 +1198,9 @@ function toast(msg){
   toastT=setTimeout(function(){toastEl.removeAttribute('data-show');},3200);
 }
 function flashShare(){
-  var b=$('share'), l=$('shareLabel'), was=l.textContent;
-  b.setAttribute('data-done','1'); l.textContent='Link copied';
-  setTimeout(function(){b.removeAttribute('data-done');l.textContent=was;},2400);
+  var b=$('share'), l=$('shareLabel'), was=l.innerHTML;
+  b.setAttribute('data-done','1'); l.textContent='Copied';
+  setTimeout(function(){b.removeAttribute('data-done');l.innerHTML=was;},2400);
 }
 function copyText(text,done){
   function manual(){window.prompt('Copy this link',text);}
@@ -1166,6 +1229,25 @@ $('share').addEventListener('click',function(){
     });
   }else copyText(url,done);
 });
+/* ---------- map show / hide (phones and tablets) ---------- */
+var LSMAP='seoul-map';
+function setMap(on){
+  document.body.classList.toggle('map-off',!on);
+  $('mapToggle').setAttribute('aria-pressed',String(on));
+  $('mapLabel').textContent=on?'Hide map':'Show map';
+  try{localStorage.setItem(LSMAP,on?'on':'off');}catch(e){}
+  if(on)requestAnimationFrame(applyView);
+}
+(function(){var v=null;try{v=localStorage.getItem(LSMAP);}catch(e){} setMap(v!=='off');})();
+$('mapToggle').addEventListener('click',function(){setMap(document.body.classList.contains('map-off'));});
+
+/* ---------- keep Now / Next current while the page stays open ---------- */
+var lastNN='';
+setInterval(function(){
+  if(TODAY<0||state.tab!=='itinerary')return;
+  var k=JSON.stringify(nowNext(TODAY)); if(k!==lastNN){lastNN=k;renderItinerary();}
+},60000);
+
 /* ---------- notes switch ---------- */
 var LSNOTES='seoul-notes';
 function setNotes(on){
@@ -1280,6 +1362,13 @@ $('placeCount').textContent=Object.keys(P).length;
 })();
 var shared=readPicks();
 render();
+if(TODAY>=0){
+  requestAnimationFrame(function(){
+    var t=document.querySelector('.slot[data-now="now"]')||document.querySelector('.nowtag.next');
+    if(t&&t.closest)t=t.closest('.slot');
+    if(t)t.scrollIntoView({block:'center'});
+  });
+}
 if(shared)toast('Showing a shared set of picks — '+shared+' slot'+(shared===1?'':'s')+' differ from the defaults');
 view=fitTarget(); applyView();
 requestAnimationFrame(function(){view=fitTarget();applyView();});
