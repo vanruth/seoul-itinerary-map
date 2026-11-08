@@ -331,6 +331,14 @@ body.notes-off .srow{padding-top:8px;padding-bottom:8px}
 .olinks{display:flex;gap:14px;margin-top:8px;font-size:13.5px;font-weight:600}
 /* picker sheet */
 .pickpanel{padding-top:10px}
+.loadlink{margin:0 0 18px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.loadlink label{display:block;font-weight:650;font-size:13.5px;color:var(--ink);margin-bottom:8px}
+.loadlink div{display:flex;gap:8px}
+.loadlink input{flex:1;min-width:0;min-height:42px;border:1px solid var(--line);border-radius:10px;padding:0 12px;
+  font:15px var(--body);background:var(--bg);color:var(--ink)}
+.loadlink input:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.loadlink button{min-height:42px;padding:0 18px;border:0;border-radius:10px;background:var(--accent);color:var(--on-pin);
+  font:700 14px var(--body);cursor:pointer}
 .grab{width:40px;height:5px;border-radius:999px;background:var(--line);margin:0 auto 12px}
 @media (min-width:760px){.grab{display:none}.pickpanel{padding-top:20px}}
 .pickwhen{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c);margin-bottom:4px}
@@ -562,6 +570,10 @@ footer .credhead:first-child{margin-top:0}
   <footer>
     <p>Times marked ~ are suggestions; fixed times come from your sheet. Every option in a bucket is on the map at once — the dashed pins are the ones you have not picked. The map is schematic, so use the Google Maps and Naver links for real directions.</p>
     <p>The minutes between stops are estimates from the distance between pins, not routed times — walking under about a kilometre, otherwise subway or bus with time added for stations and changes. Google Maps cannot route walks in Korea and will offer a bus even for two minutes on foot, so use Naver or Kakao for directions. Hills and transfers are where they are weakest, so check anything tight on Naver.</p>
+    <form class="loadlink" id="loadLink">
+      <label for="loadInput">Have a saved link? Paste it here to load its picks</label>
+      <div><input id="loadInput" type="text" inputmode="url" autocomplete="off" placeholder="https://claude.ai/artifact/…#s-…"><button type="submit">Load</button></div>
+    </form>
     <p>Your picks are saved in this browser. <b>Share my picks</b> copies a link that carries them, so whoever opens it sees the same choices — they can then change their own copy without touching yours. Inside Claude it copies the artifact link, which opens for people you have shared the artifact with. <b>Notes</b> hides or shows the explanations, keeping times and picks.</p>
     <details>
       <summary>Photo credits</summary>
@@ -742,11 +754,51 @@ function picksParam(){
 var SITE='https://eloquent-hamster-c8aade.netlify.app/';
 var ARTIFACT='https://claude.ai/artifact/SrU4b2nZQ3tyx8i3fBtdUh';
 var IN_FRAME=(function(){try{return window.self!==window.top;}catch(e){return true;}})();
-function pickTriples(){
-  var h=location.hash||'', m=/[#&]p=([^&]*)/.exec(h), out=[];
+/* Short links for inside Claude, where long ones do not get through:
+   #s-5abcd-22ef means stop 5 of day 0 (day*20+stop) with the places coded
+   ab and cd, then stop 2 of day 1 with ef. A code is two letters worked out
+   from the place's id, read back against the options of that day, so adding
+   places later does not break old links. */
+function pcode(id){
+  var h=0; for(var i=0;i<id.length;i++)h=(h*31+id.charCodeAt(i))>>>0;
+  return String.fromCharCode(97+h%26)+String.fromCharCode(97+Math.floor(h/26)%26);
+}
+function shortParam(){
+  var out=[];
+  DAYS.forEach(function(d,di){
+    d.slots.forEach(function(s,si){
+      if(s.opts.length<2)return;
+      var ids=picksOf(di,si);
+      if(ids.length===1&&ids[0]===s.opts[0])return;
+      out.push((di*20+si)+ids.map(pcode).join(''));
+    });
+  });
+  return out.join('-');
+}
+function fromShort(body){
+  var out=[];
+  body.split('-').forEach(function(tok){
+    var m=/^(\d+)([a-z]+)$/.exec(tok); if(!m||m[2].length%2)return;
+    var n=+m[1], di=Math.floor(n/20), si=n%20, d=DAYS[di]; if(!d)return;
+    for(var i=0;i<m[2].length;i+=2){
+      var c=m[2].substr(i,2), best=null, bd=99;
+      d.slots.forEach(function(s,j){
+        s.opts.forEach(function(id){
+          if(pcode(id)===c&&Math.abs(j-si)<bd){bd=Math.abs(j-si);best=[di,si,id];}
+        });
+      });
+      if(best)out.push(best);
+    }
+  });
+  return out;
+}
+function pickTriples(hash){
+  var h=hash===undefined?(location.hash||''):hash, m, out=[];
+  if((m=/(?:^|#)s-([a-z0-9-]+)$/i.exec(h)))return fromShort(m[1].toLowerCase());
+  m=/[#&]p=([^&]*)/.exec(h);
   if(m){
     decodeURIComponent(m[1]).split('_').forEach(function(t){var a=t.split('.');if(a.length===3)out.push(a);});
-  }else if((m=/^#p-([a-z0-9-]+)$/i.exec(h))){
+  }else if((m=/(?:^|#)p-([a-z0-9-]+)$/i.exec(h))){
     var t=m[1].split('-');
     for(var i=0;i+2<t.length;i+=3)out.push([t[i],t[i+1],t[i+2]]);
   }
@@ -756,9 +808,9 @@ function pickTriples(){
    goes stale, so if that slot no longer offers the place, use the nearest
    slot on the same day that does and that the link has not already filled.
    Ties go to the earlier slot. */
-function readPicks(){
+function readPicks(hash){
   var n=0, taken={}, late=[];
-  pickTriples().forEach(function(a){
+  pickTriples(hash).forEach(function(a){
     var di=+a[0], si=+a[1], id=a[2], d=DAYS[di]; if(!d)return;
     var s=d.slots[si];
     if(s&&s.opts.indexOf(id)>=0){
@@ -787,7 +839,7 @@ function readPicks(){
    page's own address with the usual #p= form. */
 function shareUrl(){
   var q=picksParam();
-  if(IN_FRAME)return ARTIFACT+(q?'#p-'+q.replace(/[._]/g,'-'):'');
+  if(IN_FRAME){var sq=shortParam(); return ARTIFACT+(sq?'#s-'+sq:'');}
   return location.origin+location.pathname+location.search+(q?'#p='+q:'');
 }
 function syncUrl(){
@@ -1788,6 +1840,17 @@ $('placeCount').textContent=Object.keys(P).length;
     box.appendChild(el('div',{text:c[1]+' — '+c[2]+', '+c[3]}));
   });
 })();
+$('loadLink').addEventListener('submit',function(e){
+  e.preventDefault();
+  var v=$('loadInput').value.trim(), i=v.indexOf('#');
+  var h=i>=0?v.slice(i):(/^[sp]-/.test(v)?'#'+v:'');
+  var n=h?readPicks(h):0;
+  if(!n){toast('That link has no picks in it — copy it again with Share my picks');return;}
+  $('loadInput').value=''; syncUrl();
+  render(); animateTo(fitTarget());
+  window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+  toast('Loaded the picks from that link — '+n+' stop'+(n===1?'':'s')+' changed');
+});
 var shared=readPicks();
 render();
 if(TODAY>=0){
