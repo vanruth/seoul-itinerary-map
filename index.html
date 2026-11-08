@@ -113,6 +113,7 @@ header h1{font:700 clamp(28px,5vw,38px)/1.08 var(--display);margin:0 0 8px;lette
   #card h3{font-size:15.5px}
   #card .why{font-size:13px;margin-top:5px;line-height:1.4}
   #card .meta{font-size:12px}
+  #card .links{margin-top:7px}
   .chip.maptog{display:inline-flex}
   .chiprow:has(.daypick) .chip.maptog{min-height:40px}
   body.map-off .map{display:none}
@@ -211,6 +212,7 @@ body.notes-off .srow{padding-top:8px;padding-bottom:8px}
 .card .ko{color:var(--faint);font-size:12.5px;margin-top:2px}
 .card .why{font-size:13.5px;margin-top:7px;color:var(--ink)}
 .card .meta{font-size:12.5px;color:var(--muted);margin-top:5px}
+.card .links{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:9px;font-size:13.5px;font-weight:600}
 .card .x{position:absolute;top:2px;right:4px;width:32px;height:32px;border:0;background:none;cursor:pointer;
   color:var(--faint);display:grid;place-items:center;border-radius:50%}
 .card .x:hover{color:var(--ink);background:var(--sunk)}
@@ -282,38 +284,8 @@ body.notes-off .srow{padding-top:8px;padding-bottom:8px}
 .pcard>div{min-width:0}
 .srow{display:grid;grid-template-columns:var(--tw) var(--rail) minmax(0,1fr) auto;gap:0 8px;align-items:start;
   padding:10px 8px 12px;width:100%;background:none;border:0;border-radius:14px;text-align:left;cursor:pointer;font:inherit;color:inherit}
-@media (hover:hover){.srow[role="button"]:hover{background:color-mix(in srgb,var(--sunk) 70%,transparent)}}
-.srow[aria-disabled="true"]{cursor:default}
-.srow:focus-visible,.pkmain:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
-.mapgo{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:var(--faint);background:var(--sunk)}
-.mapgo svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.slot[data-active="1"] .mapgo{background:var(--c);color:var(--on-pin)}
-/* the options button: its own clear target, apart from the row */
-.optbtn{display:inline-flex;align-items:center;gap:7px;margin-top:9px;min-height:36px;padding:6px 12px 6px 11px;
-  border-radius:999px;border:1.5px solid color-mix(in srgb,var(--c) 55%,var(--line));background:var(--surface);
-  color:var(--ink);font:650 13px/1.2 var(--body);cursor:pointer;text-align:left;max-width:100%}
-.optbtn svg{width:15px;height:15px;flex:none;stroke:var(--c);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.optbtn svg:last-child{width:13px;height:13px;stroke:var(--faint)}
-.optbtn:active{background:var(--sunk)}
-@media (hover:hover){.optbtn:hover{border-color:var(--c);background:color-mix(in srgb,var(--c) 7%,var(--surface))}}
-/* Google Maps / Naver beside a name */
-.extlinks{display:inline-flex;gap:6px;margin-left:auto;padding-left:8px;flex:none;align-self:flex-start}
-.ext{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;text-decoration:none;
-  font:800 13px/1 var(--body);box-shadow:var(--shadow-s)}
-.ext-g{background:var(--surface);color:#1A73E8;border:1px solid var(--line)}
-.ext-n{background:#03C75A;color:#fff;border:1px solid #03C75A}
-.ext:active{transform:scale(.94)}
-.ctitle{display:flex;align-items:flex-start;gap:8px;padding-right:30px}
-.ctitle h3{padding-right:0!important;flex:1;min-width:0}
-.pkmain{outline:none}
-.pkname{flex-wrap:nowrap!important;align-items:flex-start!important}
-.pknm{flex:1;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px 7px}
-.sname{flex-wrap:nowrap}
-.sname>span:not(.star):not(.extlinks){flex:1;min-width:0}
-.smeta .extlinks{margin-left:0;padding-left:0;align-self:center}
-.smeta{row-gap:7px}
-.optbtn{white-space:nowrap;margin-left:72px}
-@media (max-width:420px){.optbtn{margin-left:0}}
+@media (hover:hover){.srow:not(:disabled):hover{background:color-mix(in srgb,var(--sunk) 70%,transparent)}}
+.srow:disabled{cursor:default}
 .swhen{display:flex;flex-direction:column;align-items:flex-end;gap:5px;padding-top:1px}
 .stime{font-variant-numeric:tabular-nums;color:var(--ink);font-size:13px;font-weight:700;letter-spacing:-.01em}
 .sdur{font-size:10.5px;font-weight:700;color:var(--accent-ink);background:var(--sunk);
@@ -336,6 +308,8 @@ body.notes-off .srow{padding-top:8px;padding-bottom:8px}
 .shours{display:inline-flex;align-items:center;gap:4px;font-variant-numeric:tabular-nums}
 .shours svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .sclosed{color:var(--d2);font-weight:700}
+.smore{font-weight:700;color:var(--accent-ink);background:color-mix(in srgb,var(--accent) 10%,transparent);
+  padding:2px 8px;border-radius:999px}
 .sthumb{flex:none;width:60px;height:60px;border-radius:12px;overflow:hidden;background:var(--sunk);display:grid;place-items:center}
 .sthumb img{width:100%;height:100%;object-fit:cover}
 .sthumb svg.ic{width:24px;height:24px;stroke:var(--c);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
@@ -354,6 +328,7 @@ body.notes-off .srow{padding-top:8px;padding-bottom:8px}
 .oname .pill,.pname .pill,.pkname .pill{font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
   color:var(--c,var(--accent));background:color-mix(in srgb,var(--c,var(--accent)) 12%,transparent);
   padding:2px 7px;border-radius:999px;white-space:nowrap}
+.olinks{display:flex;gap:14px;margin-top:8px;font-size:13.5px;font-weight:600}
 /* picker sheet */
 .pickpanel{padding-top:10px}
 .grab{width:40px;height:5px;border-radius:999px;background:var(--line);margin:0 auto 12px}
@@ -383,6 +358,7 @@ body.notes-off .srow{padding-top:8px;padding-bottom:8px}
 .pickdone{width:100%;min-height:48px;border:0;border-radius:999px;background:var(--c,var(--accent));color:var(--on-pin);
   font:700 15.5px/1 var(--body);cursor:pointer;box-shadow:var(--shadow-m)}
 .smulti{font-weight:500;color:var(--muted);font-size:13.5px}
+.sname{flex-wrap:wrap}
 .sname.many{display:block}
 .sname.many .star{margin-right:4px}
 .sthumb{position:relative}
@@ -1086,13 +1062,17 @@ function renderCard(){
   if(p.img)card.appendChild(el('img',{'class':'cimg',src:'images/'+p.img+'.jpg',alt:p.name,loading:'lazy'}));
   var b=el('div',{'class':'cbody'});
   if(p.must)b.appendChild(el('div',{'class':'cmust'},[icon('star'),el('span',{text:'Definite go'})]));
-  var tr=el('div',{'class':'ctitle'},[el('h3',{text:p.name})]);
-  var xl=extLinks(p); if(xl)tr.appendChild(xl);
-  b.appendChild(tr);
+  b.appendChild(el('h3',{text:p.name}));
   var sub=[typeLabel(p.type), p.area&&p.area!=='Unconfirmed'?p.area:null].filter(Boolean).join(' · ');
   b.appendChild(el('div',{'class':'ko',text:p.ko?p.ko+' · '+sub:sub}));
   if(p.why)b.appendChild(el('div',{'class':'why',text:p.why}));
   var fx3=facts(p); if(fx3)b.appendChild(fx3);
+  if(!p.noext){
+    b.appendChild(el('div',{'class':'links'},[
+      el('a',{href:gmaps(p),target:'_blank',rel:'noopener noreferrer',text:'Google Maps'}),
+      el('a',{href:naver(p),target:'_blank',rel:'noopener noreferrer',text:'Naver'})
+    ]));
+  }
   var x=el('button',{'class':'x',type:'button','aria-label':'Close'},[icon('x')]);
   x.addEventListener('click',function(){state.place=null;state.slot=null;drawPins();renderCard();markActive();});
   b.appendChild(x); card.appendChild(b);
@@ -1158,16 +1138,14 @@ function pickRow(id,di,si,isPick){
   var p=P[id], key=slotKey(di,si), sl=DAYS[di].slots[si], multi=isMulti(sl);
   var box=el('div',{'class':'pk','aria-current':isPick?'true':null});
   if(!isPick)box.removeAttribute('aria-current');
-  var main=pressable('pkmain',function(){choose();});
-  main.setAttribute('aria-pressed',String(isPick));
+  var main=el('button',{type:'button','class':'pkmain','aria-pressed':String(isPick)});
   main.appendChild(thumb(p,'pkthumb'));
   var mid=el('div',{'class':'pkmid'});
-  var nmT=el('span',{'class':'pknm'},[el('span',{text:p.name})]);
-  var nm=el('div',{'class':'pkname'},[nmT]);
-  if(p.must)nmT.insertBefore(starMark(),nmT.firstChild);
-  if(isPick)nmT.appendChild(el('span',{'class':'pill pickedpill',text:multi?'Picked':'Your pick'}));
-  else if(p.must)nmT.appendChild(el('span',{'class':'pill mustpill',text:'Definite go'}));
-  else if(p.solo)nmT.appendChild(el('span',{'class':'pill',text:'solo ok'}));
+  var nm=el('div',{'class':'pkname'},[el('span',{text:p.name})]);
+  if(p.must)nm.insertBefore(starMark(),nm.firstChild);
+  if(isPick)nm.appendChild(el('span',{'class':'pill pickedpill',text:multi?'Picked':'Your pick'}));
+  else if(p.must)nm.appendChild(el('span',{'class':'pill mustpill',text:'Definite go'}));
+  else if(p.solo)nm.appendChild(el('span',{'class':'pill',text:'solo ok'}));
   mid.appendChild(nm);
   var sub=[typeLabel(p.type)];
   if(p.area&&p.area!=='Unconfirmed')sub.unshift(p.area); else if(p.area==='Unconfirmed')sub.push('area unconfirmed');
@@ -1179,8 +1157,7 @@ function pickRow(id,di,si,isPick){
   if(meta.childNodes.length)mid.appendChild(meta);
   main.appendChild(mid);
   main.appendChild(el('span',{'class':'opick'},[icon('check')]));
-  var pxl=extLinks(p); if(pxl)nm.appendChild(pxl);
-  function choose(){
+  main.addEventListener('click',function(){
     if(multi){
       var cur=picksOf(di,si), on=cur.indexOf(id)>=0;
       if(on&&cur.length===1){toast('Keep at least one — tick another first');return;}
@@ -1190,8 +1167,8 @@ function pickRow(id,di,si,isPick){
       pickerDirty=true;
       main.setAttribute('aria-pressed',String(!on));
       if(on)box.removeAttribute('aria-current'); else box.setAttribute('aria-current','true');
-      var pl=nmT.querySelector('.pickedpill');
-      if(on&&pl)pl.remove(); else if(!on&&!pl)nmT.appendChild(el('span',{'class':'pill pickedpill',text:'Picked'}));
+      var pl=nm.querySelector('.pickedpill');
+      if(on&&pl)pl.remove(); else if(!on&&!pl)nm.appendChild(el('span',{'class':'pill pickedpill',text:'Picked'}));
       pickerCount(di,si);
       return;
     }
@@ -1200,15 +1177,22 @@ function pickRow(id,di,si,isPick){
     closePicker(true);
     render(); focusOn(id);
     if(!isPick)toast(p.name+' is your '+sl.label.toLowerCase()+' pick');
-  }
+  });
   box.appendChild(main);
   var fx=facts(p);
-  if(fx||p.why){
+  if(fx||!p.noext){
     var more=el('div',{'class':'pkmore'});
     if(p.why)more.appendChild(el('p',{'class':'pkfull',text:p.why}));
     if(fx)more.appendChild(fx);
+    if(!p.noext){
+      var lk=el('div',{'class':'olinks'});
+      ['Google Maps','Naver'].forEach(function(t,i){
+        lk.appendChild(el('a',{href:i?naver(p):gmaps(p),target:'_blank',rel:'noopener noreferrer',text:t}));
+      });
+      more.appendChild(lk);
+    }
     more.hidden=true;
-    var tog=el('button',{type:'button','class':'pkdet','aria-expanded':'false'},[el('span',{text:'More about it — address and hours'}),icon('chev')]);
+    var tog=el('button',{type:'button','class':'pkdet','aria-expanded':'false'},[el('span',{text:'More about it — address, hours, links'}),icon('chev')]);
     tog.addEventListener('click',function(){
       more.hidden=!more.hidden; tog.setAttribute('aria-expanded',String(!more.hidden));
       if(more.hidden)box.removeAttribute('data-more'); else box.setAttribute('data-more','1');
@@ -1264,26 +1248,6 @@ function legRow(text,far){
   return li;
 }
 /* ---------- Definite Gos ---------- */
-/* Google Maps and Naver as two small round buttons, to sit beside a name.
-   They stop the tap there, so the row they are in does not react too. */
-function extLinks(p){
-  if(p.noext)return null;
-  var box=el('span',{'class':'extlinks'});
-  [['g','Google Maps',gmaps(p),'G'],['n','Naver Map',naver(p),'N']].forEach(function(x){
-    var a=el('a',{'class':'ext ext-'+x[0],href:x[2],target:'_blank',rel:'noopener noreferrer',
-      'aria-label':'Open '+p.name+' in '+x[1],title:x[1]},[el('span',{text:x[3]})]);
-    a.addEventListener('click',function(e){e.stopPropagation();});
-    box.appendChild(a);
-  });
-  return box;
-}
-/* a div that behaves like a button, so real links can sit inside it */
-function pressable(cls,fn){
-  var d=el('div',{'class':cls,role:'button',tabindex:'0'});
-  d.addEventListener('click',fn);
-  d.addEventListener('keydown',function(e){if(e.target===d&&(e.key==='Enter'||e.key===' ')){e.preventDefault();fn(e);}});
-  return d;
-}
 function musts(){return Object.keys(P).map(function(k){return P[k];}).filter(function(p){return p.must;});}
 function starMark(){return el('span',{'class':'star','title':'Definite go','aria-label':'Definite go'},[icon('star')]);}
 /* where a definite go is in the plan: the first slot where it is the pick,
@@ -1382,7 +1346,7 @@ function renderItinerary(){
       if(nn&&nn.now>si)slot.setAttribute('data-done','1');
       if(s.opts.length)slot.setAttribute('data-places',s.opts.join(' '));
 
-      var head=el('div',{'class':'srow'});
+      var head=el('button',{type:'button','class':'srow'});
       /* time | rail dot | stop | chevron */
       var when=el('div',{'class':'swhen'},[el('span',{'class':'stime',text:s.t||'—'})]);
       if(s.dur)when.appendChild(el('span',{'class':'sdur',text:s.dur}));
@@ -1418,34 +1382,28 @@ function renderItinerary(){
         }
         var wd=closedOn(p,d);
         if(wd)meta.appendChild(el('span',{'class':'sclosed',text:'Closed '+wd}));
-        if(!several){var sx=extLinks(p); if(sx)meta.appendChild(sx);}
+        var rest=s.opts.length-all.length;
+        if(multi)meta.appendChild(el('span',{'class':'smore',text:rest?'+'+noun(s,rest).replace(/^(\d+)/,'$1 more'):'All picked'}));
+        else if(many)meta.appendChild(el('span',{'class':'smore',text:'+'+(s.opts.length-1)+' option'+(s.opts.length>2?'s':'')}));
         if(meta.childNodes.length)info.appendChild(meta);
-        if(many){
-          var lbl=multi?(several?'Change picks · '+all.length+' of '+s.opts.length:'Pick from '+noun(s,s.opts.length))
-                       :(s.opts.length-1)+' other option'+(s.opts.length>2?'s':'');
-          var ob=el('button',{type:'button','class':'optbtn','aria-haspopup':'dialog'},[icon('list'),el('span',{text:lbl}),icon('chev')]);
-          ob.addEventListener('click',function(e){e.stopPropagation();openPicker(di,si);});
-          var obWrap=ob;
-        }
         var th=thumb(p,'sthumb');
         if(several)th.appendChild(el('span',{'class':'scountbadge',text:String(all.length)}));
         pick.appendChild(th);
         pick.appendChild(info);
         mid.appendChild(pick);
-        if(many)mid.appendChild(obWrap);
       }
       head.appendChild(mid);
       var right=el('div',{'class':'scount'});
-      if(p){
-        /* the row itself shows the place on the map; options open from their own button */
-        right.appendChild(el('span',{'class':'mapgo','aria-hidden':'true'},[icon('pin')]));
-        head.setAttribute('role','button'); head.setAttribute('tabindex','0');
-        head.setAttribute('aria-label','Show '+all.map(function(x){return P[x].name;}).join(', ')+' on the map');
-        var go=function(){selectPlace(id,key,false);};
-        head.addEventListener('click',go);
-        head.addEventListener('keydown',function(e){if(e.target===head&&(e.key==='Enter'||e.key===' ')){e.preventDefault();go();}});
+      if(many){
+        right.appendChild(el('span',{'class':'chev'},[icon('chev')]));
+        head.setAttribute('aria-haspopup','dialog');
+        head.setAttribute('aria-label',s.label+': '+all.map(function(x){return P[x].name;}).join(', ')+'. '+(multi?'Pick any of ':'Choose from ')+s.opts.length+' options');
+        head.addEventListener('click',function(){openPicker(di,si);});
+      }else if(p){
+        right.appendChild(el('span',{'class':'chev'},[icon('chev')]));
+        head.addEventListener('click',function(){selectPlace(id,key,false);});
       }else{
-        head.setAttribute('aria-disabled','true');
+        head.disabled=true;
       }
       head.appendChild(right);
       var sn=slotNotes(s); if(sn)head.appendChild(sn);   /* own row under the stop, full width */
