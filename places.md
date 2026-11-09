@@ -274,6 +274,19 @@ Thursday and Saturday swapped whole: **Thursday is now Seongsu and the Han River
 **Saturday is Hannam, the rooftop and Myeongdong**. Picks saved on a phone and old
 share links follow the stops to their new day.
 
+## Thursday night: The Hyundai
+
+After oh, lolly day! (now ~16:50) the Seoul Forest day heads west: about 40 min on the
+Suin-Bundang line and line 5 to **The Hyundai Seoul** (더현대 서울, 108 Yeoui-daero),
+~18:00–20:00 — it closes at 20:00 on a Thursday — with **29CM Home** inside it ticked
+too. Then a night picnic at **Yeouido Hangang Park**, 5 min away, ~20:15: ramyeon and
+chimaek with the bridges lit, and about 25 min home. To fit it, the afternoon moved
+up: coffee ~14:15, Seoul Forest ~15:10, Poset ~16:15.
+
+**Hyundai Department Store Apgujeong** (현대백화점 압구정본점) is the other choice in
+the same stop — about 20 min from Seoul Forest, also 20:00 on a Thursday, restaurant
+floor to 22:00. If you pick it, pick Ttukseom for dinner, which is back by Seoul Forest.
+
 ## 29CM Home (이구홈)
 
 Every store is on the map:
@@ -281,7 +294,8 @@ Every store is on the map:
 - **29CM Home Seongsu** — 57 Yeonmujang-gil, 11:00–22:00; option in Thursday's Seongsu shopping
 - **29CM Home Seongsu 2** — 110 Yeonmujang-gil 2F–3F, opened January 2026; same stop
 - **29CM Home Seoul Forest** — opened September 2026 in the lanes by Seoul Forest; an option beside oh, lolly day! on Thursday (exact address unconfirmed)
-- **29CM Home The Hyundai Seoul** (Yeouido) and **29CM Home Times Square** (Yeongdeungpo) — not on any day, listed under *Further out*
+- **29CM Home The Hyundai Seoul** (Yeouido) — inside The Hyundai, Thursday night
+- **29CM Home Times Square** (Yeongdeungpo) — not on any day, listed under *Further out*
 
 ## Cut from the plan
 
