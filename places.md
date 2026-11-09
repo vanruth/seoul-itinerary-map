@@ -127,13 +127,13 @@ The ones that have to happen. They carry a star on the map, in the itinerary, in
 
 | Place | Where | In the plan | Notes |
 |---|---|---|---|
-| Poset Seongsu (포셋 성수) | 36 Seoulsup-gil 2F, by Seoul Forest | Sat ~16:50, after the park | Postcard shop with writing tables |
-| oh, lolly day! Seoul Forest (오롤리데이 서울숲) | 18-11 Seoulsup 2-gil 1F | Sat ~17:25, two minutes from Poset | There is a second store on Yeonmujang-gil — this is the Seoul Forest one |
+| Poset Seongsu (포셋 성수) | 36 Seoulsup-gil 2F, by Seoul Forest | Thu ~16:50, after the park | Postcard shop with writing tables |
+| oh, lolly day! Seoul Forest (오롤리데이 서울숲) | 18-11 Seoulsup 2-gil 1F | Thu ~17:25, two minutes from Poset | There is a second store on Yeonmujang-gil — this is the Seoul Forest one |
 | Zero Space Bukchon (제로스페이스 북촌점) | 5-5 Bukchon-ro 5-gil | Sun ~13:45, same lane as Hwangsaengga | Zero Per Zero's maps and stationery, daily 11:00–19:00 (2025) |
 
 **molia** (몰리아, 13-9 Jeungga-ro 2F #202, Yeonhui) is a café, now one of the Wednesday coffee options, about 15 min walk from the flat. Hours unconfirmed — check Naver.
 
-Also from the same batch of Google Maps links: **Vetiver** (베티버, croffle café, 18 Seongdeokjeong 11-gil) is a Saturday coffee option, and **Richard House Yeonnam** (리차드하우스 연남, 36 Donggyo-ro 46-gil 1F) is a Wednesday lunch option.
+Also from the same batch of Google Maps links: **Vetiver** (베티버, croffle café, 18 Seongdeokjeong 11-gil) is a Thursday coffee option (Seongsu day), and **Richard House Yeonnam** (리차드하우스 연남, 36 Donggyo-ro 46-gil 1F) is a Wednesday lunch option.
 
 Pins for these six are placed from their street addresses, not from Google's coordinates, so they can be off by a block.
 
@@ -251,20 +251,37 @@ as good as a 40-minute trip gets.
 
 ## Friday, as it stands
 
-08:30 leave the flat → 09:00 Leedorim → 10:00 Deoksugung wall + 11:00 guard
-change → 11:30 lunch at **Seol Yi Dong** (설이동, 179-1 Cheongjin-dong —
-kalguksu in a hanok, cold naengkalguksu and handmade mandu; 11:00–22:00,
-weekday lunch queue from noon) → 12:30 Kyobo / Hottracks, 4 min away → 13:15
-Insadong shopping (2 hr) → 15:25 Bukchon → 16:05 tea at Osulloc, in Bukchon →
-16:40 Naksan for the 17:20 sunset → down the lit wall → 18:40 dinner at
-Jinokhwa Halmae Wonjo Dakhanmari.
+No Bukchon Hanok Village any more — Seochon gets the morning instead.
 
-Seol Yi Dong took lunch because it is 10 min from Deoksugung and 4 min from
-Kyobo — on the route rather than off it. That also flipped Bukchon to *after*
-Insadong, so the walk goes Gwanghwamun → Insadong → up into Bukchon → east to
-Naksan without returning anywhere. Samcheongdong Sujebi and Tosokchon remain
-lunch options. Arriving 11:30 is deliberate: the offices around Cheongjin-dong
-empty out at noon.
+08:30 leave the flat → 09:00 Leedorim → 10:00 **Tongin Market** (통인시장; stalls
+07:00–21:00, the coin lunchbox café 11:00–15:00, so a graze at this hour) → 11:00
+**Seochon shops**, all three ticked by default: **OFR Seoul** (오에프알 서울, the Paris
+Marais bookshop's Seoul branch) and **Mirabelle Seoul** (미라벨, tableware and living,
+Tue–Sun 11:00–20:00, shut Mondays and the last Thursday) share 11-14 Jahamun-ro
+12-gil, then **Hotel Paris Chill** (호텔파리칠, eco bags and pouches; the only address
+found is its 2024 pop-up at 11 Jahamun-ro 1ra-gil, so check Naver) → 12:45
+Deoksugung wall → 13:30 lunch at **Seol Yi Dong** (the office queue has gone by
+13:00) → 14:30 Kyobo / Hottracks → 15:05 Insadong, now 1 hr 15 → leave 16:20 →
+16:55 Naksan for the 17:20 sunset → down the lit wall → 18:40 dinner at Jinokhwa
+Halmae Wonjo Dakhanmari.
+
+The route runs north to south through Seochon, south to Deoksugung, north-east to
+Gwanghwamun and Insadong, then east to the wall — nothing is walked twice. Market
+plus shops is the day's long shopping block (about 2.5 hr), which is why Insadong
+got shorter. Bukchon and the Dotori Garden dessert stop are in *Cut from the plan*.
+
+Thursday and Saturday swapped whole: **Thursday is now Seongsu and the Han River**,
+**Saturday is Hannam, the rooftop and Myeongdong**. Picks saved on a phone and old
+share links follow the stops to their new day.
+
+## 29CM Home (이구홈)
+
+Every store is on the map:
+
+- **29CM Home Seongsu** — 57 Yeonmujang-gil, 11:00–22:00; option in Thursday's Seongsu shopping
+- **29CM Home Seongsu 2** — 110 Yeonmujang-gil 2F–3F, opened January 2026; same stop
+- **29CM Home Seoul Forest** — opened September 2026 in the lanes by Seoul Forest; an option beside oh, lolly day! on Thursday (exact address unconfirmed)
+- **29CM Home The Hyundai Seoul** (Yeouido) and **29CM Home Times Square** (Yeongdeungpo) — not on any day, listed under *Further out*
 
 ## Cut from the plan
 

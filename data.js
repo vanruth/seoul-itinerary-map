@@ -578,6 +578,61 @@ window.PLACES = {
     why:'The street itself — galleries and antiques at the Anguk end, craft shops and hanji stationery down the middle. The traditional-paper and brush shops are the ones worth the detour.',
     go:'Runs from Anguk down to Jonggak', tip:'Small antique and stationery shops often prefer cash'},
 
+  /* ---- Seochon, Friday ---- */
+  tongin:{name:'Tongin Market', short:'Tongin Market', ko:'통인시장', type:'market',
+    area:'Seochon', gu:'Jongno-gu', lat:37.5808, lng:126.9696, side:'l',
+    q:'통인시장 종로구',
+    why:'A small covered market in Seochon. At the lunchbox café you swap cash for brass coins (yeopjeon) and fill a tray stall by stall; the oil tteokbokki is what it is known for.',
+    addr:'18 Jahamun-ro 15-gil', hours:'Stalls 07:00–21:00 · lunchbox café 11:00–15:00', closed:'Varies by stall',
+    go:'5 min north of Leedorim'},
+  ofr:{name:'OFR Seoul', short:'OFR Seoul', ko:'오에프알 서울', type:'shopping',
+    area:'Seochon', gu:'Jongno-gu', lat:37.5797, lng:126.9708, side:'l',
+    q:'오에프알 서울 서촌',
+    why:'The Seoul branch of OFR, the bookshop in the Marais in Paris — art books, zines, posters and its own tote bags, in a converted house.',
+    addr:'11-14 Jahamun-ro 12-gil, ground floor', go:'Mirabelle is upstairs in the same building',
+    warn:'Opening hours not confirmed — check its Instagram, @ofrseoul'},
+  mirabelle:{name:'Mirabelle Seoul', short:'Mirabelle', ko:'미라벨', type:'shopping',
+    area:'Seochon', gu:'Jongno-gu', lat:37.5796, lng:126.9710, side:'r',
+    q:'미라벨 서촌 자하문로12길',
+    why:'A living and tableware shop — plates, cutlery and vintage interior pieces, foreign brands next to Korean designers.',
+    addr:'11-14 Jahamun-ro 12-gil, 2F (above OFR Seoul)', hours:'Tue–Sun 11:00–20:00', closed:'Mondays and the last Thursday of the month',
+    tip:'Comptoir de Mirabelle, its sister shop, is at 11 Jahamun-ro 10-gil, 3F, from 13:00'},
+  hotelparischill:{name:'Hotel Paris Chill', short:'Hotel Paris Chill', ko:'호텔파리칠', type:'shopping',
+    area:'Seochon', gu:'Jongno-gu', lat:37.5769, lng:126.9715, side:'r',
+    q:'호텔파리칠 서촌',
+    why:'A Seochon gift shop with its own eco bags, pouches and small things — one of the stops everyone puts on a Seochon shop trail.',
+    addr:'11 Jahamun-ro 1ra-gil', go:'5 min south of Mirabelle, near Gyeongbokgung Stn',
+    warn:'That address is from its 2024 Seochon pop-up — check Naver for where the shop is now'},
+
+  /* ---- 29CM Home (이구홈), every store ---- */
+  igoohome:{name:'29CM Home Seongsu', short:'29CM Home', ko:'이구홈 성수', type:'shopping',
+    area:'Seongsu', gu:'Seongdong-gu', lat:37.5438, lng:127.0553, side:'l',
+    q:'이구홈 성수 연무장길 57',
+    why:'The 29CM shop for the home — homeware, kitchen, fabric, lighting, stationery and small food brands from about a hundred Korean and foreign labels. The first store.',
+    addr:'57 Yeonmujang-gil', hours:'Daily 11:00–22:00', go:'5 min from Seongsu Stn exit 3'},
+  igoohome2:{name:'29CM Home Seongsu 2', short:'29CM Home 2', ko:'이구홈 성수 2호점', type:'shopping',
+    area:'Seongsu', gu:'Seongdong-gu', lat:37.5424, lng:127.0592, side:'r',
+    q:'이구홈 성수 연무장길 110',
+    why:'The second Seongsu 29CM Home, opened January 2026 and twice the size of the first, over two floors.',
+    addr:'110 Yeonmujang-gil, 2F–3F', go:'At the east end of Yeonmujang-gil, about 8 min on from the first store',
+    warn:'Hours not confirmed — the first store runs 11:00–22:00'},
+  igoohomesf:{name:'29CM Home Seoul Forest', short:'29CM Home SF', ko:'이구홈 서울숲', type:'shopping',
+    area:'Seongsu', gu:'Seongdong-gu', lat:37.5466, lng:127.0428, side:'l',
+    q:'이구홈 서울숲',
+    why:'The Seoul Forest 29CM Home, opened September 2026 in a four-storey building — more everyday household things and pet goods than the Seongsu stores.',
+    go:'In the lanes by Seoul Forest, near Poset and oh, lolly day!',
+    warn:'Exact address not confirmed — search 이구홈 서울숲 in Naver'},
+  igoohomehyundai:{name:'29CM Home The Hyundai Seoul', short:'29CM Home Hyundai', ko:'이구홈 더현대 서울', type:'shopping',
+    area:'Yeouido', gu:'Yeongdeungpo-gu', lat:37.5259, lng:126.9284, side:'r',
+    q:'이구홈 더현대 서울',
+    why:'29CM Home inside The Hyundai Seoul department store in Yeouido.',
+    addr:'108 Yeoui-daero, The Hyundai Seoul', go:'Yeouido is not on any day — here in case you go'},
+  igoohomets:{name:'29CM Home Times Square', short:'29CM Home TS', ko:'이구홈 타임스퀘어', type:'shopping',
+    area:'Yeongdeungpo', gu:'Yeongdeungpo-gu', lat:37.5170, lng:126.9033, side:'l',
+    q:'이구홈 영등포 타임스퀘어',
+    why:'29CM Home in the basement of Times Square mall, Yeongdeungpo — opened August 2026, with a pop-up corner.',
+    addr:'15 Yeongjung-ro, Times Square B1', go:'Yeongdeungpo is not on any day — here in case you go'},
+
   /* ---- definite gos: must:true puts the star on them everywhere ---- */
   molia:{name:'molia', short:'molia', ko:'몰리아', type:'cafe',
     area:'Yeonhui', gu:'Seodaemun-gu', lat:37.5672, lng:126.9305, side:'r',
@@ -640,7 +695,29 @@ window.DAYS = [
   {t:'~18:45', label:'Dinner', plan:'Dak galbi on the hotplate, then fried rice in the leftover sauce', opts:['yoogane','shinmikyung','gitteul','mibbedong','geudongne','hongdae']},
   {t:'~20:15', dur:'2 hr', label:'Late shopping', plan:'Then home to check in', when:'Only the late ones are still open — LOOF and Olive Young Town run to 23:00, both nyunyu stores keep going', opts:['loof','oyhongdae','nyunyuhd','nyunyuhdhouse']}
  ]},
- {key:'Thu 12', date:'Thursday 12 November', title:'Hannam, a rooftop, and Myeongdong', slots:[
+ {key:'Thu 12', date:'Thursday 12 November', title:'Seongsu and the Han River', slots:[
+  {t:'~10:10', label:'Leave the flat', go:'Seongsu is the far side of the city, but line 2 runs straight there from Hongik Univ. with no change', opts:['airbnb']},
+  {t:'~11:00', leg:'about 45 min — 10 min walk, then line 2 straight through to Seongsu, no change', legFar:true, dur:'2 hr', label:'Shopping', plan:'nyunyu, Romand Pink Office, PLAY X STUDIO and the giant Olive Young', route:'All on Yeonmujang-gil', opts:['seongsu','nyunyuss','nyunyusshouse','oyseongsu','playx','igoohome','igoohome2']},
+  {t:'~13:15', label:'Lunch', opts:['anmok','tofindpeter','gogitbar','mibbedong']},
+  {t:'~14:30', label:'Coffee and bakery', route:'Hanjungsun and Obok are both on the way to the park', opts:['fiveto7','hanjungsun','obok','atob','supermatcha','haz','rafre','vetiver']},
+  {t:'~15:45', label:'Park', when:'Autumn colour should still be going', route:'Come out at the north-east corner, by Seoul Forest Stn — both definite gos are in the lanes just there', opts:['seoulforest']},
+  {t:'~16:50', dur:'30 min', label:'Definite go', plan:'Postcards — write one at the tables and post it home', opts:['poset']},
+  {t:'~17:25', dur:'30 min', label:'Definite go', route:'A couple of minutes from Poset, in the same lanes', tip:'29CM Home Seoul Forest is in these lanes too — tick it as well if you want it', opts:['ohlollyday','igoohomesf']},
+  {t:'~18:30', label:'Dinner outside', plan:'Ramyeon and chimaek on the grass', go:'Ttukseom is about 15 min on foot from the shops · Banpo is 45 min away', warn:'Banpo’s fountain is off until March', opts:['ttukseom','banpo']}
+ ]},
+ {key:'Fri 13', date:'Friday 13 November', title:'Seochon, Deoksugung, and the wall at sunset', slots:[
+  {t:'~08:30', label:'Leave the flat', go:'About 30 min to Seochon by subway or bus · roughly 20 by taxi if you want the extra sleep', opts:['airbnb']},
+  {t:'~09:00', leg:'about 30 min by subway or bus — 20 by taxi', label:'Breakfast', plan:'Straight to Leedorim', route:'Seochon runs north to south this morning — market, then the shops — then the day heads south to Deoksugung and east to the Naksan wall', opts:['leedorim','rafre','seochon']},
+  {t:'~10:00', dur:'45 min', label:'Market', plan:'Graze rather than lunch — oil tteokbokki is the one to find', when:'Stalls from 07:00 · the coin lunchbox café only opens at 11:00', opts:['tongin']},
+  {t:'~11:00', dur:'1.5 hr', label:'Seochon shops', route:['OFR Seoul and Mirabelle — same building, OFR downstairs, Mirabelle up', 'Hotel Paris Chill — 5 min south, towards Gyeongbokgung Stn'], when:'Most open at 11:00', note:'With the market this is the day\'s shopping spree, about 2.5 hr in all', opts:['ofr','mirabelle','hotelparischill','seochon'], picks:['ofr','mirabelle','hotelparischill']},
+  {t:'~12:45', label:'Wall walk', plan:'Deoksugung stone wall', go:'About 20 min on foot from Hotel Paris Chill, or two stops from Gyeongbokgung Stn', when:'Guard changes at Daehanmun are 11:00, 14:00 and 15:30 — the 14:00 one is while you are at lunch', opts:['deoksu']},
+  {t:'~13:30', label:'Lunch', when:'The office queue is gone by 13:00', go:'10 min north of Deoksugung', opts:['seolyidong','sujebi','tosokchon']},
+  {t:'~14:30', label:'Stationery stop', plan:'Hottracks in the basement', go:'4 min walk from lunch', opts:['kyobo']},
+  {t:'~15:05', dur:'1 hr 15', label:'Shopping', route:'East into Insadong-gil and Ssamziegil', when:'Leave by 16:20 — the wall is 35 min away with the climb', note:'Shorter than before — Seochon took the long shopping slot', opts:['ssamziegil','insadong']},
+  {t:'~16:55', label:'Up the wall for sunset', route:'Follow the lit wall downhill to Heunginjimun — that walk is the way to dinner', when:['On the wall by about 16:55, after the 15 min climb from Hyehwa', 'Sunset 17:20 — stay as the lights come on'], opts:['naksan']},
+  {t:'~18:40', label:'Dinner', plan:'Dakhanmari alley, at the bottom of the wall', when:'No bookings, and the queue builds from 19:00 — get there before it', opts:['jinokhwa']}
+ ]},
+ {key:'Sat 14', date:'Saturday 14 November', title:'Hannam, a rooftop, and Myeongdong', slots:[
   {t:'~09:45', label:'Leave the flat', go:'Hannam is across town: 10 min walk to Hongik Univ., then the Gyeongui-Jungang line straight there, no change', warn:'Trains are only every 10–15 min', opts:['airbnb']},
   {t:'~10:30', leg:'about 40 min — Gyeongui-Jungang line, Hongik Univ. to Hannam, then 10 min up the hill', legFar:true, label:'Brunch', opts:['keem','summerlane','motheroffline','milestone','narrowpath']},
   {t:'~11:45', dur:'2 hr', label:'Shopping', plan:'KIV and the three k-fashion flagships, plus Youssoful for homeware', opts:['kiv','raive','glowny','asura','youssoful','hannam']},
@@ -649,28 +726,6 @@ window.DAYS = [
   {t:'~17:30', dur:'2 hr', label:'Shopping', plan:'Olive Young Town, nyunyu and Daiso', when:'All open to 22:00 or later', opts:['oymyeongdong','nyunyumd','myeongdong']},
   {t:'~19:45', label:'Dinner', when:'Myeongdong Kyoja stops serving around 21:00 · Veteran runs later', opts:['veteran','myeongdongkyoja']},
   {t:'~21:00', label:'Evening walk', plan:'Down at water level, lit at night', route:'Just north of Myeongdong — you come up at a station for home', note:'Moved from Friday, where it meant doubling back', opts:['cheonggye']}
- ]},
- {key:'Fri 13', date:'Friday 13 November', title:'Seochon, Insadong, and the wall at sunset', slots:[
-  {t:'~08:25', label:'Leave the flat', go:'About 30 min to Seochon by subway or bus · roughly 20 by taxi if you want the extra sleep', opts:['airbnb']},
-  {t:'~09:00', leg:'about 30 min by subway or bus — 20 by taxi', label:'Breakfast', plan:'Straight to Leedorim', route:'From here the day runs one way, west to east, and finishes at the bottom of the Naksan wall', opts:['leedorim','rafre','seochon']},
-  {t:'~10:00', label:'Wall walk', plan:'Deoksugung stone wall in the morning light', when:'Guard change at Daehanmun at 11:00', opts:['deoksu']},
-  {t:'~11:30', label:'Lunch', when:'Get there by 11:30 — the offices around it empty out at noon and the queue follows', go:'10 min from Deoksugung', opts:['seolyidong','sujebi','tosokchon']},
-  {t:'~12:30', label:'Stationery stop', plan:'Hottracks in the basement', go:'4 min walk from lunch', opts:['kyobo']},
-  {t:'~13:00', dur:'2 hr', label:'Shopping', route:'East into Insadong-gil and Ssamziegil', opts:['ssamziegil','insadong']},
-  {t:'~15:05', label:'Dessert and tea', route:'Dotori Garden is a few minutes from Insadong — then up into Bukchon', opts:['dotori','cheongsudang','jaiso','cafesudal','layereda','osulloc','miltoast']},
-  {t:'~15:50', label:'Hanok village', route:'Up from Anguk into the back alleys', when:'Leave by 16:20 — the wall is 35 min away with the climb', opts:['bukchon']},
-  {t:'~16:55', label:'Up the wall for sunset', route:'Follow the lit wall downhill to Heunginjimun — that walk is the way to dinner', when:['On the wall by about 16:55, after the 15 min climb from Hyehwa', 'Sunset 17:20 — stay as the lights come on'], opts:['naksan']},
-  {t:'~18:40', label:'Dinner', plan:'Dakhanmari alley, at the bottom of the wall', when:'No bookings, and the queue builds from 19:00 — get there before it', opts:['jinokhwa']}
- ]},
- {key:'Sat 14', date:'Saturday 14 November', title:'Seongsu and the Han River', slots:[
-  {t:'~10:10', label:'Leave the flat', go:'Seongsu is the far side of the city, but line 2 runs straight there from Hongik Univ. with no change', opts:['airbnb']},
-  {t:'~11:00', leg:'about 45 min — 10 min walk, then line 2 straight through to Seongsu, no change', legFar:true, dur:'2 hr', label:'Shopping', plan:'nyunyu, Romand Pink Office, PLAY X STUDIO and the giant Olive Young', route:'All on Yeonmujang-gil', opts:['seongsu','nyunyuss','nyunyusshouse','oyseongsu','playx']},
-  {t:'~13:15', label:'Lunch', opts:['anmok','tofindpeter','gogitbar','mibbedong']},
-  {t:'~14:30', label:'Coffee and bakery', route:'Hanjungsun and Obok are both on the way to the park', opts:['fiveto7','hanjungsun','obok','atob','supermatcha','haz','rafre','vetiver']},
-  {t:'~15:45', label:'Park', when:'Autumn colour should still be going', route:'Come out at the north-east corner, by Seoul Forest Stn — both definite gos are in the lanes just there', opts:['seoulforest']},
-  {t:'~16:50', dur:'30 min', label:'Definite go', plan:'Postcards — write one at the tables and post it home', opts:['poset']},
-  {t:'~17:25', dur:'30 min', label:'Definite go', route:'A couple of minutes from Poset, in the same lanes', opts:['ohlollyday']},
-  {t:'~18:30', label:'Dinner outside', plan:'Ramyeon and chimaek on the grass', go:'Ttukseom is about 15 min on foot from the shops · Banpo is 45 min away', warn:'Banpo’s fountain is off until March', opts:['ttukseom','banpo']}
  ]},
  {key:'Sun 15', date:'Sunday 15 November', title:'Changdeokgung and Ikseon-dong', slots:[
   {t:'~09:15', label:'Leave the flat', go:'10 min down the park to Hongik Univ.', opts:['airbnb']},
@@ -693,8 +748,8 @@ window.DAYS = [
  ]},
  {key:'Spare', date:'Did not fit anywhere', title:'saved, but nowhere to put them', spare:true, slots:[
   {t:'', label:'Gangnam side', opts:['paldang','londonbagel','cafeeero','oygangnam','nyunyugn','nyunyugnhouse']},
-  {t:'', label:'Further out', opts:['deepin','simdu','oneinonejan']},
-  {t:'', label:'Cut from the plan', tip:'Say the word on any of them', note:['Gyeongbokgung came out for shopping', 'Namsan when Naksan took the sunset', 'Gwangjang because you do not want it'], opts:['gyeongbok','namsan','gwangjang']},
+  {t:'', label:'Further out', opts:['deepin','simdu','oneinonejan','igoohomehyundai','igoohomets']},
+  {t:'', label:'Cut from the plan', tip:'Say the word on any of them', note:['Gyeongbokgung came out for shopping', 'Namsan when Naksan took the sunset', 'Gwangjang because you do not want it', 'Bukchon Hanok Village and the dessert stop, when Seochon got the extra time'], opts:['gyeongbok','namsan','gwangjang','bukchon','dotori']},
   {t:'', label:'Shops I could not place', tip:'Open your Naver collection and tell me where they are', warn:'On your list, but no findable address', opts:['miramira','creammarket','clo','hauseaver','minibrand','chunmong']},
   {t:'', label:'Night in', plan:['Rose tteokbokki from Yeopgi', 'Original fried chicken from BBQ Chicken'], opts:[]}
  ]}

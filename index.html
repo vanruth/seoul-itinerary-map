@@ -703,7 +703,7 @@ function addChoice(key,s,id){
 /* When slots are added to a day, picks saved on this device can point at
    the wrong slot number. Move each one to the nearest slot on the same day
    that offers that place, as share links do. */
-(function healChoices(){
+function healChoices(){
   var stale=[], taken={};
   Object.keys(choices).forEach(function(k){
     var a=k.split('-'), d=DAYS[+a[0]], s=d&&d.slots[+a[1]];
@@ -712,25 +712,49 @@ function addChoice(key,s,id){
     ids.forEach(function(id){if(ok.indexOf(id)<0)stale.push([+a[0],+a[1],id]);});
     if(ok.length){choices[k]=ok.length>1?ok:ok[0]; taken[k]=1;} else delete choices[k];
   });
+  var landed={};
   stale.forEach(function(x){
-    var d=DAYS[x[0]], best=-1; if(!d)return;
-    d.slots.forEach(function(s,j){
-      if(taken[x[0]+'-'+j]||s.opts.indexOf(x[2])<0)return;
-      if(best<0||Math.abs(j-x[1])<Math.abs(best-x[1]))best=j;
-    });
-    if(best>=0){choices[x[0]+'-'+best]=x[2]; taken[x[0]+'-'+best]=1;}
+    var b=nearestSlot(x[0],x[1],x[2],function(dj,sj,s){var k=dj+'-'+sj;return !taken[k]||(landed[k]&&isMulti(s));});
+    if(!b)return;
+    var k=b[0]+'-'+b[1];
+    if(landed[k])addChoice(k,DAYS[b[0]].slots[b[1]],x[2]); else choices[k]=x[2];
+    taken[k]=1; landed[k]=1;
   });
   if(stale.length)try{localStorage.setItem(LS,JSON.stringify({choices:choices,open:openSlots}));}catch(e){}
-})();
+}
+/* what a stop starts with: its first option, or for a several-pick stop
+   the list in slot.picks when it has one */
+function defaultsOf(s){
+  if(!s.opts.length)return [];
+  if(isMulti(s)&&s.picks){var d=s.opts.filter(function(id){return s.picks.indexOf(id)>=0;}); if(d.length)return d;}
+  return [s.opts[0]];
+}
+function isDefault(s,ids){var d=defaultsOf(s);return d.length===ids.length&&d.every(function(x,i){return x===ids[i];});}
 /* every pick for a stop, in the stop's own order; the first is the main one */
 function picksOf(di,si){
   var s=DAYS[di].slots[si]; if(!s.opts.length)return [];
   var c=choices[slotKey(di,si)], want=Array.isArray(c)?c:(c?[c]:[]);
   var out=s.opts.filter(function(id){return want.indexOf(id)>=0;});
-  if(!out.length)out=[s.opts[0]];
+  if(!out.length)out=defaultsOf(s);
   return isMulti(s)?out:out.slice(0,1);
 }
+/* the slot nearest to day di, slot si that offers id and passes ok():
+   the same day first, then the nearest other day, so picks survive days
+   being swapped round */
+function nearestSlot(di,si,id,ok){
+  var best=null, score=1e9;
+  DAYS.forEach(function(d,dj){
+    if(d.spare)return;
+    d.slots.forEach(function(s,sj){
+      if(s.opts.indexOf(id)<0||(ok&&!ok(dj,sj,s)))return;
+      var sc=(dj===di?0:100*(1+Math.abs(dj-di)))+Math.abs(sj-si);
+      if(sc<score){score=sc;best=[dj,sj];}
+    });
+  });
+  return best;
+}
 function pickOf(di,si){var a=picksOf(di,si);return a.length?a[0]:null;}
+healChoices();
 /* ---------- shareable picks ----------
    Only picks that differ from a slot's default travel in the link, as
    day.slot.placeid joined by _ . Unknown or stale entries are dropped on
@@ -741,7 +765,7 @@ function picksParam(){
     d.slots.forEach(function(s,si){
       if(s.opts.length<2)return;
       var ids=picksOf(di,si);
-      if(ids.length===1&&ids[0]===s.opts[0])return;
+      if(isDefault(s,ids))return;
       ids.forEach(function(id){out.push(di+'.'+si+'.'+id);});
     });
   });
@@ -769,7 +793,7 @@ function shortParam(){
     d.slots.forEach(function(s,si){
       if(s.opts.length<2)return;
       var ids=picksOf(di,si);
-      if(ids.length===1&&ids[0]===s.opts[0])return;
+      if(isDefault(s,ids))return;
       out.push((di*20+si)+ids.map(pcode).join(''));
     });
   });
@@ -781,10 +805,16 @@ function fromShort(body){
     var m=/^(\d+)([a-z]+)$/.exec(tok); if(!m||m[2].length%2)return;
     var n=+m[1], di=Math.floor(n/20), si=n%20, d=DAYS[di]; if(!d)return;
     for(var i=0;i<m[2].length;i+=2){
-      var c=m[2].substr(i,2), best=null, bd=99;
-      d.slots.forEach(function(s,j){
-        s.opts.forEach(function(id){
-          if(pcode(id)===c&&Math.abs(j-si)<bd){bd=Math.abs(j-si);best=[di,si,id];}
+      var c=m[2].substr(i,2), best=null, bd=1e9;
+      DAYS.forEach(function(dd,dj){
+        if(dd.spare)return;
+        dd.slots.forEach(function(s,j){
+          s.opts.forEach(function(id){
+            /* the same stop first; then the same stop number on another day,
+               which is where it lands when days are swapped; then anywhere */
+            var sc=(dj===di&&j===si)?0:(j===si?10+Math.abs(dj-di):(dj===di?100+Math.abs(j-si):1000+100*Math.abs(dj-di)+Math.abs(j-si)));
+            if(pcode(id)===c&&sc<bd){bd=sc;best=[di,si,id];}
+          });
         });
       });
       if(best)out.push(best);
@@ -820,15 +850,13 @@ function readPicks(hash){
     else late.push([di,si,id]);
   });
   late.forEach(function(a){
-    var di=a[0], si=a[1], id=a[2], best=-1;
-    DAYS[di].slots.forEach(function(s,j){
-      if((taken[di+'-'+j]&&!isMulti(s))||s.opts.indexOf(id)<0)return;
-      if(best<0||Math.abs(j-si)<Math.abs(best-si))best=j;
-    });
-    if(best>=0){
-      var bs=DAYS[di].slots[best];
-      if(taken[di+'-'+best])addChoice(slotKey(di,best),bs,id); else choices[slotKey(di,best)]=id;
-      taken[di+'-'+best]=1; n++;
+    var di=a[0], si=a[1], id=a[2];
+    if(!DAYS[di])di=0;
+    var b=nearestSlot(di,si,id,function(dj,sj,s){return !taken[dj+'-'+sj]||isMulti(s);});
+    if(b){
+      var k=slotKey(b[0],b[1]), bs=DAYS[b[0]].slots[b[1]];
+      if(taken[k])addChoice(k,bs,id); else choices[k]=id;
+      taken[k]=1; n++;
     }
   });
   if(n)persist();
