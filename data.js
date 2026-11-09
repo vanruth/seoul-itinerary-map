@@ -643,7 +643,7 @@ window.PLACES = {
     area:'Yeouido', gu:'Yeongdeungpo-gu', lat:37.5262, lng:126.9290, side:'r',
     q:'이구홈 더현대 서울',
     why:'29CM Home inside The Hyundai Seoul department store in Yeouido.',
-    addr:'108 Yeoui-daero, The Hyundai Seoul', go:'Inside The Hyundai Seoul — Thursday night'},
+    addr:'108 Yeoui-daero, The Hyundai Seoul', go:'Inside The Hyundai Seoul — an option on Thursday night'},
   igoohomets:{name:'29CM Home Times Square', short:'29CM Home TS', ko:'이구홈 타임스퀘어', type:'shopping',
     area:'Yeongdeungpo', gu:'Yeongdeungpo-gu', lat:37.5170, lng:126.9033, side:'l',
     q:'이구홈 영등포 타임스퀘어',
@@ -712,7 +712,7 @@ window.DAYS = [
   {t:'~18:45', label:'Dinner', plan:'Dak galbi on the hotplate, then fried rice in the leftover sauce', opts:['yoogane','shinmikyung','gitteul','mibbedong','geudongne','hongdae']},
   {t:'~20:15', dur:'2 hr', label:'Late shopping', plan:'Then home to check in', when:'Only the late ones are still open — LOOF and Olive Young Town run to 23:00, both nyunyu stores keep going', opts:['loof','oyhongdae','nyunyuhd','nyunyuhdhouse']}
  ]},
- {key:'Thu 12', date:'Thursday 12 November', title:'Seongsu, Seoul Forest, and The Hyundai at night', slots:[
+ {key:'Thu 12', date:'Thursday 12 November', title:'Seongsu, Seoul Forest, and Hyundai Apgujeong at night', slots:[
   {t:'~10:10', label:'Leave the flat', go:'Seongsu is the far side of the city, but line 2 runs straight there from Hongik Univ. with no change', opts:['airbnb']},
   {t:'~11:00', leg:'about 45 min — 10 min walk, then line 2 straight through to Seongsu, no change', legFar:true, dur:'2 hr', label:'Shopping', plan:'nyunyu, Romand Pink Office, PLAY X STUDIO and the giant Olive Young', route:'All on Yeonmujang-gil', opts:['seongsu','nyunyuss','nyunyusshouse','oyseongsu','playx','igoohome','igoohome2']},
   {t:'~13:15', label:'Lunch', opts:['anmok','tofindpeter','gogitbar','mibbedong']},
@@ -720,8 +720,8 @@ window.DAYS = [
   {t:'~15:10', label:'Park', when:'Autumn colour should still be going — and you have the light until about 17:20', route:'Come out at the north-east corner, by Seoul Forest Stn — both definite gos are in the lanes just there', opts:['seoulforest']},
   {t:'~16:15', dur:'30 min', label:'Definite go', plan:'Postcards — write one at the tables and post it home', opts:['poset']},
   {t:'~16:50', dur:'30 min', label:'Definite go', route:'A couple of minutes from Poset, in the same lanes', tip:'29CM Home Seoul Forest is in these lanes too — tick it as well if you want it', opts:['ohlollyday','igoohomesf']},
-  {t:'~18:00', dur:'2 hr', label:'Department store at night', go:'About 40 min west — Suin-Bundang line to Wangsimni, then line 5 to Yeouinaru · or the Apgujeong store, about 20 min across the river', when:'Both close at 20:00 on a Thursday', tip:'29CM Home is inside The Hyundai Seoul, so it is ticked as well', opts:['thehyundai','igoohomehyundai','hyundaiapgujeong'], picks:['thehyundai','igoohomehyundai']},
-  {t:'~20:15', label:'Dinner outside', plan:'Ramyeon and chimaek on the grass, with the bridges lit up', go:'Yeouido Hangang Park is 5 min from The Hyundai · Ttukseom is back by Seoul Forest, the one to pick if you went to Apgujeong', warn:'Banpo’s fountain is off until March', note:'From Yeouido it is about 25 min home', opts:['yeouidopark','ttukseom','banpo']}
+  {t:'~17:40', dur:'2 hr 20', label:'Department store at night', go:'About 20 min across the river — Suin-Bundang line one stop to Apgujeong Rodeo, then a short walk', when:'Closes at 20:00 on a Thursday · the restaurant floor runs to 22:00', tip:'The Hyundai Seoul in Yeouido is the other choice — 40 min away, with 29CM Home inside', opts:['hyundaiapgujeong','thehyundai','igoohomehyundai'], picks:['hyundaiapgujeong']},
+  {t:'~20:20', label:'Dinner outside', plan:'Ramyeon and chimaek on the grass, with the river lit up', go:'Ttukseom is about 20 min from Apgujeong, back over the river below Seoul Forest · Yeouido Hangang Park is the one if you went to The Hyundai', tip:'Or eat on Hyundai\'s restaurant floor before you leave — it runs to 22:00', warn:'Banpo’s fountain is off until March', opts:['ttukseom','yeouidopark','banpo']}
  ]},
  {key:'Fri 13', date:'Friday 13 November', title:'Seochon, Deoksugung, and the wall at sunset', slots:[
   {t:'~08:30', label:'Leave the flat', go:'About 30 min to Seochon by subway or bus · roughly 20 by taxi if you want the extra sleep', opts:['airbnb']},
